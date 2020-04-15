@@ -12,8 +12,8 @@ const TicketSchema = new mongoose.Schema({
   tags: [String],
   assignedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   assignedTo: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-  created: Date,
-  updated: Date
+  created: { type: Date, default: Date.now },
+  updated: { type: Date, default: Date.now },
 });
 
 module.exports = mongoose.model('Ticket', TicketSchema);

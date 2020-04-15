@@ -1,26 +1,22 @@
-const path = require('path');
 const express = require('express');
-const dotenv = require('dotenv');
-const colors = require('colors');
-const morgan = require('morgan');
 const connectDB = require('./config/db');
-
-dotenv.config({ path: './config/config.env' });
-
-connectDB();
-
-const transactions = require('./routes/transactions');
+const path = require('path');
 
 const app = express();
 
-app.use(express.json());
+// Connect Database
+connectDB();
 
-if (process.env.NODE_ENV === 'development') {
-  app.use(morgan('dev'));
-}
+// Init Middleware
+app.use(express.json({ extended: false }));
 
-app.use('/api/v1/transactions', transactions);
+app.get('/', (req, res) => res.send('API Running'));
 
+// Require Routers
+app.use('/users', require('./routes/users'));
+app.use('/auth', require('./routes/auth'));
+
+// Production build
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));
 
@@ -31,9 +27,4 @@ if (process.env.NODE_ENV === 'production') {
 
 const PORT = process.env.PORT || 5000;
 
-app.listen(
-  PORT,
-  console.log(
-    `Server running in ${process.env.NODE_ENV} mode on port ${PORT}`.yellow.bold
-  )
-);
+app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
