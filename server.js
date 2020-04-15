@@ -15,6 +15,7 @@ app.get('/', (req, res) => res.send('API Running'));
 // Require Routers
 app.use('/users', require('./routes/users'));
 app.use('/auth', require('./routes/auth'));
+app.use('/projects', require('./routes/projects'));
 
 // Production build
 if (process.env.NODE_ENV === 'production') {
