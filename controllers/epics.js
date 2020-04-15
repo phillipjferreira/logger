@@ -1,19 +1,18 @@
 const auth = require('../middleware/auth');
-// const { check, validationResult } = require('express-validator');
 
 // import models
 // const User = require('../models/User');
-const Project = require('../models/Project');
+const Epic = require('../models/Epic');
 
-// @route    GET /projects
-// @desc     Get all projects
+// @route    GET /epics
+// @desc     Get all epics
 // @access   Private
-exports.findProjects = [
+exports.findEpics = [
   auth,
   async (req, res) => {
     try {
-      const project = await Project.find();
-      res.json(project);
+      const epic = await Epic.find();
+      res.json(epic);
     } catch (err) {
       console.error(err.message);
       res.status(500).send('Server Error');
@@ -21,16 +20,16 @@ exports.findProjects = [
   },
 ];
 
-// @route    GET /projects/:id
-// @desc     Get project by id
+// @route    GET /epics/:id
+// @desc     Get epic by id
 // @access   Private
-exports.findProject = [
+exports.findEpic = [
   auth,
   async (req, res) => {
     try {
-      const project = await Project.findById(req.params.id);
+      const epic = await Epic.findById(req.params.id);
       // TO DO add ObjectID format error handling
-      res.json(project);
+      res.json(epic);
     } catch (err) {
       console.error(err.message);
       res.status(500).send('Server Error');
@@ -38,18 +37,18 @@ exports.findProject = [
   },
 ];
 
-// @route    POST /projects
-// @desc     Create new project
+// @route    POST /epics
+// @desc     Create new epic
 // @access   Private
-exports.addProject = [
+exports.addEpic = [
   auth,
   async (req, res) => {
     try {
-      // Create project instance
-      let project = new Project(req.body);
+      // Create epic instance
+      let epic = new Epic(req.body);
 
-      await project.save();
-      res.json(project);
+      await epic.save();
+      res.json(epic);
     } catch (err) {
       console.error(err.message);
       res.status(500).send('Server Error');
@@ -57,15 +56,15 @@ exports.addProject = [
   },
 ];
 
-// @route    PUT /projects/:id
-// @desc     Edit project by id
+// @route    PUT /epics/:id
+// @desc     Edit epic by id
 // @access   Private
-exports.editProject = [
+exports.editEpic = [
   auth,
   async (req, res) => {
     try {
-      let project = await Project.findByIdAndUpdate(req.params.id, req.body);
-      res.json(project);
+      let epic = await Epic.findByIdAndUpdate(req.params.id, req.body);
+      res.json(epic);
     } catch (err) {
       console.error(err.message);
       res.status(500).send('Server Error');
@@ -73,16 +72,16 @@ exports.editProject = [
   },
 ];
 
-// @route    DELETE /projects/:id
-// @desc     Delete project by id
+// @route    DELETE /epics/:id
+// @desc     Delete epic by id
 // @access   Private
-exports.removeProject = [
+exports.removeEpic = [
   auth,
   // Process request
   async (req, res, next) => {
     try {
-      await Project.findByIdAndDelete(req.params.id);
-      res.json({ msg: 'Project successfully deleted' });
+      await Epic.findByIdAndDelete(req.params.id);
+      res.json({ msg: 'Epic successfully deleted' });
     } catch (err) {
       console.error(err.message);
       res.status(500).send('Server Error');

@@ -3,17 +3,17 @@ const auth = require('../middleware/auth');
 
 // import models
 // const User = require('../models/User');
-const Project = require('../models/Project');
+const Sprint = require('../models/Sprint');
 
-// @route    GET /projects
-// @desc     Get all projects
+// @route    GET /sprints
+// @desc     Get all sprints
 // @access   Private
-exports.findProjects = [
+exports.findSprints = [
   auth,
   async (req, res) => {
     try {
-      const project = await Project.find();
-      res.json(project);
+      const sprint = await Sprint.find();
+      res.json(sprint);
     } catch (err) {
       console.error(err.message);
       res.status(500).send('Server Error');
@@ -21,16 +21,16 @@ exports.findProjects = [
   },
 ];
 
-// @route    GET /projects/:id
-// @desc     Get project by id
+// @route    GET /sprints/:id
+// @desc     Get sprint by id
 // @access   Private
-exports.findProject = [
+exports.findSprint = [
   auth,
   async (req, res) => {
     try {
-      const project = await Project.findById(req.params.id);
+      const sprint = await Sprint.findById(req.params.id);
       // TO DO add ObjectID format error handling
-      res.json(project);
+      res.json(sprint);
     } catch (err) {
       console.error(err.message);
       res.status(500).send('Server Error');
@@ -38,18 +38,19 @@ exports.findProject = [
   },
 ];
 
-// @route    POST /projects
-// @desc     Create new project
+// @route    POST /sprints
+// @desc     Create new sprint
 // @access   Private
-exports.addProject = [
+exports.addSprint = [
   auth,
   async (req, res) => {
     try {
-      // Create project instance
-      let project = new Project(req.body);
+      // const { name, startDate, endDate, goal, project } = req.body;
+      // Create sprint instance
+      let sprint = new Sprint(req.body);
 
-      await project.save();
-      res.json(project);
+      await sprint.save();
+      res.json(sprint);
     } catch (err) {
       console.error(err.message);
       res.status(500).send('Server Error');
@@ -57,15 +58,18 @@ exports.addProject = [
   },
 ];
 
-// @route    PUT /projects/:id
-// @desc     Edit project by id
+// @route    PUT /sprints/:id
+// @desc     Edit sprint by id
 // @access   Private
-exports.editProject = [
+exports.editSprint = [
   auth,
   async (req, res) => {
     try {
-      let project = await Project.findByIdAndUpdate(req.params.id, req.body);
-      res.json(project);
+      let sprint = await Sprint.findByIdAndUpdate(
+        req.params.id,
+        req.body.sprint
+      );
+      res.json(sprint);
     } catch (err) {
       console.error(err.message);
       res.status(500).send('Server Error');
@@ -73,16 +77,16 @@ exports.editProject = [
   },
 ];
 
-// @route    DELETE /projects/:id
-// @desc     Delete project by id
+// @route    DELETE /sprints/:id
+// @desc     Delete sprint by id
 // @access   Private
-exports.removeProject = [
+exports.removeSprint = [
   auth,
   // Process request
   async (req, res, next) => {
     try {
-      await Project.findByIdAndDelete(req.params.id);
-      res.json({ msg: 'Project successfully deleted' });
+      await Sprint.findByIdAndDelete(req.params.id);
+      res.json({ msg: 'Sprint successfully deleted' });
     } catch (err) {
       console.error(err.message);
       res.status(500).send('Server Error');

@@ -1,19 +1,18 @@
 const auth = require('../middleware/auth');
-// const { check, validationResult } = require('express-validator');
 
 // import models
 // const User = require('../models/User');
-const Project = require('../models/Project');
+const Ticket = require('../models/Ticket');
 
-// @route    GET /projects
-// @desc     Get all projects
+// @route    GET /tickets
+// @desc     Get all tickets
 // @access   Private
-exports.findProjects = [
+exports.findTickets = [
   auth,
   async (req, res) => {
     try {
-      const project = await Project.find();
-      res.json(project);
+      const ticket = await Ticket.find();
+      res.json(ticket);
     } catch (err) {
       console.error(err.message);
       res.status(500).send('Server Error');
@@ -21,16 +20,16 @@ exports.findProjects = [
   },
 ];
 
-// @route    GET /projects/:id
-// @desc     Get project by id
+// @route    GET /tickets/:id
+// @desc     Get ticket by id
 // @access   Private
-exports.findProject = [
+exports.findTicket = [
   auth,
   async (req, res) => {
     try {
-      const project = await Project.findById(req.params.id);
+      const ticket = await Ticket.findById(req.params.id);
       // TO DO add ObjectID format error handling
-      res.json(project);
+      res.json(ticket);
     } catch (err) {
       console.error(err.message);
       res.status(500).send('Server Error');
@@ -38,18 +37,18 @@ exports.findProject = [
   },
 ];
 
-// @route    POST /projects
-// @desc     Create new project
+// @route    POST /tickets
+// @desc     Create new ticket
 // @access   Private
-exports.addProject = [
+exports.addTicket = [
   auth,
   async (req, res) => {
     try {
-      // Create project instance
-      let project = new Project(req.body);
+      // Create epic instance
+      let ticket = new Ticket(req.body);
 
-      await project.save();
-      res.json(project);
+      await ticket.save();
+      res.json(ticket);
     } catch (err) {
       console.error(err.message);
       res.status(500).send('Server Error');
@@ -57,15 +56,15 @@ exports.addProject = [
   },
 ];
 
-// @route    PUT /projects/:id
-// @desc     Edit project by id
+// @route    PUT /tickets/:id
+// @desc     Edit ticket by id
 // @access   Private
-exports.editProject = [
+exports.editTicket = [
   auth,
   async (req, res) => {
     try {
-      let project = await Project.findByIdAndUpdate(req.params.id, req.body);
-      res.json(project);
+      let ticket = await Ticket.findByIdAndUpdate(req.params.id, req.body);
+      res.json(ticket);
     } catch (err) {
       console.error(err.message);
       res.status(500).send('Server Error');
@@ -73,16 +72,16 @@ exports.editProject = [
   },
 ];
 
-// @route    DELETE /projects/:id
-// @desc     Delete project by id
+// @route    DELETE /tickets/:id
+// @desc     Delete ticket by id
 // @access   Private
-exports.removeProject = [
+exports.removeTicket = [
   auth,
   // Process request
   async (req, res, next) => {
     try {
-      await Project.findByIdAndDelete(req.params.id);
-      res.json({ msg: 'Project successfully deleted' });
+      await Ticket.findByIdAndDelete(req.params.id);
+      res.json({ msg: 'Ticket successfully deleted' });
     } catch (err) {
       console.error(err.message);
       res.status(500).send('Server Error');

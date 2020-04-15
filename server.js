@@ -16,6 +16,9 @@ app.get('/', (req, res) => res.send('API Running'));
 app.use('/users', require('./routes/users'));
 app.use('/auth', require('./routes/auth'));
 app.use('/projects', require('./routes/projects'));
+app.use('/sprints', require('./routes/sprints'));
+app.use('/epics', require('./routes/epics'));
+app.use('/tickets', require('./routes/tickets'));
 
 // Production build
 if (process.env.NODE_ENV === 'production') {

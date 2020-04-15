@@ -110,22 +110,33 @@ exports.editUser = [
   // Process request
   async (req, res, next) => {
     try {
-      const { name, email, password } = req.body;
-      const user = await User.findById(req.user.id).select('-password');
-
-      // Edit user instance
-      user = {
-        ...user,
-        name,
-        email,
-        password,
-      };
-
+      let user = req.body;
       // Encrypt password
       const salt = await bcrypt.genSalt(10);
       user.password = await bcrypt.hash(password, salt);
-      await user.save();
+
+      await User.findByIdAndUpdate(req.user.id, user);
+
       res.json(user);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Server Error');
+    }
+  },
+];
+
+// @route    PUT /projects/:id
+// @desc     Edit project by id
+// @access   Private
+exports.editProject = [
+  auth,
+  async (req, res) => {
+    try {
+      let project = await Project.findByIdAndUpdate(
+        req.params.id,
+        req.body.project
+      );
+      res.json(project);
     } catch (err) {
       console.error(err.message);
       res.status(500).send('Server Error');
