@@ -5,7 +5,11 @@ const TicketSchema = new mongoose.Schema({
   key: { type: String, required: true },
   project: { type: mongoose.Schema.Types.ObjectId, ref: 'Project' },
   epic: { type: mongoose.Schema.Types.ObjectId, ref: 'Epic' },
-  sprint: { type: mongoose.Schema.Types.ObjectId, ref: 'Sprint' },
+  sprint: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Sprint',
+    default: 'Backlog',
+  },
   description: String,
   category: String,
   storyPoint: Number,
