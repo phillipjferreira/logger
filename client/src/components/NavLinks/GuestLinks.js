@@ -25,7 +25,8 @@ const GuestLinks = () => {
       <Collapse
         className='header-navbar d-lg-flex p-0 bg-white border-top'
         open={menuOpen.open}
-        navbar>
+        navbar
+        onClick={toggleMenu}>
         <Container className='bg-white'>
           <Row>
             <Col>
