@@ -17,6 +17,10 @@
   outline: 0 !important;
 }
 
+.sidebar-margin {
+  margin-top: 60px;
+}
+
 /* body {
   font-size: 30px;
 } */

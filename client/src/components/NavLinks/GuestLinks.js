@@ -27,40 +27,32 @@ const GuestLinks = () => {
         open={menuOpen.open}
         navbar
         onClick={toggleMenu}>
-        <Container className='bg-white'>
-          <Row>
-            <Col>
-              <Nav
-                navbar
-                className='border-0 flex-column flex-lg-row header-navbar'>
-                <NavItem>
-                  <NavLink
-                    tag={RouteNavLink}
-                    to='/demo-login'
-                    className='text-nowrap py-4'>
-                    Demo User
-                  </NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink
-                    tag={RouteNavLink}
-                    to='/register'
-                    className='text-nowrap py-4'>
-                    Register
-                  </NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink
-                    tag={RouteNavLink}
-                    to='/login'
-                    className='text-nowrap py-4'>
-                    Login
-                  </NavLink>
-                </NavItem>
-              </Nav>
-            </Col>
-          </Row>
-        </Container>
+        <Nav navbar className='border-0 flex-column flex-lg-row header-navbar'>
+          <NavItem>
+            <NavLink
+              tag={RouteNavLink}
+              to='/demo-login'
+              className='text-nowrap py-4'>
+              Demo User
+            </NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink
+              tag={RouteNavLink}
+              to='/register'
+              className='text-nowrap py-4'>
+              Register
+            </NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink
+              tag={RouteNavLink}
+              to='/login'
+              className='text-nowrap py-4'>
+              Login
+            </NavLink>
+          </NavItem>
+        </Nav>
       </Collapse>
       <NavbarToggler
         onClick={toggleMenu}

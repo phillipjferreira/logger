@@ -12,7 +12,7 @@ import GuestLinks from '../NavLinks/GuestLinks';
 
 const MainNavbar = ({ auth: { isAuthenticated, loading } }) => {
   return (
-    <div className='main-navbar bg-white'>
+    <div className='main-navbar bg-white sticky-top'>
       <Container className='p-0'>
         <Navbar type='light' className='align-items-stretch flex-md-nowrap p-0'>
           <NavbarBrand tag={RouteNavLink} to='/' style={{ lineHeight: '25px' }}>
@@ -32,9 +32,6 @@ const MainNavbar = ({ auth: { isAuthenticated, loading } }) => {
               {isAuthenticated ? <AuthLinks /> : <GuestLinks />}
             </Fragment>
           )}
-          {/* <NavbarSearch />
-          <NavbarNav />
-          <NavbarToggle /> */}
         </Navbar>
       </Container>
     </div>
