@@ -1,6 +1,7 @@
 import React, { Fragment, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Navbar from './components/layout/Navbar';
+import MainNavbar from './components/layout/MainNavbar';
 import Landing from './views/Landing';
 import Routes from './Routes';
 
@@ -26,7 +27,7 @@ const App = () => {
       <Router>
         <div>
           <Fragment>
-            <Navbar />
+            <MainNavbar />
             <Switch>
               <Route exact path='/' component={Landing} />
               <Route component={Routes} />
