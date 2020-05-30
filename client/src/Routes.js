@@ -4,6 +4,7 @@ import Register from './views/Register';
 import Login from './views/Login';
 import Dashboard from './views/Dashboard';
 import AlertBar from './components/layout/AlertBar';
+import PrivateRoute from './PrivateRoute';
 
 const Routes = (props) => {
   return (
@@ -12,7 +13,7 @@ const Routes = (props) => {
       <Switch>
         <Route exact path='/register' component={Register} />
         <Route exact path='/login' component={Login} />
-        <Route exact path='/dashboard' component={Dashboard} />
+        <PrivateRoute exact path='/dashboard' component={Dashboard} />
 
         {/* <Route component={NotFound} /> */}
       </Switch>
