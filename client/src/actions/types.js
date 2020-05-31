@@ -8,3 +8,5 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAIL = 'LOGIN_FAIL';
 export const LOGOUT = 'LOGOUT';
 export const TOGGLE_SIDEBAR = 'TOGGLE_SIDEBAR';
+export const PROJECTS_LOADED = 'PROJECTS_LOADED';
+export const PROJECTS_ERROR = 'PROJECTS_ERROR';

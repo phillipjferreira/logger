@@ -3,8 +3,8 @@ import { Container, Navbar, NavbarBrand } from 'shards-react';
 import { NavLink as RouteNavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import AuthLinks from '../NavLinks/AuthLinks';
-import GuestLinks from '../NavLinks/GuestLinks';
+import AuthLinks from '../navlinks/AuthLinks';
+import GuestLinks from '../navlinks/GuestLinks';
 
 // import NavbarSearch from "./NavbarSearch";
 // import NavbarNav from "./NavbarNav/NavbarNav";

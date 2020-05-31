@@ -13,18 +13,31 @@ import {
 } from 'shards-react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { logout } from '../../actions/auth';
 import { NavLink as RouteNavLink } from 'react-router-dom';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { logout } from '../../actions/auth';
 import { toggleSidebar } from '../../actions/menus';
+import { loadProjects } from '../../actions/projects';
 
-const AuthLinks = ({ menus: { sidebar }, toggleSidebar, auth, logout }) => {
+const AuthLinks = ({
+  menus: { sidebar },
+  toggleSidebar,
+  auth,
+  logout,
+  projects: { projects },
+  loadProjects,
+}) => {
+  const onClick = () => {
+    !sidebar && loadProjects();
+    toggleSidebar();
+  };
+
   return (
     <div>
       <Nav fill className='border-0 flex-column flex-lg-row header-navbar'>
         <NavItem>
-          <NavLink onClick={toggleSidebar} className='text-nowrap py-4'>
+          <NavLink onClick={onClick} className='text-nowrap py-4'>
             Projects
           </NavLink>
         </NavItem>
@@ -77,11 +90,18 @@ AuthLinks.propTypes = {
   auth: PropTypes.object.isRequired,
   toggleSidebar: PropTypes.func.isRequired,
   menus: PropTypes.object.isRequired,
+  loadProjects: PropTypes.func.isRequired,
+  projects: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
   menus: state.menus,
+  projects: state.projects,
 });
 
-export default connect(mapStateToProps, { logout, toggleSidebar })(AuthLinks);
+export default connect(mapStateToProps, {
+  logout,
+  toggleSidebar,
+  loadProjects,
+})(AuthLinks);
