@@ -1,7 +1,13 @@
-import { TOGGLE_SIDEBAR } from './types';
+import { OPEN_SIDEBAR, CLOSE_SIDEBAR } from './types';
 
-export const toggleSidebar = () => (dispatch) => {
+export const openSidebar = () => (dispatch) => {
   dispatch({
-    type: TOGGLE_SIDEBAR,
+    type: OPEN_SIDEBAR,
+  });
+};
+
+export const closeSidebar = () => (dispatch) => {
+  dispatch({
+    type: CLOSE_SIDEBAR,
   });
 };

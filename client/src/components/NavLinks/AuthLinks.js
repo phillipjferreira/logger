@@ -17,27 +17,29 @@ import { NavLink as RouteNavLink } from 'react-router-dom';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { logout } from '../../actions/auth';
-import { toggleSidebar } from '../../actions/menus';
-import { loadProjects } from '../../actions/projects';
+import { openSidebar } from '../../actions/menus';
+import { loadProjects, selectProject } from '../../actions/projects';
 
 const AuthLinks = ({
   menus: { sidebar },
-  toggleSidebar,
+  openSidebar,
   auth,
   logout,
   projects: { projects },
   loadProjects,
+  selectProject,
 }) => {
-  const onClick = () => {
-    !sidebar && loadProjects();
-    toggleSidebar();
+  const projectClick = () => {
+    loadProjects();
+    openSidebar();
+    selectProject(null);
   };
 
   return (
     <div>
       <Nav fill className='border-0 flex-column flex-lg-row header-navbar'>
         <NavItem>
-          <NavLink onClick={onClick} className='text-nowrap py-4'>
+          <NavLink onClick={projectClick} className='text-nowrap py-4'>
             Projects
           </NavLink>
         </NavItem>
@@ -88,10 +90,11 @@ const AuthLinks = ({
 AuthLinks.propTypes = {
   logout: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
-  toggleSidebar: PropTypes.func.isRequired,
+  openSidebar: PropTypes.func.isRequired,
   menus: PropTypes.object.isRequired,
   loadProjects: PropTypes.func.isRequired,
   projects: PropTypes.object.isRequired,
+  selectProject: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -102,6 +105,7 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
   logout,
-  toggleSidebar,
+  openSidebar,
   loadProjects,
+  selectProject,
 })(AuthLinks);
