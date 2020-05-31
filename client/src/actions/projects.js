@@ -5,7 +5,10 @@ import {
   PROJECT_LOADED,
   PROJECT_ERROR,
   PROJECT_RESET,
+  PROJECT_SAVED,
+  PROJECT_NOTSAVED,
 } from './types';
+import { setAlert } from './alert';
 
 // Load Projects
 export const loadProjects = () => async (dispatch) => {
@@ -44,5 +47,61 @@ export const selectProject = (id) => async (dispatch) => {
       });
       console.log(err);
     }
+  }
+};
+
+// Create Project
+export const createProject = (formData, history) => async (dispatch) => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+
+  try {
+    delete formData.id;
+    console.log(formData);
+    const res = await axios.post('/projects', formData, config);
+
+    dispatch({
+      type: PROJECT_SAVED,
+      payload: res.data,
+    });
+  } catch (err) {
+    const errors = err.response.data.errors;
+    if (errors) {
+      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+    }
+    dispatch({
+      type: PROJECT_NOTSAVED,
+    });
+  }
+};
+
+// Edit Project
+export const editProject = (formData, history) => async (dispatch) => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+
+  try {
+    const id = formData.id;
+    delete formData.id;
+    const res = await axios.post(`/projects/${id}`, formData, config);
+
+    dispatch({
+      type: PROJECT_SAVED,
+      payload: res.data,
+    });
+  } catch (err) {
+    const errors = err.response.data.errors;
+    if (errors) {
+      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+    }
+    dispatch({
+      type: PROJECT_NOTSAVED,
+    });
   }
 };

@@ -4,6 +4,8 @@ import {
   PROJECT_LOADED,
   PROJECT_ERROR,
   PROJECT_RESET,
+  PROJECT_SAVED,
+  PROJECT_NOTSAVED,
 } from '../actions/types';
 
 const initialState = {
@@ -27,6 +29,10 @@ export default function (state = initialState, action) {
       return { ...state, selectedProject: { name: 'Error selecting Project' } };
     case PROJECT_RESET:
       return { ...state, selectedProject: null };
+    case PROJECT_SAVED:
+      return { ...state, selectedProject: payload };
+    case PROJECT_NOTSAVED:
+      return { ...state, selectedProject: { name: 'Error saving Project' } };
     default:
       return state;
   }
