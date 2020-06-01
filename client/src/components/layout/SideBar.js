@@ -1,5 +1,6 @@
-import React from 'react';
-import { Col, Navbar, Nav } from 'shards-react';
+import React, { Fragment } from 'react';
+import { Col, Navbar, Nav, NavItem, NavLink } from 'shards-react';
+import { NavLink as RouteNavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { openSidebar, closeSidebar } from '../../actions/menus';
@@ -25,7 +26,7 @@ const SideBar = ({
 
   return (
     <Col tag='aside' className={classes} lg={{ size: 2 }} md={{ size: 3 }}>
-      <button onClick={closeSidebar}>Close</button>
+      {/* <button onClick={closeSidebar}>Close</button> */}
       <Navbar
         className='align-items-stretch bg-white border-bottom p-0'
         type='light'>
@@ -33,9 +34,19 @@ const SideBar = ({
           {selectedProject ? (
             <ProjectDetails project={selectedProject} />
           ) : (
-            projects.map((project) => (
-              <ProjectCard project={project} onClick={selectProject} />
-            ))
+            <Fragment>
+              <NavItem>
+                <NavLink
+                  tag={RouteNavLink}
+                  to={'new-project'}
+                  className='text-nowrap py-4'>
+                  + New Project
+                </NavLink>
+              </NavItem>
+              {projects.map((project) => (
+                <ProjectCard project={project} onClick={selectProject} />
+              ))}
+            </Fragment>
           )}
         </Nav>
       </Navbar>
@@ -47,7 +58,6 @@ SideBar.propTypes = {
   menus: PropTypes.object.isRequired,
   projects: PropTypes.object.isRequired,
   selectProject: PropTypes.func.isRequired,
-  selectedProject: PropTypes.object.isRequired,
   openSidebar: PropTypes.func.isRequired,
   closeSidebar: PropTypes.func.isRequired,
 };

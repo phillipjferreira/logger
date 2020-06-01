@@ -21,6 +21,11 @@
   margin-top: 60px;
 }
 
+.inner-outline {
+  outline: 10px solid #00b8d8;
+  outline-offset: -10px;
+}
+
 /* body {
   font-size: 30px;
 } */

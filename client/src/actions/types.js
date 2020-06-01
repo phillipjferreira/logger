@@ -16,3 +16,6 @@ export const PROJECT_ERROR = 'PROJECT_ERROR';
 export const PROJECT_RESET = 'PROJECT_RESET';
 export const PROJECT_SAVED = 'PROJECT_SAVED';
 export const PROJECT_NOTSAVED = 'PROJECT_NOTSAVED';
+export const USERS_LOADED = 'USERS_LOADED';
+export const USERS_ERROR = 'USERS_ERROR';
+export const USER_UPDATED = 'USER_UPDATED';

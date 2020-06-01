@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useReducer } from 'react';
+import React, { useReducer } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 import {
   Container,
   Row,
@@ -12,16 +13,13 @@ import {
   FormInput,
   FormTextarea,
 } from 'shards-react';
-import {
-  editProject,
-  createProject,
-  selectProject,
-} from '../../actions/projects';
+import { editProject, createProject } from '../../actions/projects';
 
 const ProjectForm = ({
   projects: { selectedProject },
   editProject,
   createProject,
+  history,
 }) => {
   let initialState = {
     name: '',
@@ -58,8 +56,7 @@ const ProjectForm = ({
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(id);
-    id ? editProject(state) : createProject(state);
+    id ? editProject(state, history) : createProject(state, history);
   };
 
   return (
@@ -69,13 +66,17 @@ const ProjectForm = ({
           <Col lg='8' className='mx-auto mt-4'>
             <Card small className='edit-user-details mb-4'>
               <CardBody className='p-0'>
-                {/* Form Section Title :: General */}
+                {/* Title */}
                 <Form className='py-4' onSubmit={(e) => onSubmit(e)}>
                   <Row form className='mx-4'>
                     <Col className='mb-3'>
-                      <h4 className='form-text m-0'>New Project</h4>
+                      <h4 className='form-text m-0'>
+                        {id ? 'Edit Project' : 'New Project'}
+                      </h4>
                       <p className='form-text text-muted m-0'>
-                        Enter project details here
+                        {id
+                          ? 'Update project details here'
+                          : 'Enter project details here'}
                       </p>
                     </Col>
                   </Row>
@@ -94,7 +95,6 @@ const ProjectForm = ({
                             }}
                           />
                         </Col>
-
                         {/* Key */}
                         <Col md='4' className='form-group'>
                           <label htmlFor='key'>Key</label>
@@ -176,5 +176,5 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, { editProject, createProject })(
-  ProjectForm
+  withRouter(ProjectForm)
 );

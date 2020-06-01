@@ -67,6 +67,10 @@ export const createProject = (formData, history) => async (dispatch) => {
       type: PROJECT_SAVED,
       payload: res.data,
     });
+
+    dispatch(setAlert('Project Created', 'success'));
+
+    history.push('/dashboard');
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {
@@ -88,13 +92,19 @@ export const editProject = (formData, history) => async (dispatch) => {
 
   try {
     const id = formData.id;
+    console.log(id);
     delete formData.id;
-    const res = await axios.post(`/projects/${id}`, formData, config);
+    console.log(formData);
+    const res = await axios.put(`/projects/${id}`, formData, config);
 
     dispatch({
       type: PROJECT_SAVED,
       payload: res.data,
     });
+
+    dispatch(setAlert('Project Updated', 'success'));
+
+    history.push('/dashboard');
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {
