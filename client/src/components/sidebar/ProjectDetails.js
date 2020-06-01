@@ -4,7 +4,7 @@ import { NavItem, NavLink } from 'shards-react';
 const ProjectDetails = ({ project }) => {
   return (
     <NavItem>
-      <NavLink>{project.name}</NavLink>
+      <NavLink className='py-4'>{project.name}</NavLink>
     </NavItem>
   );
 };

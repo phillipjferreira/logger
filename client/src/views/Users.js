@@ -46,6 +46,7 @@ const Users = ({ users: { users }, auth, loadUsers, updateUser }) => {
                   <tbody>
                     {users.map((user) => (
                       <UserInfo
+                        key={user._id}
                         user={user}
                         role={auth.user.role}
                         update={updateUser}

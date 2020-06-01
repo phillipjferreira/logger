@@ -21,39 +21,46 @@
   margin-top: 60px;
 }
 
-.sidebar-left {
-  float: right;
-  margin-right: 2px;
+.edit-project {
+  width: calc(100% - 50px);
+  margin-right: 5px;
 }
 
-.space-above {
+/* .space-above {
   padding-top: 35px !important;
+} */
+
+.sidebar-right {
+  position: fixed;
+  top: 64px;
+  left: 5px;
+  z-index: 1;
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
-@media only screen and (min-width: 600px) {
+/* @media only screen and (min-width: 600px) {
   .sidebar-right {
     transform: translateX(100vw);
   }
-}
+} */
 
 /* Medium devices (landscape tablets, 768px and up) */
-@media only screen and (min-width: 768px) {
+/* @media only screen and (min-width: 768px) {
   .sidebar-right {
     transform: translateX(25vw);
   }
-}
+} */
 
 /* Large devices (laptops/desktops, 992px and up) */
-@media only screen and (min-width: 992px) {
+/* @media only screen and (min-width: 992px) {
   .sidebar-right {
     transform: translateX(16.66vw);
   }
-}
-
-/* .no-overflow {
-  overflow: hidden;
 } */
+
+.no-overflow {
+  overflow: hidden;
+}
 
 /* body {
   font-size: 30px;

@@ -23,12 +23,14 @@ const UserInfo = ({ user, role, update }) => {
       <tr>
         <td>{user.name}</td>
         <td>{user.email}</td>
-        <select value={value} onChange={onChange}>
-          <option value='View Only'>View Only</option>
-          <option value='User'>User</option>
-          <option value='Dev'>Dev</option>
-          <option value='Admin'>Admin</option>
-        </select>
+        <td>
+          <select value={value} onChange={onChange}>
+            <option value='View Only'>View Only</option>
+            <option value='User'>User</option>
+            <option value='Dev'>Dev</option>
+            <option value='Admin'>Admin</option>
+          </select>
+        </td>
         <td>{save && <button onClick={saveUser}>Save</button>}</td>
       </tr>
     );

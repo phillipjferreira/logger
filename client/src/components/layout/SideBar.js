@@ -1,8 +1,8 @@
-import React, { Fragment } from 'react';
-import { Col, Navbar, Nav, NavItem, NavLink, Button } from 'shards-react';
+import React from 'react';
+import { Col, Nav, Button } from 'shards-react';
 import { NavLink as RouteNavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
+import { faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
 import { openSidebar, closeSidebar } from '../../actions/menus';
@@ -15,7 +15,6 @@ const SideBar = ({
   menus: { sidebar },
   projects: { projects, selectedProject },
   selectProject,
-  openSidebar,
   closeSidebar,
 }) => {
   const classes = classNames(
@@ -28,48 +27,48 @@ const SideBar = ({
 
   return (
     <Col tag='aside' className={classes} lg={{ size: 2 }} md={{ size: 3 }}>
-      {sidebar && (
-        <Button onClick={closeSidebar} className='sidebar-left'>
-          <FontAwesomeIcon icon={faAngleLeft} />
-        </Button>
-      )}
-      {!sidebar && (
-        <Button onClick={openSidebar} className='sidebar-right'>
-          <FontAwesomeIcon icon={faAngleRight} />
-        </Button>
-      )}
-
-      <Navbar
-        className='align-items-stretch bg-white border-bottom p-0 space-above'
-        type='light'>
-        <Nav>
+      <div className='nav-wrapper no-overflow'>
+        <div className='sticky-top'>
+          {/* New/Edit Button */}
           {selectedProject ? (
-            <Fragment>
-              <ProjectDetails project={selectedProject} />
-              <NavItem>
-                <NavLink tag={RouteNavLink} to='/edit-project' className='py-4'>
-                  + Edit Project
-                </NavLink>
-              </NavItem>
-            </Fragment>
+            <Button
+              tag={RouteNavLink}
+              to='/edit-project'
+              className='edit-project btn-success'>
+              + Edit Project
+            </Button>
           ) : (
-            <Fragment>
-              <NavItem>
-                <NavLink tag={RouteNavLink} to='/edit-project' className='py-4'>
-                  + New Project
-                </NavLink>
-              </NavItem>
-              {projects.map((project) => (
+            <Button
+              tag={RouteNavLink}
+              to='/edit-project'
+              className='edit-project btn-success'>
+              + New Project
+            </Button>
+          )}
+
+          {/* Close Sidebar Button */}
+          {sidebar && (
+            <Button onClick={closeSidebar}>
+              <FontAwesomeIcon icon={faAngleLeft} />
+            </Button>
+          )}
+        </div>
+        <div>
+          <Nav className='nav--no-borders flex-column'>
+            {selectedProject ? (
+              <ProjectDetails project={selectedProject} />
+            ) : (
+              projects.map((project) => (
                 <ProjectCard
                   key={project._id}
                   project={project}
                   onClick={selectProject}
                 />
-              ))}
-            </Fragment>
-          )}
-        </Nav>
-      </Navbar>
+              ))
+            )}
+          </Nav>
+        </div>
+      </div>
     </Col>
   );
 };

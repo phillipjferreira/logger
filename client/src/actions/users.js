@@ -22,8 +22,6 @@ export const loadUsers = () => async (dispatch) => {
 export const updateUser = (user) => async (dispatch) => {
   try {
     const res = await axios.put(`/users/${user._id}`, { user });
-    console.log(user._id);
-    console.log(user);
     dispatch({
       type: USER_UPDATED,
       payload: res.data,

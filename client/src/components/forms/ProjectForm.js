@@ -12,11 +12,13 @@ import {
   Form,
   FormInput,
   FormTextarea,
+  FormSelect,
 } from 'shards-react';
 import { editProject, createProject } from '../../actions/projects';
 
 const ProjectForm = ({
   projects: { selectedProject },
+  users: { users },
   editProject,
   createProject,
   history,
@@ -113,15 +115,20 @@ const ProjectForm = ({
                         {/* Lead */}
                         <Col md='8' className='form-group'>
                           <label htmlFor='lead'>Lead</label>
-                          <FormInput
-                            type='text'
+                          <FormSelect
                             id='lead'
                             name='lead'
                             value={lead}
                             onChange={(e) => {
                               onChange(e);
-                            }}
-                          />
+                            }}>
+                            <option value={''}>None</option>
+                            {users.map((user) => (
+                              <option value={user._id} key={user._id}>
+                                {user.name}
+                              </option>
+                            ))}
+                          </FormSelect>
                         </Col>
                       </Row>
 
@@ -169,10 +176,12 @@ ProjectForm.propTypes = {
   projects: PropTypes.object.isRequired,
   editProject: PropTypes.func.isRequired,
   createProject: PropTypes.func.isRequired,
+  users: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   projects: state.projects,
+  users: state.users,
 });
 
 export default connect(mapStateToProps, { editProject, createProject })(

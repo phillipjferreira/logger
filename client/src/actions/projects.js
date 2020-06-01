@@ -60,6 +60,8 @@ export const createProject = (formData, history) => async (dispatch) => {
 
   try {
     delete formData.id;
+    !formData.lead && delete formData.lead;
+    !formData.description && delete formData.description;
     const res = await axios.post('/projects', formData, config);
 
     dispatch({
@@ -92,6 +94,8 @@ export const editProject = (formData, history) => async (dispatch) => {
   try {
     const id = formData.id;
     delete formData.id;
+    !formData.lead && delete formData.lead;
+    !formData.description && delete formData.description;
     const res = await axios.put(`/projects/${id}`, formData, config);
 
     dispatch({
