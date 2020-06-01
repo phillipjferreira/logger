@@ -16,7 +16,7 @@ const Routes = (props) => {
         <Route exact path='/register' component={Register} />
         <Route exact path='/login' component={Login} />
         <PrivateRoute exact path='/dashboard' component={Dashboard} />
-        <PrivateRoute exact path='/new-project' component={ProjectForm} />
+        <PrivateRoute exact path='/edit-project' component={ProjectForm} />
         <PrivateRoute exact path='/users' component={Users} />
 
         {/* <Route component={NotFound} /> */}

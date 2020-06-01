@@ -21,10 +21,39 @@
   margin-top: 60px;
 }
 
-.inner-outline {
-  outline: 10px solid #00b8d8;
-  outline-offset: -10px;
+.sidebar-left {
+  float: right;
+  margin-right: 2px;
 }
+
+.space-above {
+  padding-top: 35px !important;
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+  .sidebar-right {
+    transform: translateX(100vw);
+  }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  .sidebar-right {
+    transform: translateX(25vw);
+  }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  .sidebar-right {
+    transform: translateX(16.66vw);
+  }
+}
+
+/* .no-overflow {
+  overflow: hidden;
+} */
 
 /* body {
   font-size: 30px;

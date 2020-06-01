@@ -39,7 +39,7 @@ const Users = ({ users: { users }, auth, loadUsers, updateUser }) => {
                         Email
                       </th>
                       <th scope='col' className='border-0'>
-                        Roll
+                        Role
                       </th>
                     </tr>
                   </thead>

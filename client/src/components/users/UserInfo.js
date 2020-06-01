@@ -15,7 +15,6 @@ const UserInfo = ({ user, role, update }) => {
   const saveUser = () => {
     let temp = user;
     temp.role = displayRole.indexOf(value) + 1;
-    console.log(temp);
     update(temp);
     toggleSave(false);
   };

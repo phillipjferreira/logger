@@ -9,9 +9,10 @@ const ProjectCard = ({ project, onClick }) => {
         tag={RouteNavLink}
         to={`/${project.name}`}
         onClick={() => onClick(project._id)}
-        className='text-nowrap py-4'>
-        {project.name}
-        {project.key}
+        className='py-4'>
+        {project.name.length <= 20
+          ? project.name
+          : project.name.substr(0, 19).concat('...')}
       </NavLink>
     </NavItem>
   );

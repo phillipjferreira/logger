@@ -5,11 +5,7 @@ import { NavLink as RouteNavLink } from 'react-router-dom';
 const ProjectDetails = ({ project }) => {
   return (
     <NavItem>
-      <NavLink>
-        {project._id}
-        {project.name}
-        {project.key}
-      </NavLink>
+      <NavLink>{project.name}</NavLink>
     </NavItem>
   );
 };

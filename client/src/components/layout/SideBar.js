@@ -1,7 +1,9 @@
 import React, { Fragment } from 'react';
-import { Col, Navbar, Nav, NavItem, NavLink } from 'shards-react';
+import { Col, Navbar, Nav, NavItem, NavLink, Button } from 'shards-react';
 import { NavLink as RouteNavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
 import { openSidebar, closeSidebar } from '../../actions/menus';
 import { selectProject } from '../../actions/projects';
@@ -26,20 +28,40 @@ const SideBar = ({
 
   return (
     <Col tag='aside' className={classes} lg={{ size: 2 }} md={{ size: 3 }}>
-      {/* <button onClick={closeSidebar}>Close</button> */}
+      {sidebar && (
+        <Button onClick={closeSidebar} className='sidebar-left'>
+          <FontAwesomeIcon icon={faAngleLeft} />
+        </Button>
+      )}
+      {!sidebar && (
+        <Button onClick={openSidebar} className='sidebar-right'>
+          <FontAwesomeIcon icon={faAngleRight} />
+        </Button>
+      )}
+
       <Navbar
-        className='align-items-stretch bg-white border-bottom p-0'
+        className='align-items-stretch bg-white border-bottom p-0 space-above'
         type='light'>
         <Nav>
           {selectedProject ? (
-            <ProjectDetails project={selectedProject} />
+            <Fragment>
+              <ProjectDetails project={selectedProject} />
+              <NavItem>
+                <NavLink
+                  tag={RouteNavLink}
+                  to={'edit-project'}
+                  className='py-4'>
+                  + Edit Project
+                </NavLink>
+              </NavItem>
+            </Fragment>
           ) : (
             <Fragment>
               <NavItem>
                 <NavLink
                   tag={RouteNavLink}
-                  to={'new-project'}
-                  className='text-nowrap py-4'>
+                  to={'edit-project'}
+                  className='py-4'>
                   + New Project
                 </NavLink>
               </NavItem>
