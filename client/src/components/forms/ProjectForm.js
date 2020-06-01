@@ -24,9 +24,9 @@ const ProjectForm = ({
   let initialState = {
     name: '',
     key: '',
-    lead: null,
+    lead: '',
     description: '',
-    id: null,
+    id: '',
   };
 
   if (selectedProject) {

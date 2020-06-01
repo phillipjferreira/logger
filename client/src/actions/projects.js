@@ -60,7 +60,6 @@ export const createProject = (formData, history) => async (dispatch) => {
 
   try {
     delete formData.id;
-    console.log(formData);
     const res = await axios.post('/projects', formData, config);
 
     dispatch({
@@ -92,9 +91,7 @@ export const editProject = (formData, history) => async (dispatch) => {
 
   try {
     const id = formData.id;
-    console.log(id);
     delete formData.id;
-    console.log(formData);
     const res = await axios.put(`/projects/${id}`, formData, config);
 
     dispatch({

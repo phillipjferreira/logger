@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Form, FormSelect } from 'shards-react';
 
 const UserInfo = ({ user, role, update }) => {
   const displayRole = ['View Only', 'User', 'Dev', 'Admin'];
@@ -19,7 +18,7 @@ const UserInfo = ({ user, role, update }) => {
     toggleSave(false);
   };
 
-  if (role == 4) {
+  if (role === 4) {
     return (
       <tr>
         <td>{user.name}</td>

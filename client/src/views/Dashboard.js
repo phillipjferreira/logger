@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 const Dashboard = ({ loadUser, auth }) => {
   useEffect(() => {
     loadUser();
-  }, []);
+  }, [loadUser]);
 
   return (
     <div>

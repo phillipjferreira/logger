@@ -26,7 +26,7 @@ const Default = ({
   );
 };
 
-SideBar.propTypes = {
+Default.propTypes = {
   menus: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
 };

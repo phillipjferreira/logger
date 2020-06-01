@@ -47,10 +47,7 @@ const SideBar = ({
             <Fragment>
               <ProjectDetails project={selectedProject} />
               <NavItem>
-                <NavLink
-                  tag={RouteNavLink}
-                  to={'edit-project'}
-                  className='py-4'>
+                <NavLink tag={RouteNavLink} to='/edit-project' className='py-4'>
                   + Edit Project
                 </NavLink>
               </NavItem>
@@ -58,15 +55,16 @@ const SideBar = ({
           ) : (
             <Fragment>
               <NavItem>
-                <NavLink
-                  tag={RouteNavLink}
-                  to={'edit-project'}
-                  className='py-4'>
+                <NavLink tag={RouteNavLink} to='/edit-project' className='py-4'>
                   + New Project
                 </NavLink>
               </NavItem>
               {projects.map((project) => (
-                <ProjectCard project={project} onClick={selectProject} />
+                <ProjectCard
+                  key={project._id}
+                  project={project}
+                  onClick={selectProject}
+                />
               ))}
             </Fragment>
           )}

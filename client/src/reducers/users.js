@@ -10,7 +10,7 @@ export default function (state = initialState, action) {
     case USERS_LOADED:
       return { ...state, users: payload };
     case USER_UPDATED:
-      let objIndex = state.users.findIndex((user) => user._id == payload._id);
+      let objIndex = state.users.findIndex((user) => user._id === payload._id);
       return { ...state, [objIndex]: payload };
     case USERS_ERROR:
       return {

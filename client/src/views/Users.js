@@ -8,7 +8,7 @@ import { loadUsers, updateUser } from '../actions/users';
 const Users = ({ users: { users }, auth, loadUsers, updateUser }) => {
   useEffect(() => {
     loadUsers();
-  }, []);
+  }, [loadUsers]);
 
   return (
     <div>

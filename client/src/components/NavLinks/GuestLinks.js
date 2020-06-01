@@ -1,14 +1,5 @@
 import React, { useState } from 'react';
-import {
-  NavItem,
-  NavLink,
-  Nav,
-  NavbarToggler,
-  Collapse,
-  Container,
-  Row,
-  Col,
-} from 'shards-react';
+import { NavItem, NavLink, Nav, NavbarToggler, Collapse } from 'shards-react';
 import { NavLink as RouteNavLink } from 'react-router-dom';
 
 const GuestLinks = () => {

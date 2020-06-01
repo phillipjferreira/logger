@@ -1,16 +1,5 @@
 import React from 'react';
-import {
-  NavItem,
-  NavLink,
-  Nav,
-  Container,
-  Row,
-  Col,
-  InputGroup,
-  InputGroupAddon,
-  InputGroupText,
-  FormInput,
-} from 'shards-react';
+import { NavItem, NavLink, Nav } from 'shards-react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { NavLink as RouteNavLink } from 'react-router-dom';
