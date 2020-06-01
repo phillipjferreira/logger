@@ -56,7 +56,8 @@ exports.registerUser = [
       // Return JWT
       const payload = {
         user: {
-          id: user.id,
+          id: user._id,
+          role: user.role,
         },
       };
       jwt.sign(
@@ -109,18 +110,22 @@ exports.editUser = [
   },
 ];
 
-// @route    PUT /projects/:id
-// @desc     Edit project by id
+// @route    PUT /users/:id
+// @desc     Edit user info by id
 // @access   Private
-exports.editProject = [
+exports.editUserRole = [
   auth,
-  async (req, res) => {
+  // Process request
+  async (req, res, next) => {
     try {
-      let project = await Project.findByIdAndUpdate(
-        req.params.id,
-        req.body.project
-      );
-      res.json(project);
+      // let user = req.body.user;
+      // console.log(user);
+      // console.log(user.role);
+      let user = await User.findByIdAndUpdate(req.params.id, {
+        role: req.body.user.role,
+      });
+
+      res.json(user);
     } catch (err) {
       console.error(err.message);
       res.status(500).send('Server Error');

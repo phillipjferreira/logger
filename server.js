@@ -15,6 +15,7 @@ app.get('/', (req, res) => res.send('API Running'));
 // Require Routers
 app.use('/users', require('./routes/users'));
 app.use('/auth', require('./routes/auth'));
+app.use('/roles', require('./routes/roles'));
 app.use('/projects', require('./routes/projects'));
 app.use('/sprints', require('./routes/sprints'));
 app.use('/epics', require('./routes/epics'));

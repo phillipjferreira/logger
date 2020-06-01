@@ -6,7 +6,7 @@ const { check, validationResult } = require('express-validator');
 
 const User = require('../models/User');
 
-// @route    GET /users
+// @route    GET /auth
 // @desc     Authenticate user by token
 // @access   Private
 exports.authUser = [
@@ -61,7 +61,8 @@ exports.loginUser = [
 
       const payload = {
         user: {
-          id: user.id,
+          id: user._id,
+          role: user.role,
         },
       };
 
