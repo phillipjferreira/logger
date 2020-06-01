@@ -21,14 +21,14 @@ const SideBar = ({
     'main-sidebar',
     'px-0',
     'col-12',
-    'pt-2',
+    'pt-0',
     sidebar && 'open'
   );
 
   return (
     <Col tag='aside' className={classes} lg={{ size: 2 }} md={{ size: 3 }}>
       <div className='nav-wrapper no-overflow'>
-        <div className='sticky-top'>
+        <div className='sticky-top py-2 bg-gray'>
           {/* New/Edit Button */}
           {selectedProject ? (
             <Button
@@ -47,11 +47,9 @@ const SideBar = ({
           )}
 
           {/* Close Sidebar Button */}
-          {sidebar && (
-            <Button onClick={closeSidebar}>
-              <FontAwesomeIcon icon={faAngleLeft} />
-            </Button>
-          )}
+          <Button onClick={closeSidebar}>
+            <FontAwesomeIcon icon={faAngleLeft} />
+          </Button>
         </div>
         <div>
           <Nav className='nav--no-borders flex-column'>

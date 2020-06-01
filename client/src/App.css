@@ -32,9 +32,13 @@
 
 .sidebar-right {
   position: fixed;
-  top: 64px;
+  top: 65px;
   left: 5px;
   z-index: 1;
+}
+
+.bg-gray {
+  background-color: #ddd;
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
