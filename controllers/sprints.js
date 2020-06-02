@@ -65,10 +65,7 @@ exports.editSprint = [
   auth,
   async (req, res) => {
     try {
-      let sprint = await Sprint.findByIdAndUpdate(
-        req.params.id,
-        req.body.sprint
-      );
+      let sprint = await Sprint.findByIdAndUpdate(req.params.id, req.body);
       res.json(sprint);
     } catch (err) {
       console.error(err.message);

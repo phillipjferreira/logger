@@ -4,6 +4,7 @@ import auth from './auth';
 import menus from './menus';
 import projects from './projects';
 import users from './users';
+import sprints from './sprints';
 
 export default combineReducers({
   alert,
@@ -11,4 +12,5 @@ export default combineReducers({
   menus,
   projects,
   users,
+  sprints,
 });

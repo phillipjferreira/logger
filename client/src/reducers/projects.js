@@ -11,37 +11,37 @@ import {
 const initialState = {
   projects: [],
   selectedProject: null,
-  loading: true,
+  projectsLoading: true,
 };
 
 export default function (state = initialState, action) {
   const { type, payload } = action;
   switch (type) {
     case PROJECTS_LOADED:
-      return { ...state, projects: payload, loading: false };
+      return { ...state, projects: payload, projectsLoading: false };
     case PROJECTS_ERROR:
       return {
         ...state,
         projects: [...state.projects, { name: 'Error loading Projects' }],
-        loading: false,
+        projectsLoading: false,
       };
     case PROJECT_LOADED:
-      return { ...state, selectedProject: payload, loading: false };
+      return { ...state, selectedProject: payload, projectsLoading: false };
     case PROJECT_ERROR:
       return {
         ...state,
         selectedProject: { name: 'Error selecting Project' },
-        loading: false,
+        projectsLoading: false,
       };
     case PROJECT_RESET:
-      return { ...state, selectedProject: null, loading: false };
+      return { ...state, selectedProject: null, projectsLoading: false };
     case PROJECT_SAVED:
-      return { ...state, selectedProject: payload, loading: false };
+      return { ...state, selectedProject: payload, projectsLoading: false };
     case PROJECT_NOTSAVED:
       return {
         ...state,
         selectedProject: { name: 'Error saving Project' },
-        loading: false,
+        projectsLoading: false,
       };
     default:
       return state;

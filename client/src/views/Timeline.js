@@ -4,7 +4,10 @@ import { loadProjects } from '../actions/projects';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-const Timeline = ({ projects: { projects, loading }, loadProjects }) => {
+const Timeline = ({
+  projects: { projects, projectsLoading },
+  loadProjects,
+}) => {
   useEffect(() => {
     loadProjects();
   }, [loadProjects]);
@@ -16,7 +19,7 @@ const Timeline = ({ projects: { projects, loading }, loadProjects }) => {
       <h1>Timeline</h1>
       <div>
         <h3>{projectid}</h3>
-        {!loading && (
+        {!projectsLoading && (
           <p>{projects.find((project) => project._id === projectid).name}</p>
         )}
       </div>
