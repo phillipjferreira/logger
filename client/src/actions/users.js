@@ -1,8 +1,12 @@
 import axios from 'axios';
 import { USERS_LOADED, USERS_ERROR, USER_UPDATED } from './types';
+import setAuthToken from '../utils/setAuthToken';
 
 // Load Users
 export const loadUsers = () => async (dispatch) => {
+  if (localStorage.token) {
+    setAuthToken(localStorage.token);
+  }
   try {
     const res = await axios.get('/roles');
 
@@ -20,6 +24,9 @@ export const loadUsers = () => async (dispatch) => {
 
 // Update User
 export const updateUser = (user) => async (dispatch) => {
+  if (localStorage.token) {
+    setAuthToken(localStorage.token);
+  }
   try {
     const res = await axios.put(`/users/${user._id}`, { user });
     dispatch({

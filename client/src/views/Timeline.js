@@ -16,10 +16,8 @@ const Timeline = ({ projects: { projects, loading }, loadProjects }) => {
       <h1>Timeline</h1>
       <div>
         <h3>{projectid}</h3>
-        {/* {console.log(projects)} */}
         {!loading && (
           <p>{projects.find((project) => project._id === projectid).name}</p>
-          // <p>{projects[0].name}</p>
         )}
       </div>
     </div>

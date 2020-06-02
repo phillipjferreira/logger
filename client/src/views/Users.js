@@ -5,7 +5,7 @@ import { Row, Col, Container, Card, CardBody, CardHeader } from 'shards-react';
 import { connect } from 'react-redux';
 import { loadUsers, updateUser } from '../actions/users';
 
-const Users = ({ users: { users }, auth, loadUsers, updateUser }) => {
+const Users = ({ users: { users, loading }, auth, loadUsers, updateUser }) => {
   useEffect(() => {
     loadUsers();
   }, [loadUsers]);
@@ -44,14 +44,15 @@ const Users = ({ users: { users }, auth, loadUsers, updateUser }) => {
                     </tr>
                   </thead>
                   <tbody>
-                    {users.map((user) => (
-                      <UserInfo
-                        key={user._id}
-                        user={user}
-                        role={auth.user.role}
-                        update={updateUser}
-                      />
-                    ))}
+                    {!loading &&
+                      users.map((user) => (
+                        <UserInfo
+                          key={user._id}
+                          user={user}
+                          role={auth.user.role}
+                          update={updateUser}
+                        />
+                      ))}
                   </tbody>
                 </table>
               </CardBody>

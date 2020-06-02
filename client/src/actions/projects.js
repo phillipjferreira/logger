@@ -18,7 +18,6 @@ export const loadProjects = () => async (dispatch) => {
   }
   try {
     const res = await axios.get('/projects');
-    console.log(res);
     dispatch({
       type: PROJECTS_LOADED,
       payload: res.data,
