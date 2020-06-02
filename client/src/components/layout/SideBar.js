@@ -52,7 +52,7 @@ const SideBar = ({
           </Button>
         </div>
         <div>
-          <Nav className='nav--no-borders flex-column'>
+          <Nav className='flex-column'>
             {selectedProject ? (
               <ProjectDetails project={selectedProject} />
             ) : (

@@ -9,6 +9,8 @@ import {
   LOGOUT,
 } from './types';
 import { setAlert } from './alert';
+import { loadUsers } from './users';
+import { loadProjects } from './projects';
 import setAuthToken from '../utils/setAuthToken';
 
 // Load User
@@ -48,6 +50,8 @@ export const register = ({ name, email, password }) => async (dispatch) => {
     });
 
     dispatch(loadUser());
+    dispatch(loadUsers());
+    dispatch(loadProjects());
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {
@@ -77,6 +81,8 @@ export const login = (email, password) => async (dispatch) => {
     });
 
     dispatch(loadUser());
+    dispatch(loadUsers());
+    dispatch(loadProjects());
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {

@@ -9,12 +9,16 @@ import {
   PROJECT_NOTSAVED,
 } from './types';
 import { setAlert } from './alert';
+import setAuthToken from '../utils/setAuthToken';
 
 // Load Projects
 export const loadProjects = () => async (dispatch) => {
+  if (localStorage.token) {
+    setAuthToken(localStorage.token);
+  }
   try {
     const res = await axios.get('/projects');
-
+    console.log(res);
     dispatch({
       type: PROJECTS_LOADED,
       payload: res.data,
@@ -29,6 +33,9 @@ export const loadProjects = () => async (dispatch) => {
 
 // Select Project
 export const selectProject = (id) => async (dispatch) => {
+  if (localStorage.token) {
+    setAuthToken(localStorage.token);
+  }
   if (id === null) {
     dispatch({
       type: PROJECT_RESET,
@@ -52,6 +59,9 @@ export const selectProject = (id) => async (dispatch) => {
 
 // Create Project
 export const createProject = (formData, history) => async (dispatch) => {
+  if (localStorage.token) {
+    setAuthToken(localStorage.token);
+  }
   const config = {
     headers: {
       'Content-Type': 'application/json',
@@ -85,6 +95,9 @@ export const createProject = (formData, history) => async (dispatch) => {
 
 // Edit Project
 export const editProject = (formData, history) => async (dispatch) => {
+  if (localStorage.token) {
+    setAuthToken(localStorage.token);
+  }
   const config = {
     headers: {
       'Content-Type': 'application/json',

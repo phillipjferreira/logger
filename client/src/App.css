@@ -66,6 +66,10 @@
   overflow: hidden;
 }
 
+.no-hover {
+  pointer-events: none;
+}
+
 /* body {
   font-size: 30px;
 } */
