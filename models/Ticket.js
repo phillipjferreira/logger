@@ -8,7 +8,6 @@ const TicketSchema = new mongoose.Schema({
   sprint: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Sprint',
-    default: 'Backlog',
   },
   description: String,
   category: String,

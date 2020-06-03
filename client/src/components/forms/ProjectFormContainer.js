@@ -26,12 +26,12 @@ const ProjectFormContainer = ({
     id: '',
   };
 
-  let { projectkey } = useParams();
+  let { projectid } = useParams();
 
-  if (projectkey) {
+  if (projectid) {
     let project;
     if (!projectsLoading) {
-      project = projects.find((project) => projectkey === project.key);
+      project = projects.find((project) => projectid === project._id);
       initialState = {
         name: project.name,
         key: project.key,

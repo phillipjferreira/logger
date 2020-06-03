@@ -37,6 +37,40 @@ exports.findTicket = [
   },
 ];
 
+// @route    GET /tickets/:projectid
+// @desc     Get ticket by projectid
+// @access   Private
+exports.findTicketProject = [
+  auth,
+  async (req, res) => {
+    try {
+      const ticket = await Ticket.find({ project: req.params.id });
+      // TO DO add ObjectID format error handling
+      res.json(ticket);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Server Error');
+    }
+  },
+];
+
+// @route    GET /tickets/:sprintid
+// @desc     Get ticket by sprintid
+// @access   Private
+exports.findTicketSprint = [
+  auth,
+  async (req, res) => {
+    try {
+      const ticket = await Ticket.find({ sprint: req.params.id });
+      // TO DO add ObjectID format error handling
+      res.json(ticket);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Server Error');
+    }
+  },
+];
+
 // @route    POST /tickets
 // @desc     Create new ticket
 // @access   Private

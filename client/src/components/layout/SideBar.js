@@ -33,7 +33,7 @@ const SideBar = ({
           {selectedProject ? (
             <Button
               tag={RouteNavLink}
-              to={`/projects/${selectedProject.key}/edit-project/`}
+              to={`/projects/${selectedProject._id}/edit-project/`}
               className='edit-project btn-success'>
               + Edit Project
             </Button>

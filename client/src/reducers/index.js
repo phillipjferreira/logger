@@ -5,6 +5,7 @@ import menus from './menus';
 import projects from './projects';
 import users from './users';
 import sprints from './sprints';
+import tickets from './tickets';
 
 export default combineReducers({
   alert,
@@ -13,4 +14,5 @@ export default combineReducers({
   projects,
   users,
   sprints,
+  tickets,
 });

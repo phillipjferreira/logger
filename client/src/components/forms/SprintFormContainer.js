@@ -26,12 +26,7 @@ const SprintFormContainer = ({
     id: '',
   };
 
-  let { sprintid, projectkey } = useParams();
-
-  let projectid;
-  if (!projectsLoading) {
-    projectid = projects.find((project) => projectkey === project.key)._id;
-  }
+  let { sprintid, projectid } = useParams();
 
   if (sprintid) {
     let sprint;

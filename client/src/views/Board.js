@@ -9,15 +9,15 @@ const Board = ({ projects: { projects, loading }, loadProjects }) => {
     loadProjects();
   }, [loadProjects]);
 
-  let { projectkey } = useParams();
+  let { projectid } = useParams();
 
   return (
     <div>
       <h1>Sprint Board</h1>
       <div>
-        <h3>{projectkey}</h3>
+        <h3>{projectid}</h3>
         {!loading && (
-          <p>{projects.find((project) => project.key === projectkey).name}</p>
+          <p>{projects.find((project) => project._id === projectid).name}</p>
         )}
       </div>
     </div>

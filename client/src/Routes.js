@@ -12,6 +12,7 @@ import AlertBar from './components/layout/AlertBar';
 import PrivateRoute from './PrivateRoute';
 import ProjectFormContainer from './components/forms/ProjectFormContainer';
 import SprintFormContainer from './components/forms/SprintFormContainer';
+import TicketFormContainer from './components/forms/TicketFormContainer';
 
 const Routes = (props) => {
   return (
@@ -28,38 +29,48 @@ const Routes = (props) => {
         />
         <PrivateRoute
           exact
-          path='/projects/:projectkey/edit-project'
+          path='/projects/:projectid/edit-project'
           component={ProjectFormContainer}
         />
         <PrivateRoute
           exact
-          path='/projects/:projectkey/new-sprint'
+          path='/projects/:projectid/new-sprint'
           component={SprintFormContainer}
         />
         <PrivateRoute
           exact
-          path='/projects/:projectkey/:sprintid/edit-sprint'
+          path='/projects/:projectid/:sprintid/edit-sprint'
           component={SprintFormContainer}
+        />
+        <PrivateRoute
+          exact
+          path='/make-ticket'
+          component={TicketFormContainer}
+        />
+        <PrivateRoute
+          exact
+          path='/projects/:projectid/:ticketid/edit-ticket'
+          component={TicketFormContainer}
         />
         <PrivateRoute exact path='/users' component={Users} />
         <PrivateRoute
           exact
-          path='/projects/:projectkey/timeline'
+          path='/projects/:projectid/timeline'
           component={Timeline}
         />
         <PrivateRoute
           exact
-          path='/projects/:projectkey/ticket-log'
+          path='/projects/:projectid/ticket-log'
           component={TicketLog}
         />
         <PrivateRoute
           exact
-          path='/projects/:projectkey/board'
+          path='/projects/:projectid/board'
           component={Board}
         />
         <PrivateRoute
           exact
-          path='/projects/:projectkey/metrics'
+          path='/projects/:projectid/metrics'
           component={Metrics}
         />
 

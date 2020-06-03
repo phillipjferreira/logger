@@ -4,6 +4,7 @@ import { NavLink as RouteNavLink } from 'react-router-dom';
 import { useParams } from 'react-router';
 import { loadProjects } from '../actions/projects';
 import { loadSprints } from '../actions/sprints';
+import { loadTickets } from '../actions/tickets';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -12,17 +13,19 @@ const TicketLog = ({
   loadProjects,
   sprints: { sprints, sprintsLoading },
   loadSprints,
+  tickets: { tickets, ticketsLoading },
+  loadTickets,
 }) => {
+  let { projectid } = useParams();
   useEffect(() => {
     loadProjects();
     loadSprints();
-  }, [loadProjects, loadSprints]);
-
-  let { projectkey } = useParams();
+    loadTickets(projectid, 'project');
+  }, [loadProjects, loadSprints, loadTickets, projectid]);
 
   let project;
   if (!projectsLoading) {
-    project = projects.find((project) => projectkey === project.key);
+    project = projects.find((project) => projectid === project._id);
   }
 
   return (
@@ -30,7 +33,7 @@ const TicketLog = ({
       <h1>Ticket Log</h1>
       <div>
         <h2>Project</h2>
-        <h3>{projectkey}</h3>
+        <h3>{projectid}</h3>
         {!projectsLoading && <p>{project.name}</p>}
         <h2>Sprints</h2>
         {!sprintsLoading &&
@@ -41,17 +44,20 @@ const TicketLog = ({
                   <p>{sprint.name}</p>{' '}
                   <Button
                     tag={RouteNavLink}
-                    to={`/projects/${projectkey}/${sprint._id}/edit-sprint`}
+                    to={`/projects/${projectid}/${sprint._id}/edit-sprint`}
                     className='edit-sprint btn-success'>
                     + Edit Sprint
                   </Button>
                 </Fragment>
               )
           )}
+        {!ticketsLoading &&
+          tickets &&
+          tickets.map((ticket) => <h4>{ticket.name}</h4>)}
       </div>
       <Button
         tag={RouteNavLink}
-        to={`/projects/${projectkey}/new-sprint`}
+        to={`/projects/${projectid}/new-sprint`}
         className='edit-sprint btn-success'>
         + New Sprint
       </Button>
@@ -63,15 +69,20 @@ const TicketLog = ({
 TicketLog.propTypes = {
   projects: PropTypes.object.isRequired,
   sprints: PropTypes.object.isRequired,
+  tickets: PropTypes.object.isRequired,
   loadProjects: PropTypes.func.isRequired,
   loadSprints: PropTypes.func.isRequired,
+  loadTickets: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   projects: state.projects,
   sprints: state.sprints,
+  tickets: state.tickets,
 });
 
-export default connect(mapStateToProps, { loadProjects, loadSprints })(
-  TicketLog
-);
+export default connect(mapStateToProps, {
+  loadProjects,
+  loadSprints,
+  loadTickets,
+})(TicketLog);

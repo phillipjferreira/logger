@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import UserInfo from '../components/users/UserInfo';
 import { Row, Col, Container, Card, CardBody, CardHeader } from 'shards-react';
+import Loader from 'react-loader-spinner';
 import { connect } from 'react-redux';
 import { loadUsers, updateUser } from '../actions/users';
 
@@ -44,7 +45,15 @@ const Users = ({ users: { users, loading }, auth, loadUsers, updateUser }) => {
                     </tr>
                   </thead>
                   <tbody>
-                    {!loading &&
+                    {loading ? (
+                      <Loader
+                        type='Puff'
+                        color='#00BFFF'
+                        height={100}
+                        width={100}
+                        timeout={3000} //3 secs
+                      />
+                    ) : (
                       users.map((user) => (
                         <UserInfo
                           key={user._id}
@@ -52,7 +61,8 @@ const Users = ({ users: { users, loading }, auth, loadUsers, updateUser }) => {
                           role={auth.user.role}
                           update={updateUser}
                         />
-                      ))}
+                      ))
+                    )}
                   </tbody>
                 </table>
               </CardBody>
