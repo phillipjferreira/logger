@@ -17,30 +17,12 @@ import {
 import { editProject, createProject } from '../../actions/projects';
 
 const ProjectForm = ({
-  projects: { selectedProject },
-  users: { users },
+  users,
+  initialState,
   editProject,
   createProject,
   history,
 }) => {
-  let initialState = {
-    name: '',
-    key: '',
-    lead: '',
-    description: '',
-    id: '',
-  };
-
-  if (selectedProject) {
-    initialState = {
-      name: selectedProject.name,
-      key: selectedProject.key,
-      lead: selectedProject.lead,
-      description: selectedProject.description,
-      id: selectedProject._id,
-    };
-  }
-
   const reducer = (state, { field, value }) => {
     return {
       ...state,
@@ -160,30 +142,16 @@ const ProjectForm = ({
         </Row>
       </Container>
     </div>
-
-    // <div>
-    //   <h1>{name || 'Project Title'}</h1>
-    //   <div>
-    //     <h3>{key || 'Project Key'}</h3>
-    //     <h3>{lead || 'Project Lead'}</h3>
-    //     <h3>{description || 'Project description'}</h3>
-    //   </div>
-    // </div>
   );
 };
 
 ProjectForm.propTypes = {
-  projects: PropTypes.object.isRequired,
+  initialState: PropTypes.object.isRequired,
   editProject: PropTypes.func.isRequired,
   createProject: PropTypes.func.isRequired,
-  users: PropTypes.object.isRequired,
+  users: PropTypes.array.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  projects: state.projects,
-  users: state.users,
-});
-
-export default connect(mapStateToProps, { editProject, createProject })(
+export default connect(null, { editProject, createProject })(
   withRouter(ProjectForm)
 );

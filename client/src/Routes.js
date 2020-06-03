@@ -9,9 +9,9 @@ import Board from './views/Board';
 import Metrics from './views/Metrics';
 import Users from './views/Users';
 import AlertBar from './components/layout/AlertBar';
-import ProjectForm from './components/forms/ProjectForm';
 import SprintForm from './components/forms/SprintForm';
 import PrivateRoute from './PrivateRoute';
+import ProjectFormContainer from './components/forms/ProjectFormContainer';
 
 const Routes = (props) => {
   return (
@@ -21,7 +21,16 @@ const Routes = (props) => {
         <Route exact path='/register' component={Register} />
         <Route exact path='/login' component={Login} />
         <PrivateRoute exact path='/dashboard' component={Dashboard} />
-        <PrivateRoute exact path='/edit-project' component={ProjectForm} />
+        <PrivateRoute
+          exact
+          path='/new-project'
+          component={ProjectFormContainer}
+        />
+        <PrivateRoute
+          exact
+          path='/projects/:projectkey/edit-project'
+          component={ProjectFormContainer}
+        />
         <PrivateRoute
           exact
           path='/:projectid/edit-sprint'

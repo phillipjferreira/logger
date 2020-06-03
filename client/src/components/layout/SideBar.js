@@ -33,14 +33,14 @@ const SideBar = ({
           {selectedProject ? (
             <Button
               tag={RouteNavLink}
-              to='/edit-project'
+              to={`/projects/${selectedProject.key}/edit-project/`}
               className='edit-project btn-success'>
               + Edit Project
             </Button>
           ) : (
             <Button
               tag={RouteNavLink}
-              to='/edit-project'
+              to='/new-project'
               className='edit-project btn-success'>
               + New Project
             </Button>
