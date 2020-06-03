@@ -18,36 +18,40 @@ const TicketLog = ({
     loadSprints();
   }, [loadProjects, loadSprints]);
 
-  let { projectid } = useParams();
+  let { projectkey } = useParams();
+
+  let project;
+  if (!projectsLoading) {
+    project = projects.find((project) => projectkey === project.key);
+  }
 
   return (
     <div>
       <h1>Ticket Log</h1>
       <div>
         <h2>Project</h2>
-        <h3>{projectid}</h3>
-        {!projects && (
-          <p>
-            {projectsLoading.find((project) => project._id === projectid).name}
-          </p>
-        )}
+        <h3>{projectkey}</h3>
+        {!projectsLoading && <p>{project.name}</p>}
         <h2>Sprints</h2>
         {!sprintsLoading &&
-          sprints.map((sprint) => (
-            <Fragment>
-              <p>{sprint.name}</p>{' '}
-              <Button
-                tag={RouteNavLink}
-                to={`/${projectid}/edit-sprint/${sprint._id}`}
-                className='edit-sprint btn-success'>
-                + Edit Sprint
-              </Button>
-            </Fragment>
-          ))}
+          sprints.map(
+            (sprint) =>
+              project._id === sprint.project && (
+                <Fragment>
+                  <p>{sprint.name}</p>{' '}
+                  <Button
+                    tag={RouteNavLink}
+                    to={`/projects/${projectkey}/${sprint._id}/edit-sprint`}
+                    className='edit-sprint btn-success'>
+                    + Edit Sprint
+                  </Button>
+                </Fragment>
+              )
+          )}
       </div>
       <Button
         tag={RouteNavLink}
-        to={`/${projectid}/edit-sprint`}
+        to={`/projects/${projectkey}/new-sprint`}
         className='edit-sprint btn-success'>
         + New Sprint
       </Button>

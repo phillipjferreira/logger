@@ -1,6 +1,5 @@
-import React, { useReducer, useEffect } from 'react';
+import React, { useReducer } from 'react';
 import { connect } from 'react-redux';
-import { useParams } from 'react-router';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import {
@@ -14,47 +13,15 @@ import {
   FormInput,
   FormTextarea,
 } from 'shards-react';
-import {
-  editSprint,
-  createSprint,
-  selectSprint,
-  loadSprints,
-} from '../../actions/sprints';
+import { editSprint, createSprint } from '../../actions/sprints';
 
 const SprintForm = ({
-  sprints: { sprints, activeSprint, sprintsLoading },
-  users: { users },
+  initialState,
   editSprint,
   createSprint,
-  loadSprints,
   history,
+  projectid,
 }) => {
-  useEffect(() => {
-    loadSprints();
-  }, [loadSprints]);
-
-  let { projectid, sprintid } = useParams();
-  let initialState = {
-    name: '',
-    startDate: '',
-    endDate: '',
-    goal: '',
-    id: '',
-  };
-
-  if (sprintid && !sprintsLoading) {
-    let sprint = sprints.find((sprint) => {
-      return sprint._id === sprintid;
-    });
-    initialState = {
-      name: sprint.name,
-      startDate: sprint.startDate,
-      endDate: sprint.endDate,
-      goal: sprint.goal,
-      id: sprint._id,
-    };
-  }
-
   const reducer = (state, { field, value }) => {
     return {
       ...state,
@@ -169,35 +136,17 @@ const SprintForm = ({
         </Row>
       </Container>
     </div>
-
-    // <div>
-    //   <h1>{name || 'Project Title'}</h1>
-    //   <div>
-    //     <h3>{key || 'Project Key'}</h3>
-    //     <h3>{lead || 'Project Lead'}</h3>
-    //     <h3>{description || 'Project description'}</h3>
-    //   </div>
-    // </div>
   );
 };
 
 SprintForm.propTypes = {
-  sprints: PropTypes.object.isRequired,
+  initialState: PropTypes.object.isRequired,
   editSprint: PropTypes.func.isRequired,
   createSprint: PropTypes.func.isRequired,
-  loadSprints: PropTypes.func.isRequired,
-  selectSprint: PropTypes.func.isRequired,
-  users: PropTypes.object.isRequired,
+  projectid: PropTypes.number.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  sprints: state.sprints,
-  users: state.users,
-});
-
-export default connect(mapStateToProps, {
+export default connect(null, {
   editSprint,
   createSprint,
-  selectSprint,
-  loadSprints,
 })(withRouter(SprintForm));

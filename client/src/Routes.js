@@ -9,9 +9,9 @@ import Board from './views/Board';
 import Metrics from './views/Metrics';
 import Users from './views/Users';
 import AlertBar from './components/layout/AlertBar';
-import SprintForm from './components/forms/SprintForm';
 import PrivateRoute from './PrivateRoute';
 import ProjectFormContainer from './components/forms/ProjectFormContainer';
+import SprintFormContainer from './components/forms/SprintFormContainer';
 
 const Routes = (props) => {
   return (
@@ -33,23 +33,35 @@ const Routes = (props) => {
         />
         <PrivateRoute
           exact
-          path='/:projectid/edit-sprint'
-          component={SprintForm}
+          path='/projects/:projectkey/new-sprint'
+          component={SprintFormContainer}
         />
         <PrivateRoute
           exact
-          path='/:projectid/edit-sprint/:sprintid'
-          component={SprintForm}
+          path='/projects/:projectkey/:sprintid/edit-sprint'
+          component={SprintFormContainer}
         />
         <PrivateRoute exact path='/users' component={Users} />
-        <PrivateRoute exact path='/:projectid/timeline' component={Timeline} />
         <PrivateRoute
           exact
-          path='/:projectid/ticket-log'
+          path='/projects/:projectkey/timeline'
+          component={Timeline}
+        />
+        <PrivateRoute
+          exact
+          path='/projects/:projectkey/ticket-log'
           component={TicketLog}
         />
-        <PrivateRoute exact path='/:projectid/board' component={Board} />
-        <PrivateRoute exact path='/:projectid/metrics' component={Metrics} />
+        <PrivateRoute
+          exact
+          path='/projects/:projectkey/board'
+          component={Board}
+        />
+        <PrivateRoute
+          exact
+          path='/projects/:projectkey/metrics'
+          component={Metrics}
+        />
 
         {/* <Route component={NotFound} /> */}
       </Switch>

@@ -7,7 +7,7 @@ const ProjectCard = ({ project, onClick }) => {
     <NavItem>
       <NavLink
         tag={RouteNavLink}
-        to={`/${project._id}`}
+        to={`/projects/${project.key}`}
         onClick={() => onClick(project._id)}
         className='py-4'>
         {project.name}
