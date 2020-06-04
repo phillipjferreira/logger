@@ -2,6 +2,7 @@ import { TICKETS_LOADED, TICKET_ERROR } from '../actions/types';
 
 const initialState = {
   tickets: [],
+  ticket: null,
   ticketsLoading: true,
 };
 

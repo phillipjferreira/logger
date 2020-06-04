@@ -6,7 +6,12 @@ import Loader from 'react-loader-spinner';
 import { connect } from 'react-redux';
 import { loadUsers, updateUser } from '../actions/users';
 
-const Users = ({ users: { users, loading }, auth, loadUsers, updateUser }) => {
+const Users = ({
+  users: { users, usersLoading },
+  auth,
+  loadUsers,
+  updateUser,
+}) => {
   useEffect(() => {
     loadUsers();
   }, [loadUsers]);
@@ -45,7 +50,7 @@ const Users = ({ users: { users, loading }, auth, loadUsers, updateUser }) => {
                     </tr>
                   </thead>
                   <tbody>
-                    {loading ? (
+                    {usersLoading ? (
                       <Loader
                         type='Puff'
                         color='#00BFFF'

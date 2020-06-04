@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom';
 import NewTicketForm from './NewTicketForm';
 import { loadProjects } from '../../actions/projects';
 import { loadSprints } from '../../actions/sprints';
+import { loadUsers } from '../../actions/users';
 import { createTicket } from '../../actions/tickets';
 
 const NewTicketFormContainer = ({
@@ -12,6 +13,9 @@ const NewTicketFormContainer = ({
   loadProjects,
   sprints: { sprints, sprintsLoading },
   loadSprints,
+  users: { users, usersLoading },
+  auth: { user, loading },
+  loadUsers,
   createTicket,
   history,
 }) => {
@@ -22,11 +26,18 @@ const NewTicketFormContainer = ({
     };
   };
 
+  useEffect(() => {
+    loadProjects();
+    loadUsers();
+  }, [loadProjects, loadUsers]);
+
   let initialState = {
     name: '',
     key: '',
     project: '',
     sprint: '',
+    assignedTo: '',
+    assignedBy: user._id || '',
     id: '',
   };
 
@@ -36,11 +47,9 @@ const NewTicketFormContainer = ({
 
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  // Split into 2
   useEffect(() => {
-    loadProjects();
     !projectsLoading && loadSprints(state.project);
-  }, [loadProjects, loadSprints, state.project, projectsLoading]);
+  }, [loadSprints, state.project, projectsLoading]);
 
   useEffect(() => {
     dispatch({ field: 'sprint', value: '' });
@@ -57,9 +66,12 @@ const NewTicketFormContainer = ({
 
   return (
     !projectsLoading &&
-    !sprintsLoading && (
+    !sprintsLoading &&
+    !usersLoading &&
+    !loading && (
       <NewTicketForm
         projects={projects}
+        users={users}
         sprints={sprints}
         initialState={state}
         onChange={onChange}
@@ -70,20 +82,25 @@ const NewTicketFormContainer = ({
 };
 
 NewTicketFormContainer.propTypes = {
-  projects: PropTypes.object.isRequired,
+  // projects: PropTypes.array.isRequired,
   loadProjects: PropTypes.func.isRequired,
-  sprints: PropTypes.object.isRequired,
+  // sprints: PropTypes.array.isRequired,
   loadSprints: PropTypes.func.isRequired,
+  // users: PropTypes.array.isRequired,
+  loadUsers: PropTypes.func.isRequired,
   createTicket: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   projects: state.projects,
   sprints: state.sprints,
+  users: state.users,
+  auth: state.auth,
 });
 
 export default connect(mapStateToProps, {
   loadProjects,
   loadSprints,
+  loadUsers,
   createTicket,
 })(withRouter(NewTicketFormContainer));

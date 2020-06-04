@@ -11,7 +11,6 @@ export const loadSprints = (projectid) => async (dispatch) => {
   try {
     // Load Sprints by Project ID (for TicketLog, filter Active sprint for Board)
     const res = await axios.get(`/sprints/${projectid}`);
-
     dispatch({
       type: SPRINTS_LOADED,
       payload: res.data,

@@ -17,11 +17,12 @@ import {
 const NewTicketForm = ({
   projects,
   sprints,
+  users,
   initialState,
   onChange,
   onSubmit,
 }) => {
-  const { name, key, project, sprint } = initialState;
+  const { name, key, project, sprint, assignedTo, assignedBy } = initialState;
 
   return (
     <div>
@@ -111,6 +112,45 @@ const NewTicketForm = ({
                             {sprints.map((sprint) => (
                               <option value={sprint._id} key={sprint._id}>
                                 {sprint.name}
+                              </option>
+                            ))}
+                          </FormSelect>
+                        </Col>
+                      </Row>
+                      <Row>
+                        {/* Assigned To */}
+                        <Col md='6' className='form-group'>
+                          <label htmlFor='assignedTo'>Assigned To</label>
+                          <FormSelect
+                            id='assignedTo'
+                            name='assignedTo'
+                            value={assignedTo}
+                            onChange={(e) => {
+                              onChange(e);
+                            }}>
+                            <option value={''}>None</option>
+                            {users.map((user) => (
+                              <option value={user._id} key={user._id}>
+                                {user.name}
+                              </option>
+                            ))}
+                          </FormSelect>
+                        </Col>
+                        {/* Assigned By */}
+                        <Col md='6' className='form-group'>
+                          <label htmlFor='assignedBy'>Assigned By</label>
+
+                          <FormSelect
+                            disabled
+                            id='assignedBy'
+                            name='assignedBy'
+                            value={assignedBy}
+                            onChange={(e) => {
+                              onChange(e);
+                            }}>
+                            {users.map((user) => (
+                              <option value={user._id} key={user._id}>
+                                {user.name}
                               </option>
                             ))}
                           </FormSelect>
