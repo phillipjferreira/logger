@@ -1,8 +1,4 @@
-import {
-  TICKETS_LOADED,
-  TICKETS_NO_LOAD,
-  TICKET_ERROR,
-} from '../actions/types';
+import { TICKETS_LOADED, TICKET_ERROR } from '../actions/types';
 
 const initialState = {
   tickets: [],
@@ -14,8 +10,6 @@ export default function (state = initialState, action) {
   switch (type) {
     case TICKETS_LOADED:
       return { ...state, tickets: payload, ticketsLoading: false };
-    case TICKETS_NO_LOAD:
-      return { ...state, ticketsLoading: false };
     case TICKET_ERROR:
       return {
         ...state,

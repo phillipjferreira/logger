@@ -12,7 +12,8 @@ import AlertBar from './components/layout/AlertBar';
 import PrivateRoute from './PrivateRoute';
 import ProjectFormContainer from './components/forms/ProjectFormContainer';
 import SprintFormContainer from './components/forms/SprintFormContainer';
-import TicketFormContainer from './components/forms/TicketFormContainer';
+import NewTicketFormContainer from './components/forms/NewTicketFormContainer';
+import EditTicketFormContainer from './components/forms/EditTicketFormContainer';
 
 const Routes = (props) => {
   return (
@@ -45,12 +46,12 @@ const Routes = (props) => {
         <PrivateRoute
           exact
           path='/make-ticket'
-          component={TicketFormContainer}
+          component={NewTicketFormContainer}
         />
         <PrivateRoute
           exact
           path='/projects/:projectid/:ticketid/edit-ticket'
-          component={TicketFormContainer}
+          component={EditTicketFormContainer}
         />
         <PrivateRoute exact path='/users' component={Users} />
         <PrivateRoute

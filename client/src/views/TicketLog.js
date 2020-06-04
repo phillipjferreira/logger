@@ -19,7 +19,7 @@ const TicketLog = ({
   let { projectid } = useParams();
   useEffect(() => {
     loadProjects();
-    loadSprints();
+    loadSprints(projectid);
     loadTickets(projectid, 'project');
   }, [loadProjects, loadSprints, loadTickets, projectid]);
 
@@ -37,23 +37,30 @@ const TicketLog = ({
         {!projectsLoading && <p>{project.name}</p>}
         <h2>Sprints</h2>
         {!sprintsLoading &&
-          sprints.map(
-            (sprint) =>
-              project._id === sprint.project && (
-                <Fragment>
-                  <p>{sprint.name}</p>{' '}
-                  <Button
-                    tag={RouteNavLink}
-                    to={`/projects/${projectid}/${sprint._id}/edit-sprint`}
-                    className='edit-sprint btn-success'>
-                    + Edit Sprint
-                  </Button>
-                </Fragment>
-              )
-          )}
+          sprints.map((sprint) => (
+            <Fragment key={sprint._id}>
+              <p>{sprint.name}</p>
+              <Button
+                tag={RouteNavLink}
+                to={`/projects/${projectid}/${sprint._id}/edit-sprint`}
+                className='edit-sprint btn-success'>
+                + Edit Sprint
+              </Button>
+            </Fragment>
+          ))}
         {!ticketsLoading &&
           tickets &&
-          tickets.map((ticket) => <h4>{ticket.name}</h4>)}
+          tickets.map((ticket) => (
+            <Fragment>
+              <h4 key={ticket._id}>{ticket.name}</h4>
+              <Button
+                tag={RouteNavLink}
+                to={`/projects/${projectid}/${ticket._id}/edit-ticket`}
+                className='edit-ticket btn-success'>
+                + Edit Ticket
+              </Button>
+            </Fragment>
+          ))}
       </div>
       <Button
         tag={RouteNavLink}
@@ -67,9 +74,9 @@ const TicketLog = ({
 };
 
 TicketLog.propTypes = {
-  projects: PropTypes.object.isRequired,
-  sprints: PropTypes.object.isRequired,
-  tickets: PropTypes.object.isRequired,
+  projects: PropTypes.array.isRequired,
+  sprints: PropTypes.array.isRequired,
+  tickets: PropTypes.array.isRequired,
   loadProjects: PropTypes.func.isRequired,
   loadSprints: PropTypes.func.isRequired,
   loadTickets: PropTypes.func.isRequired,

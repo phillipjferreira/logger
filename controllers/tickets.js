@@ -37,7 +37,7 @@ exports.findTicket = [
   },
 ];
 
-// @route    GET /tickets/:projectid
+// @route    GET /tickets/project/:id
 // @desc     Get ticket by projectid
 // @access   Private
 exports.findTicketProject = [
@@ -54,7 +54,7 @@ exports.findTicketProject = [
   },
 ];
 
-// @route    GET /tickets/:sprintid
+// @route    GET /tickets/sprint/:id
 // @desc     Get ticket by sprintid
 // @access   Private
 exports.findTicketSprint = [

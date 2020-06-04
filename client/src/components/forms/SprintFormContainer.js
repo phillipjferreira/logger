@@ -5,18 +5,16 @@ import { withRouter } from 'react-router-dom';
 import { useParams } from 'react-router';
 import SprintForm from './SprintForm';
 import { loadSprints } from '../../actions/sprints';
-import { loadProjects } from '../../actions/projects';
 
 const SprintFormContainer = ({
   sprints: { sprints, sprintsLoading },
-  projects: { projects, projectsLoading },
   loadSprints,
-  loadProjects,
 }) => {
+  let { sprintid, projectid } = useParams();
+
   useEffect(() => {
-    loadSprints();
-    loadProjects();
-  }, [loadSprints, loadProjects]);
+    projectid && loadSprints(projectid);
+  }, [loadSprints, projectid]);
 
   let initialState = {
     name: '',
@@ -25,8 +23,6 @@ const SprintFormContainer = ({
     goal: '',
     id: '',
   };
-
-  let { sprintid, projectid } = useParams();
 
   if (sprintid) {
     let sprint;
@@ -43,8 +39,7 @@ const SprintFormContainer = ({
   }
 
   return (
-    !sprintsLoading &&
-    !projectsLoading && (
+    !sprintsLoading && (
       <SprintForm initialState={initialState} projectid={projectid} />
     )
   );
@@ -53,15 +48,12 @@ const SprintFormContainer = ({
 SprintFormContainer.propTypes = {
   sprints: PropTypes.object.isRequired,
   loadSprints: PropTypes.func.isRequired,
-  projects: PropTypes.object.isRequired,
-  loadProjects: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   sprints: state.sprints,
-  projects: state.projects,
 });
 
-export default connect(mapStateToProps, { loadSprints, loadProjects })(
+export default connect(mapStateToProps, { loadSprints })(
   withRouter(SprintFormContainer)
 );

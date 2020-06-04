@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
@@ -12,29 +12,11 @@ import {
   Form,
   FormInput,
 } from 'shards-react';
-import { editTicket, createTicket } from '../../actions/tickets';
+import { editTicket } from '../../actions/tickets';
 
-const TicketForm = ({ initialState, editTicket, createTicket, history }) => {
-  const reducer = (state, { field, value }) => {
-    return {
-      ...state,
-      [field]: value,
-    };
-  };
-
-  const [state, dispatch] = useReducer(reducer, initialState);
-
-  const onChange = (e) => {
-    dispatch({ field: e.target.name, value: e.target.value });
-  };
-
-  const { name, key, id } = state;
-
-  const onSubmit = (e) => {
-    e.preventDefault();
-    id ? editTicket(state, history) : createTicket(state, history);
-  };
-
+const EditTicketForm = ({ initialState, onChange, onSubmit }) => {
+  console.log(initialState);
+  const { name, key, project } = initialState;
   return (
     <div>
       <Container fluid className='main-content-container px-4'>
@@ -46,13 +28,9 @@ const TicketForm = ({ initialState, editTicket, createTicket, history }) => {
                 <Form className='py-4' onSubmit={(e) => onSubmit(e)}>
                   <Row form className='mx-4'>
                     <Col className='mb-3'>
-                      <h4 className='form-text m-0'>
-                        {id ? 'Edit Ticket' : 'New Ticket'}
-                      </h4>
+                      <h4 className='form-text m-0'>Edit Ticket</h4>
                       <p className='form-text text-muted m-0'>
-                        {id
-                          ? 'Update ticket details here'
-                          : 'Enter ticket details here'}
+                        Update ticket details here
                       </p>
                     </Col>
                   </Row>
@@ -79,37 +57,23 @@ const TicketForm = ({ initialState, editTicket, createTicket, history }) => {
                             id='key'
                             name='key'
                             value={key}
-                            onChange={(e) => {
-                              onChange(e);
-                            }}
+                            onChange={onChange}
                           />
                         </Col>
-                        {/* End Date
-                        <Col md='4' className='form-group'>
-                          <label htmlFor='endDate'>End Date</label>
-                          <FormInput
-                            type='text'
-                            id='endDate'
-                            name='endDate'
-                            value={endDate}
-                            onChange={(e) => {
-                              onChange(e);
-                            }}
-                          />
-                        </Col> */}
                       </Row>
-
-                      {/* goal
-                      <label htmlFor='goal'>Goal</label>
-                      <FormTextarea
-                        style={{ minHeight: '87px' }}
-                        id='goal'
-                        name='goal'
-                        value={goal}
-                        onChange={(e) => {
-                          onChange(e);
-                        }}
-                      /> */}
+                      <Row>
+                        {/* Project */}
+                        <Col md='6' className='form-group'>
+                          <label htmlFor='project'>Project</label>
+                          <FormInput
+                            readOnly
+                            type='text'
+                            id='project'
+                            name='project'
+                            value={project}
+                          />
+                        </Col>
+                      </Row>
                     </Col>
                   </Row>
                   <hr />
@@ -130,13 +94,10 @@ const TicketForm = ({ initialState, editTicket, createTicket, history }) => {
   );
 };
 
-TicketForm.propTypes = {
-  initialState: PropTypes.object.isRequired,
+EditTicketForm.propTypes = {
   editTicket: PropTypes.func.isRequired,
-  createTicket: PropTypes.func.isRequired,
 };
 
 export default connect(null, {
   editTicket,
-  createTicket,
-})(withRouter(TicketForm));
+})(withRouter(EditTicketForm));

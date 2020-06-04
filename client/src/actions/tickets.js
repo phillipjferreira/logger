@@ -1,14 +1,7 @@
 import axios from 'axios';
-import { TICKETS_LOADED, TICKETS_NO_LOAD, TICKET_ERROR } from './types';
+import { TICKETS_LOADED, TICKET_ERROR } from './types';
 import { setAlert } from './alert';
 import setAuthToken from '../utils/setAuthToken';
-
-// Set loading to false
-export const ticketsNoLoad = () => (dispatch) => {
-  dispatch({
-    type: TICKETS_NO_LOAD,
-  });
-};
 
 // Load Tickets
 export const loadTickets = (id, filter) => async (dispatch) => {
@@ -18,6 +11,7 @@ export const loadTickets = (id, filter) => async (dispatch) => {
   try {
     let res;
     if (filter) {
+      console.log('here we go');
       // Load Tickets by Project/ Sprint (for TicketLog/ Board)
       res = await axios.get(`/tickets/${filter}/${id}`);
     } else if (id) {
@@ -53,8 +47,7 @@ export const createTicket = (formData, history) => async (dispatch) => {
 
   try {
     delete formData.id;
-    // !formData.lead && delete formData.lead;
-    // !formData.description && delete formData.description;
+    !formData.sprint && delete formData.sprint;
     await axios.post('/tickets', formData, config);
 
     dispatch(setAlert('Ticket Created', 'success'));
@@ -78,8 +71,6 @@ export const editTicket = (formData, history) => async (dispatch) => {
       'Content-Type': 'application/json',
     },
   };
-
-  console.log(formData);
 
   try {
     const id = formData.id;
