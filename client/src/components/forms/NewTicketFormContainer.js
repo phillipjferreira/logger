@@ -36,10 +36,15 @@ const NewTicketFormContainer = ({
 
   const [state, dispatch] = useReducer(reducer, initialState);
 
+  // Split into 2
   useEffect(() => {
     loadProjects();
     !projectsLoading && loadSprints(state.project);
   }, [loadProjects, loadSprints, state.project, projectsLoading]);
+
+  useEffect(() => {
+    dispatch({ field: 'sprint', value: '' });
+  }, [sprints]);
 
   const onChange = (e) => {
     dispatch({ field: e.target.name, value: e.target.value });

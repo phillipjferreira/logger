@@ -11,7 +11,6 @@ export const loadTickets = (id, filter) => async (dispatch) => {
   try {
     let res;
     if (filter) {
-      console.log('here we go');
       // Load Tickets by Project/ Sprint (for TicketLog/ Board)
       res = await axios.get(`/tickets/${filter}/${id}`);
     } else if (id) {

@@ -15,7 +15,6 @@ import {
 import { editTicket } from '../../actions/tickets';
 
 const EditTicketForm = ({ initialState, onChange, onSubmit }) => {
-  console.log(initialState);
   const { name, key, project } = initialState;
   return (
     <div>

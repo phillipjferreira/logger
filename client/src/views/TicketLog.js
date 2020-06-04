@@ -49,10 +49,10 @@ const TicketLog = ({
             </Fragment>
           ))}
         {!ticketsLoading &&
-          tickets &&
+          Array.isArray(tickets) &&
           tickets.map((ticket) => (
-            <Fragment>
-              <h4 key={ticket._id}>{ticket.name}</h4>
+            <Fragment key={ticket._id}>
+              <h4>{ticket.name}</h4>
               <Button
                 tag={RouteNavLink}
                 to={`/projects/${projectid}/${ticket._id}/edit-ticket`}
@@ -74,9 +74,6 @@ const TicketLog = ({
 };
 
 TicketLog.propTypes = {
-  projects: PropTypes.array.isRequired,
-  sprints: PropTypes.array.isRequired,
-  tickets: PropTypes.array.isRequired,
   loadProjects: PropTypes.func.isRequired,
   loadSprints: PropTypes.func.isRequired,
   loadTickets: PropTypes.func.isRequired,

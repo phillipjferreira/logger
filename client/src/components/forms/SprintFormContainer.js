@@ -30,9 +30,9 @@ const SprintFormContainer = ({
       sprint = sprints.find((sprint) => sprintid === sprint._id);
       initialState = {
         name: sprint.name,
-        startDate: sprint.startDate,
-        endDate: sprint.endDate,
-        goal: sprint.goal,
+        startDate: sprint.startDate || '',
+        endDate: sprint.endDate || '',
+        goal: sprint.goal || '',
         id: sprint._id,
       };
     }

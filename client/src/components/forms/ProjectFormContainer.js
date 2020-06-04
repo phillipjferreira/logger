@@ -36,7 +36,7 @@ const ProjectFormContainer = ({
         name: project.name,
         key: project.key,
         lead: project.lead || '',
-        description: project.description,
+        description: project.description || '',
         id: project._id,
       };
     }

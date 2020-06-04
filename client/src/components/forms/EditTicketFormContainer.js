@@ -17,7 +17,6 @@ const EditTicketFormContainer = ({
   useEffect(() => {
     loadTickets(ticketid);
   }, [loadTickets, ticketid]);
-  useEffect(() => {}, [tickets]);
 
   const reducer = (state, { field, value }) => {
     return {
@@ -35,14 +34,14 @@ const EditTicketFormContainer = ({
 
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  if (tickets._id !== undefined && tickets._id !== state.id) {
-    dispatch({
-      name: tickets.name,
-      key: tickets.key,
-      project: tickets.project,
-      id: tickets._id,
-    });
-  }
+  useEffect(() => {
+    if (!ticketsLoading) {
+      dispatch({ field: 'name', value: tickets.name });
+      dispatch({ field: 'key', value: tickets.key });
+      dispatch({ field: 'project', value: tickets.project });
+      dispatch({ field: 'id', value: tickets._id });
+    }
+  }, [tickets, ticketsLoading]);
 
   const onChange = (e) => {
     dispatch({ field: e.target.name, value: e.target.value });
