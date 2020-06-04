@@ -23,10 +23,7 @@ const EditTicketFormContainer = ({
 
   useEffect(() => {
     loadTickets(ticketid);
-    async function fetchData() {
-      await loadProjects();
-    }
-    fetchData();
+    loadProjects();
   }, [loadTickets, ticketid, loadProjects]);
 
   const reducer = (state, { field, value }) => {
