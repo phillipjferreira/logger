@@ -1,10 +1,17 @@
 import axios from 'axios';
-import { SPRINTS_LOADED, SPRINT_ERROR } from './types';
+import {
+  GET_SPRINTS_REQUEST,
+  GET_SPRINTS_SUCCESS,
+  GET_SPRINTS_ERROR,
+} from './types';
 import { setAlert } from './alert';
 import setAuthToken from '../utils/setAuthToken';
 
 // Load Sprints
 export const loadSprints = (projectid) => async (dispatch) => {
+  dispatch({
+    type: GET_SPRINTS_REQUEST,
+  });
   if (localStorage.token) {
     setAuthToken(localStorage.token);
   }
@@ -12,12 +19,12 @@ export const loadSprints = (projectid) => async (dispatch) => {
     // Load Sprints by Project ID (for TicketLog, filter Active sprint for Board)
     const res = await axios.get(`/sprints/${projectid}`);
     dispatch({
-      type: SPRINTS_LOADED,
+      type: GET_SPRINTS_SUCCESS,
       payload: res.data,
     });
   } catch (err) {
     dispatch({
-      type: SPRINT_ERROR,
+      type: GET_SPRINTS_ERROR,
     });
     dispatch(setAlert('Error loading sprints', 'danger'));
   }

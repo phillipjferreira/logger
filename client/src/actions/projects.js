@@ -1,30 +1,36 @@
 import axios from 'axios';
 import {
-  PROJECTS_LOADED,
-  PROJECTS_ERROR,
-  PROJECT_LOADED,
-  PROJECT_ERROR,
-  PROJECT_RESET,
-  PROJECT_SAVED,
-  PROJECT_NOTSAVED,
+  GET_PROJECTS_REQUEST,
+  GET_PROJECTS_SUCCESS,
+  GET_PROJECTS_ERROR,
+  NEW_PROJECT_REQUEST,
+  NEW_PROJECT_SUCCESS,
+  NEW_PROJECT_ERROR,
+  SELECT_PROJECT_REQUEST,
+  SELECT_PROJECT_SUCCESS,
+  SELECT_PROJECT_ERROR,
+  DESELECT_PROJECT,
 } from './types';
 import { setAlert } from './alert';
 import setAuthToken from '../utils/setAuthToken';
 
 // Load Projects
 export const loadProjects = () => async (dispatch) => {
+  dispatch({
+    type: GET_PROJECTS_REQUEST,
+  });
   if (localStorage.token) {
     setAuthToken(localStorage.token);
   }
   try {
     const res = await axios.get('/projects');
     dispatch({
-      type: PROJECTS_LOADED,
+      type: GET_PROJECTS_SUCCESS,
       payload: res.data,
     });
   } catch (err) {
     dispatch({
-      type: PROJECTS_ERROR,
+      type: GET_PROJECTS_ERROR,
     });
     console.log(err);
   }
@@ -32,24 +38,27 @@ export const loadProjects = () => async (dispatch) => {
 
 // Select Project
 export const selectProject = (id) => async (dispatch) => {
+  dispatch({
+    type: SELECT_PROJECT_REQUEST,
+  });
   if (localStorage.token) {
     setAuthToken(localStorage.token);
   }
   if (id === null) {
     dispatch({
-      type: PROJECT_RESET,
+      type: DESELECT_PROJECT,
     });
   } else {
     try {
       const res = await axios.get(`/projects/${id}`);
 
       dispatch({
-        type: PROJECT_LOADED,
+        type: SELECT_PROJECT_SUCCESS,
         payload: res.data,
       });
     } catch (err) {
       dispatch({
-        type: PROJECT_ERROR,
+        type: SELECT_PROJECT_ERROR,
       });
       console.log(err);
     }
@@ -58,6 +67,9 @@ export const selectProject = (id) => async (dispatch) => {
 
 // Create Project
 export const createProject = (formData, history) => async (dispatch) => {
+  dispatch({
+    type: NEW_PROJECT_REQUEST,
+  });
   if (localStorage.token) {
     setAuthToken(localStorage.token);
   }
@@ -74,7 +86,7 @@ export const createProject = (formData, history) => async (dispatch) => {
     const res = await axios.post('/projects', formData, config);
 
     dispatch({
-      type: PROJECT_SAVED,
+      type: NEW_PROJECT_SUCCESS,
       payload: res.data,
     });
 
@@ -87,13 +99,16 @@ export const createProject = (formData, history) => async (dispatch) => {
       errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
     }
     dispatch({
-      type: PROJECT_NOTSAVED,
+      type: NEW_PROJECT_ERROR,
     });
   }
 };
 
 // Edit Project
 export const editProject = (formData, history) => async (dispatch) => {
+  dispatch({
+    type: NEW_PROJECT_REQUEST,
+  });
   if (localStorage.token) {
     setAuthToken(localStorage.token);
   }
@@ -111,7 +126,7 @@ export const editProject = (formData, history) => async (dispatch) => {
     const res = await axios.put(`/projects/${id}`, formData, config);
 
     dispatch({
-      type: PROJECT_SAVED,
+      type: NEW_PROJECT_SUCCESS,
       payload: res.data,
     });
 
@@ -124,7 +139,7 @@ export const editProject = (formData, history) => async (dispatch) => {
       errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
     }
     dispatch({
-      type: PROJECT_NOTSAVED,
+      type: NEW_PROJECT_ERROR,
     });
   }
 };

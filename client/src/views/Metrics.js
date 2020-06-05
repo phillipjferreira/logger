@@ -1,36 +1,42 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router';
-import { loadProjects } from '../actions/projects';
+import { selectProject } from '../actions/projects';
+import {
+  createLoadingSelector,
+  createErrorMessageSelector,
+} from '../Selectors';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-const Metrics = ({ projects: { projects, loading }, loadProjects }) => {
-  useEffect(() => {
-    loadProjects();
-  }, [loadProjects]);
-
+const Metrics = ({ projects: { project }, selectProject, isLoading }) => {
   let { projectid } = useParams();
 
+  useEffect(() => {
+    selectProject(projectid);
+  }, [selectProject, projectid]);
+
   return (
-    <div>
-      <h1>{'Charts & Metrics'}</h1>
+    !isLoading && (
       <div>
-        <h3>{projectid}</h3>
-        {!loading && (
-          <p>{projects.find((project) => project._id === projectid).name}</p>
-        )}
+        <h1>{'Charts & Metrics'}</h1>
+        <div>
+          <h3>{projectid}</h3>
+          <p>{project.name}</p>
+        </div>
       </div>
-    </div>
+    )
   );
 };
 
 Metrics.propTypes = {
   projects: PropTypes.object.isRequired,
-  loadProjects: PropTypes.func.isRequired,
+  selectProject: PropTypes.func.isRequired,
 };
 
+const loadingSelector = createLoadingSelector(['SELECT_PROJECT']);
 const mapStateToProps = (state) => ({
+  isLoading: loadingSelector(state),
   projects: state.projects,
 });
 
-export default connect(mapStateToProps, { loadProjects })(Metrics);
+export default connect(mapStateToProps, { selectProject })(Metrics);

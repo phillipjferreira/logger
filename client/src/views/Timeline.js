@@ -4,61 +4,57 @@ import {
   createLoadingSelector,
   createErrorMessageSelector,
 } from '../Selectors';
-import { loadProjects } from '../actions/projects';
+import { loadProjects, selectProject } from '../actions/projects';
 import { loadTickets } from '../actions/tickets';
 import { connect } from 'react-redux';
 // import PropTypes from 'prop-types';
 
 const Timeline = ({
   isLoading,
-  projects: { projects, projectsLoading },
+  projects: { project },
   tickets: { tickets },
-  loadProjects,
   loadTickets,
+  selectProject,
 }) => {
   const { projectid } = useParams();
 
   useEffect(() => {
-    loadProjects();
+    selectProject(projectid);
     loadTickets(projectid, 'project');
-  }, [loadProjects, loadTickets, projectid]);
+  }, [loadProjects, loadTickets, selectProject, projectid]);
 
   return (
-    <div>
-      <h1>Timeline</h1>
+    !isLoading && (
       <div>
-        <h3>{projectid}</h3>
-        {!projectsLoading && (
-          <p>{projects.find((project) => project._id === projectid).name}</p>
-        )}
-        {!isLoading && tickets.map((ticket) => <p>{ticket.name}</p>)}
+        <h1>Timeline</h1>
+        <div>
+          {<h3>{project.name}</h3>}
+          <p>Tickets:</p>
+          {tickets.map((ticket) => (
+            <p>{ticket.name}</p>
+          ))}
+        </div>
       </div>
-    </div>
+    )
   );
 };
-// {
-//   !isloading && (
-//     <div>
-//       {projects.find((project) => project._id === projectid).name}
-//       {tickets.map((ticket) => (
-//         <p>{ticket.name}</p>
-//       ))}
-//     </div>
-//   );
-// }
 
 // Timeline.propTypes = {
 //   projects: PropTypes.object.isRequired,
 //   loadProjects: PropTypes.func.isRequired,
 // };
 
-const loadingSelector = createLoadingSelector(['GET_TICKETS', 'GET_PROJECTS']);
+const loadingSelector = createLoadingSelector([
+  'GET_TICKETS',
+  'SELECT_PROJECT',
+]);
 const mapStateToProps = (state) => ({
   isLoading: loadingSelector(state),
   projects: state.projects,
   tickets: state.tickets,
 });
 
-export default connect(mapStateToProps, { loadProjects, loadTickets })(
-  Timeline
-);
+export default connect(mapStateToProps, {
+  loadTickets,
+  selectProject,
+})(Timeline);

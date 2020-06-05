@@ -2,6 +2,10 @@ import React from 'react';
 import { Col, Nav, Button } from 'shards-react';
 import { NavLink as RouteNavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
+import {
+  createLoadingSelector,
+  createErrorMessageSelector,
+} from '../../Selectors';
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
@@ -13,9 +17,10 @@ import ProjectDetails from '../sidebar/ProjectDetails';
 
 const SideBar = ({
   menus: { sidebar },
-  projects: { projects, selectedProject },
+  projects: { projects, project },
   selectProject,
   closeSidebar,
+  isLoading,
 }) => {
   const classes = classNames(
     'main-sidebar',
@@ -30,13 +35,15 @@ const SideBar = ({
       <div className='nav-wrapper no-overflow'>
         <div className='sticky-top py-2 bg-gray'>
           {/* New/Edit Button */}
-          {selectedProject ? (
-            <Button
-              tag={RouteNavLink}
-              to={`/projects/${selectedProject._id}/edit-project/`}
-              className='edit-project btn-success'>
-              + Edit Project
-            </Button>
+          {project.name ? (
+            !isLoading && (
+              <Button
+                tag={RouteNavLink}
+                to={`/projects/${project._id}/edit-project/`}
+                className='edit-project btn-success'>
+                + Edit Project
+              </Button>
+            )
           ) : (
             <Button
               tag={RouteNavLink}
@@ -53,17 +60,15 @@ const SideBar = ({
         </div>
         <div>
           <Nav className='flex-column'>
-            {selectedProject ? (
-              <ProjectDetails project={selectedProject} />
-            ) : (
-              projects.map((project) => (
-                <ProjectCard
-                  key={project._id}
-                  project={project}
-                  onClick={selectProject}
-                />
-              ))
-            )}
+            {project.name
+              ? !isLoading && <ProjectDetails project={project} />
+              : projects.map((p) => (
+                  <ProjectCard
+                    key={p._id}
+                    project={p}
+                    onClick={selectProject}
+                  />
+                ))}
           </Nav>
         </div>
       </div>
@@ -79,7 +84,9 @@ SideBar.propTypes = {
   closeSidebar: PropTypes.func.isRequired,
 };
 
+const loadingSelector = createLoadingSelector(['SELECT_PROJECT']);
 const mapStateToProps = (state) => ({
+  isLoading: loadingSelector(state),
   menus: state.menus,
   projects: state.projects,
 });

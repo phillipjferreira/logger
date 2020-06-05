@@ -1,24 +1,17 @@
-import { USERS_LOADED, USERS_ERROR, USER_UPDATED } from '../actions/types';
+import { GET_USERS_SUCCESS, UPDATE_USER_SUCCESS } from '../actions/types';
 
 const initialState = {
   users: [],
-  usersLoading: true,
 };
 
 export default function (state = initialState, action) {
   const { type, payload } = action;
   switch (type) {
-    case USERS_LOADED:
-      return { ...state, users: payload, usersLoading: false };
-    case USER_UPDATED:
+    case GET_USERS_SUCCESS:
+      return { ...state, users: payload };
+    case UPDATE_USER_SUCCESS:
       let objIndex = state.users.findIndex((user) => user._id === payload._id);
-      return { ...state, [objIndex]: payload, usersLoading: false };
-    case USERS_ERROR:
-      return {
-        ...state,
-        users: [...state.users, { name: 'Error loading Users' }],
-        usersLoading: false,
-      };
+      return { ...state, [objIndex]: payload };
     default:
       return state;
   }

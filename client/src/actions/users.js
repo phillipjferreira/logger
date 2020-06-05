@@ -1,9 +1,19 @@
 import axios from 'axios';
-import { USERS_LOADED, USERS_ERROR, USER_UPDATED } from './types';
+import {
+  GET_USERS_REQUEST,
+  GET_USERS_SUCCESS,
+  GET_USERS_ERROR,
+  UPDATE_USER_REQUEST,
+  UPDATE_USER_SUCCESS,
+  UPDATE_USER_ERROR,
+} from './types';
 import setAuthToken from '../utils/setAuthToken';
 
 // Load Users
 export const loadUsers = () => async (dispatch) => {
+  dispatch({
+    type: GET_USERS_REQUEST,
+  });
   if (localStorage.token) {
     setAuthToken(localStorage.token);
   }
@@ -11,12 +21,12 @@ export const loadUsers = () => async (dispatch) => {
     const res = await axios.get('/roles');
 
     dispatch({
-      type: USERS_LOADED,
+      type: GET_USERS_SUCCESS,
       payload: res.data,
     });
   } catch (err) {
     dispatch({
-      type: USERS_ERROR,
+      type: GET_USERS_ERROR,
     });
     console.log(err);
   }
@@ -24,18 +34,21 @@ export const loadUsers = () => async (dispatch) => {
 
 // Update User
 export const updateUser = (user) => async (dispatch) => {
+  dispatch({
+    type: UPDATE_USER_REQUEST,
+  });
   if (localStorage.token) {
     setAuthToken(localStorage.token);
   }
   try {
     const res = await axios.put(`/users/${user._id}`, { user });
     dispatch({
-      type: USER_UPDATED,
+      type: UPDATE_USER_SUCCESS,
       payload: res.data,
     });
   } catch (err) {
     dispatch({
-      type: USERS_ERROR,
+      type: UPDATE_USER_ERROR,
     });
   }
 };
