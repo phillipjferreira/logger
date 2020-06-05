@@ -67,15 +67,16 @@ const EditTicketFormContainer = ({
     // !ticketsLoading &&
     // !sprintsLoading &&
     // !projectsLoading &&
-    // Array.isArray(projects) &&
-    <EditTicketForm
-      ticketsLoading={ticketsLoading}
-      initialState={state}
-      sprints={sprints}
-      projects={projects}
-      onChange={onChange}
-      onSubmit={onSubmit}
-    />
+    !Array.isArray(tickets) && (
+      <EditTicketForm
+        ticketsLoading={ticketsLoading}
+        initialState={state}
+        sprints={sprints}
+        projects={projects}
+        onChange={onChange}
+        onSubmit={onSubmit}
+      />
+    )
   );
 };
 

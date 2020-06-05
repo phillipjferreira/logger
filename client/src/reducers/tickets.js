@@ -1,22 +1,14 @@
-import { TICKETS_LOADED, TICKET_ERROR } from '../actions/types';
+import { GET_TICKETS_SUCCESS } from '../actions/types';
 
 const initialState = {
   tickets: [],
-  ticket: null,
-  ticketsLoading: true,
 };
 
 export default function (state = initialState, action) {
   const { type, payload } = action;
   switch (type) {
-    case TICKETS_LOADED:
-      return { ...state, tickets: payload, ticketsLoading: false };
-    case TICKET_ERROR:
-      return {
-        ...state,
-        tickets: [...state.tickets, { name: 'Error loading tickets' }],
-        ticketsLoading: false,
-      };
+    case GET_TICKETS_SUCCESS:
+      return { ...state, tickets: payload };
     default:
       return state;
   }

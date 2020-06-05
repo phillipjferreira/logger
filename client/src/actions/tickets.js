@@ -1,10 +1,17 @@
 import axios from 'axios';
-import { TICKETS_LOADED, TICKET_ERROR } from './types';
+import {
+  GET_TICKETS_REQUEST,
+  GET_TICKETS_SUCCESS,
+  GET_TICKETS_ERROR,
+} from './types';
 import { setAlert } from './alert';
 import setAuthToken from '../utils/setAuthToken';
 
 // Load Tickets
 export const loadTickets = (id, filter) => async (dispatch) => {
+  dispatch({
+    type: GET_TICKETS_REQUEST,
+  });
   if (localStorage.token) {
     setAuthToken(localStorage.token);
   }
@@ -22,12 +29,12 @@ export const loadTickets = (id, filter) => async (dispatch) => {
     }
 
     dispatch({
-      type: TICKETS_LOADED,
+      type: GET_TICKETS_SUCCESS,
       payload: res.data,
     });
   } catch (err) {
     dispatch({
-      type: TICKET_ERROR,
+      type: GET_TICKETS_ERROR,
     });
     dispatch(setAlert('Error loading tickets', 'danger'));
   }
