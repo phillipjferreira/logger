@@ -2,10 +2,6 @@ import React from 'react';
 import { Col, Nav, Button } from 'shards-react';
 import { NavLink as RouteNavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
-import {
-  createLoadingSelector,
-  createErrorMessageSelector,
-} from '../../Selectors';
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
@@ -20,7 +16,6 @@ const SideBar = ({
   projects: { projects, project },
   selectProject,
   closeSidebar,
-  isLoading,
 }) => {
   const classes = classNames(
     'main-sidebar',
@@ -36,14 +31,12 @@ const SideBar = ({
         <div className='sticky-top py-2 bg-gray'>
           {/* New/Edit Button */}
           {project.name ? (
-            !isLoading && (
-              <Button
-                tag={RouteNavLink}
-                to={`/projects/${project._id}/edit-project/`}
-                className='edit-project btn-success'>
-                + Edit Project
-              </Button>
-            )
+            <Button
+              tag={RouteNavLink}
+              to={`/projects/${project._id}/edit-project/`}
+              className='edit-project btn-success'>
+              + Edit Project
+            </Button>
           ) : (
             <Button
               tag={RouteNavLink}
@@ -60,15 +53,13 @@ const SideBar = ({
         </div>
         <div>
           <Nav className='flex-column'>
-            {project.name
-              ? !isLoading && <ProjectDetails project={project} />
-              : projects.map((p) => (
-                  <ProjectCard
-                    key={p._id}
-                    project={p}
-                    onClick={selectProject}
-                  />
-                ))}
+            {project.name ? (
+              <ProjectDetails project={project} />
+            ) : (
+              projects.map((p) => (
+                <ProjectCard key={p._id} project={p} onClick={selectProject} />
+              ))
+            )}
           </Nav>
         </div>
       </div>
@@ -84,9 +75,7 @@ SideBar.propTypes = {
   closeSidebar: PropTypes.func.isRequired,
 };
 
-const loadingSelector = createLoadingSelector(['SELECT_PROJECT']);
 const mapStateToProps = (state) => ({
-  isLoading: loadingSelector(state),
   menus: state.menus,
   projects: state.projects,
 });

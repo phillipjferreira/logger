@@ -21,7 +21,7 @@ const Timeline = ({
   useEffect(() => {
     selectProject(projectid);
     loadTickets(projectid, 'project');
-  }, [loadProjects, loadTickets, selectProject, projectid]);
+  }, []);
 
   return (
     !isLoading && (

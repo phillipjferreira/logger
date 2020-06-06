@@ -1,33 +1,34 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { loadUser } from '../actions/auth';
+import {
+  createLoadingSelector,
+  createErrorMessageSelector,
+} from '../Selectors';
 import PropTypes from 'prop-types';
 
-const Dashboard = ({ loadUser, auth }) => {
-  useEffect(() => {
-    loadUser();
-  }, [loadUser]);
-
-  return (
+const Dashboard = ({ auth: { user }, isLoading }) => {
+  return isLoading ? (
+    <h1>LOADING...</h1>
+  ) : (
     <div>
       <h1>Dashboard</h1>
-      {auth.user && (
-        <div>
-          <h3>{auth.user.name}</h3>
-          <h3>{auth.user.email}</h3>
-          <h3>{auth.user.role}</h3>
-        </div>
-      )}
+      <div>
+        <h3>{user.name}</h3>
+        <h3>{user.email}</h3>
+        <h3>{user.role}</h3>
+      </div>
     </div>
   );
 };
 
 Dashboard.propTypes = {
-  loadUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
 };
 
+const loadingSelector = createLoadingSelector(['LOAD_USER']);
 const mapStateToProps = (state) => ({
+  isLoading: loadingSelector(state),
   auth: state.auth,
 });
 

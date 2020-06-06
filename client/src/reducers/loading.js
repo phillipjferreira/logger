@@ -6,7 +6,6 @@ export default function (state = {}, action) {
   if (!matches) return state;
 
   const [, requestName, requestState] = matches;
-  console.log(requestName);
   return {
     ...state,
     // Store whether a request is happening at the moment or not

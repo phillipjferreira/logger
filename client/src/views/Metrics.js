@@ -13,10 +13,11 @@ const Metrics = ({ projects: { project }, selectProject, isLoading }) => {
 
   useEffect(() => {
     selectProject(projectid);
-  }, [selectProject, projectid]);
+  }, [projectid]);
 
   return (
-    !isLoading && (
+    !isLoading &&
+    Object.keys(project).length !== 0 && (
       <div>
         <h1>{'Charts & Metrics'}</h1>
         <div>

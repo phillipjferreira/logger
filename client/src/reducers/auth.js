@@ -1,32 +1,42 @@
 import {
-  REGISTER_SUCCESS,
-  REGISTER_FAIL,
-  USER_LOADED,
-  AUTH_ERROR,
-  LOGIN_SUCCESS,
-  LOGIN_FAIL,
+  LOAD_USER_REQ,
+  LOAD_USER_SUC,
+  LOAD_USER_ERR,
+  REGISTER_REQ,
+  REGISTER_SUC,
+  REGISTER_ERR,
+  LOGIN_REQ,
+  LOGIN_SUC,
+  LOGIN_ERR,
   LOGOUT,
 } from '../actions/types';
 
 const initialState = {
   token: localStorage.getItem('token'),
-  isAuthenticated: null,
-  loading: true,
   user: {},
+  isAuthenticated: false,
+  loading: true,
 };
 
 export default function (state = initialState, action) {
   const { type, payload } = action;
   switch (type) {
-    case USER_LOADED:
+    case LOAD_USER_REQ:
+    case REGISTER_REQ:
+    case LOGIN_REQ:
+      return {
+        ...state,
+        loading: true,
+      };
+    case LOAD_USER_SUC:
       return {
         ...state,
         isAuthenticated: true,
-        loading: false,
         user: payload,
+        loading: false,
       };
-    case REGISTER_SUCCESS:
-    case LOGIN_SUCCESS:
+    case REGISTER_SUC:
+    case LOGIN_SUC:
       localStorage.setItem('token', payload.token);
       return {
         ...state,
@@ -34,16 +44,15 @@ export default function (state = initialState, action) {
         isAuthenticated: true,
         loading: false,
       };
-    case REGISTER_FAIL:
-    case LOGIN_FAIL:
-    case AUTH_ERROR:
+    case LOAD_USER_ERR:
+    case REGISTER_ERR:
+    case LOGIN_ERR:
     case LOGOUT:
       localStorage.removeItem('token');
       return {
         ...state,
-        token: null,
+        token: '',
         isAuthenticated: false,
-        loading: false,
       };
     default:
       return state;

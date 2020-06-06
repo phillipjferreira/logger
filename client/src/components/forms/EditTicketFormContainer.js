@@ -1,30 +1,37 @@
-import React, { useEffect, useReducer } from 'react';
+import React, { useEffect, useReducer, useRef } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { useParams } from 'react-router';
 import EditTicketForm from './EditTicketForm';
+import {
+  createLoadingSelector,
+  createErrorMessageSelector,
+} from '../../Selectors';
 import { loadProjects } from '../../actions/projects';
 import { loadSprints } from '../../actions/sprints';
 import { loadTickets, editTicket } from '../../actions/tickets';
 
 const EditTicketFormContainer = ({
-  tickets: { tickets, ticketsLoading },
-  sprints: { sprints, sprintsLoading },
-  projects: { projects, projectsLoading },
+  tickets: { tickets },
+  sprints: { sprints },
+  projects: { projects },
   loadTickets,
   loadSprints,
   loadProjects,
   editTicket,
-
   history,
+  isLoading,
 }) => {
-  let { ticketid } = useParams();
+  const { ticketid } = useParams();
+  const { projectid } = useParams();
+  const isInitialMount = useRef(true);
 
   useEffect(() => {
     loadTickets(ticketid);
     loadProjects();
-  }, [loadTickets, ticketid, loadProjects]);
+    loadSprints(projectid);
+  }, []);
 
   const reducer = (state, { field, value }) => {
     return {
@@ -44,15 +51,16 @@ const EditTicketFormContainer = ({
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
-    if (!ticketsLoading && !Array.isArray(tickets)) {
-      loadSprints(tickets.project);
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+    } else {
       dispatch({ field: 'name', value: tickets.name });
       dispatch({ field: 'key', value: tickets.key });
       dispatch({ field: 'project', value: tickets.project });
       dispatch({ field: 'sprint', value: tickets.sprint });
       dispatch({ field: 'id', value: tickets._id });
     }
-  }, [loadSprints, tickets, ticketsLoading]);
+  }, [tickets]);
 
   const onChange = (e) => {
     dispatch({ field: e.target.name, value: e.target.value });
@@ -64,12 +72,8 @@ const EditTicketFormContainer = ({
   };
 
   return (
-    // !ticketsLoading &&
-    // !sprintsLoading &&
-    // !projectsLoading &&
-    !Array.isArray(tickets) && (
+    !isLoading && (
       <EditTicketForm
-        ticketsLoading={ticketsLoading}
         initialState={state}
         sprints={sprints}
         projects={projects}
@@ -87,7 +91,13 @@ EditTicketFormContainer.propTypes = {
   loadSprints: PropTypes.func.isRequired,
 };
 
+const loadingSelector = createLoadingSelector([
+  'GET_TICKETS',
+  'GET_SPRINTS',
+  'GET_PROJECTS',
+]);
 const mapStateToProps = (state) => ({
+  isLoading: loadingSelector(state),
   tickets: state.tickets,
   sprints: state.sprints,
   projects: state.projects,

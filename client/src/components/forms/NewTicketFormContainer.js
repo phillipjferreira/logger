@@ -3,22 +3,32 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import NewTicketForm from './NewTicketForm';
+import {
+  createLoadingSelector,
+  createErrorMessageSelector,
+} from '../../Selectors';
 import { loadProjects } from '../../actions/projects';
 import { loadSprints } from '../../actions/sprints';
 import { loadUsers } from '../../actions/users';
 import { createTicket } from '../../actions/tickets';
 
 const NewTicketFormContainer = ({
-  projects: { projects, selectedProject, projectsLoading },
+  projects: { projects, project },
   loadProjects,
-  sprints: { sprints, sprintsLoading },
+  sprints: { sprints },
   loadSprints,
-  users: { users, usersLoading },
-  auth: { user, loading },
+  users: { users },
   loadUsers,
+  auth: { user },
+  isLoading,
   createTicket,
   history,
 }) => {
+  useEffect(() => {
+    loadProjects();
+    loadUsers();
+  }, []);
+
   const reducer = (state, { field, value }) => {
     return {
       ...state,
@@ -26,30 +36,21 @@ const NewTicketFormContainer = ({
     };
   };
 
-  useEffect(() => {
-    loadProjects();
-    loadUsers();
-  }, [loadProjects, loadUsers]);
-
   let initialState = {
     name: '',
     key: '',
-    project: '',
+    project: project._id || '',
     sprint: '',
     assignedTo: '',
     assignedBy: user._id || '',
     id: '',
   };
 
-  if (selectedProject) {
-    initialState.project = selectedProject._id;
-  }
-
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
-    !projectsLoading && loadSprints(state.project);
-  }, [loadSprints, state.project, projectsLoading]);
+    state.project && loadSprints(state.project);
+  }, [state.project]);
 
   useEffect(() => {
     dispatch({ field: 'sprint', value: '' });
@@ -65,10 +66,7 @@ const NewTicketFormContainer = ({
   };
 
   return (
-    !projectsLoading &&
-    !sprintsLoading &&
-    !usersLoading &&
-    !loading && (
+    !isLoading && (
       <NewTicketForm
         projects={projects}
         users={users}
@@ -91,7 +89,13 @@ NewTicketFormContainer.propTypes = {
   createTicket: PropTypes.func.isRequired,
 };
 
+const loadingSelector = createLoadingSelector([
+  'GET_USERS',
+  'GET_SPRINTS',
+  'GET_PROJECTS',
+]);
 const mapStateToProps = (state) => ({
+  isLoading: loadingSelector(state),
   projects: state.projects,
   sprints: state.sprints,
   users: state.users,

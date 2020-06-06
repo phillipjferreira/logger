@@ -27,11 +27,9 @@ const MainNavbar = ({ auth: { isAuthenticated, loading } }) => {
               <span className='d-none d-md-inline ml-1'>BugTracker</span>
             </div>
           </NavbarBrand>
-          {!loading && (
-            <Fragment>
-              {isAuthenticated ? <AuthLinks /> : <GuestLinks />}
-            </Fragment>
-          )}
+          <Fragment>
+            {!loading && (isAuthenticated ? <AuthLinks /> : <GuestLinks />)}
+          </Fragment>
         </Navbar>
       </Container>
     </div>

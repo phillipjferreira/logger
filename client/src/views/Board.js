@@ -15,7 +15,7 @@ const Board = ({ projects: { project }, selectProject, isLoading }) => {
 
   useEffect(() => {
     selectProject(projectid);
-  }, [selectProject]);
+  }, []);
 
   return (
     !isLoading && (

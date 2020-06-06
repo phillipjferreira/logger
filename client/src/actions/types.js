@@ -1,12 +1,17 @@
 export const SET_ALERT = 'SET_ALERT';
 export const REMOVE_ALERT = 'REMOVE_ALERT';
-export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
-export const REGISTER_FAIL = 'REGISTER_FAIL';
-export const USER_LOADED = 'USER_LOADED';
-export const AUTH_ERROR = 'AUTH_ERROR';
-export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
-export const LOGIN_FAIL = 'LOGIN_FAIL';
+
+export const REGISTER_REQ = 'REGISTER_REQ';
+export const REGISTER_SUC = 'REGISTER_SUC';
+export const REGISTER_ERR = 'REGISTER_ERR';
+export const LOAD_USER_REQ = 'LOAD_USER_REQ';
+export const LOAD_USER_SUC = 'LOAD_USER_SUC';
+export const LOAD_USER_ERR = 'LOAD_USER_ERR';
+export const LOGIN_REQ = 'LOGIN_REQ';
+export const LOGIN_SUC = 'LOGIN_SUC';
+export const LOGIN_ERR = 'LOGIN_ERR';
 export const LOGOUT = 'LOGOUT';
+
 export const OPEN_SIDEBAR = 'OPEN_SIDEBAR';
 export const CLOSE_SIDEBAR = 'CLOSE_SIDEBAR';
 

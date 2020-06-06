@@ -26,7 +26,7 @@ const TicketLog = ({
     selectProject(projectid);
     loadSprints(projectid);
     loadTickets(projectid, 'project');
-  }, [loadTickets, loadSprints, selectProject, projectid]);
+  }, []);
 
   return (
     !isLoading && (

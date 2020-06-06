@@ -102,6 +102,7 @@ const NewTicketForm = ({
                           <label htmlFor='sprint'>Sprint</label>
 
                           <FormSelect
+                            disabled={!project}
                             id='sprint'
                             name='sprint'
                             value={sprint}

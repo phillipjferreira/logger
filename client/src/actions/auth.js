@@ -1,11 +1,14 @@
 import axios from 'axios';
 import {
-  REGISTER_SUCCESS,
-  REGISTER_FAIL,
-  USER_LOADED,
-  AUTH_ERROR,
-  LOGIN_SUCCESS,
-  LOGIN_FAIL,
+  LOAD_USER_REQ,
+  LOAD_USER_SUC,
+  LOAD_USER_ERR,
+  REGISTER_REQ,
+  REGISTER_SUC,
+  REGISTER_ERR,
+  LOGIN_REQ,
+  LOGIN_SUC,
+  LOGIN_ERR,
   LOGOUT,
 } from './types';
 import { setAlert } from './alert';
@@ -15,6 +18,9 @@ import setAuthToken from '../utils/setAuthToken';
 
 // Load User
 export const loadUser = () => async (dispatch) => {
+  dispatch({
+    type: LOAD_USER_REQ,
+  });
   if (localStorage.token) {
     setAuthToken(localStorage.token);
   }
@@ -22,18 +28,21 @@ export const loadUser = () => async (dispatch) => {
     const res = await axios.get('/auth');
 
     dispatch({
-      type: USER_LOADED,
+      type: LOAD_USER_SUC,
       payload: res.data,
     });
   } catch (err) {
     dispatch({
-      type: AUTH_ERROR,
+      type: LOAD_USER_ERR,
     });
   }
 };
 
 // Register User
 export const register = ({ name, email, password }) => async (dispatch) => {
+  dispatch({
+    type: REGISTER_REQ,
+  });
   const config = {
     headers: {
       'Content-Type': 'application/json',
@@ -45,7 +54,7 @@ export const register = ({ name, email, password }) => async (dispatch) => {
   try {
     const res = await axios.post('/users', body, config);
     dispatch({
-      type: REGISTER_SUCCESS,
+      type: REGISTER_SUC,
       payload: res.data,
     });
 
@@ -58,13 +67,16 @@ export const register = ({ name, email, password }) => async (dispatch) => {
       errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
     }
     dispatch({
-      type: REGISTER_FAIL,
+      type: REGISTER_ERR,
     });
   }
 };
 
 // Login User
 export const login = (email, password) => async (dispatch) => {
+  dispatch({
+    type: LOGIN_REQ,
+  });
   const config = {
     headers: {
       'Content-Type': 'application/json',
@@ -76,7 +88,7 @@ export const login = (email, password) => async (dispatch) => {
   try {
     const res = await axios.post('/auth', body, config);
     dispatch({
-      type: LOGIN_SUCCESS,
+      type: LOGIN_SUC,
       payload: res.data,
     });
 
@@ -89,7 +101,7 @@ export const login = (email, password) => async (dispatch) => {
       errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
     }
     dispatch({
-      type: LOGIN_FAIL,
+      type: LOGIN_ERR,
     });
   }
 };
