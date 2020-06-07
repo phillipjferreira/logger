@@ -12,16 +12,15 @@ import {
   Form,
   FormInput,
   FormTextarea,
-  FormSelect,
 } from 'shards-react';
-import { editProject, createProject } from '../../actions/projects';
+import { editSprint, createSprint } from '../../actions/sprints';
 
-const ProjectForm = ({
-  users,
+const SprintDisplay = ({
   initialState,
-  editProject,
-  createProject,
+  editSprint,
+  createSprint,
   history,
+  projectid,
 }) => {
   const reducer = (state, { field, value }) => {
     return {
@@ -36,11 +35,13 @@ const ProjectForm = ({
     dispatch({ field: e.target.name, value: e.target.value });
   };
 
-  const { name, key, lead, description, id } = state;
+  const { name, startDate, endDate, goal, id } = state;
 
   const onSubmit = (e) => {
     e.preventDefault();
-    id ? editProject(state, history) : createProject(state, history);
+    id
+      ? editSprint({ ...state, project: projectid }, history)
+      : createSprint({ ...state, project: projectid }, history);
   };
 
   return (
@@ -55,12 +56,12 @@ const ProjectForm = ({
                   <Row form className='mx-4'>
                     <Col className='mb-3'>
                       <h4 className='form-text m-0'>
-                        {id ? 'Edit Project' : 'New Project'}
+                        {id ? 'Edit Sprint' : 'New Sprint'}
                       </h4>
                       <p className='form-text text-muted m-0'>
                         {id
-                          ? 'Update project details here'
-                          : 'Enter project details here'}
+                          ? 'Update sprint details here'
+                          : 'Enter sprint details here'}
                       </p>
                     </Col>
                   </Row>
@@ -79,48 +80,41 @@ const ProjectForm = ({
                             }}
                           />
                         </Col>
-                        {/* Key */}
+                        {/* Start Date */}
                         <Col md='4' className='form-group'>
-                          <label htmlFor='key'>Key</label>
+                          <label htmlFor='startDate'>Start Date</label>
                           <FormInput
                             type='text'
-                            id='key'
-                            name='key'
-                            value={key}
+                            id='startDate'
+                            name='startDate'
+                            value={startDate}
+                            onChange={(e) => {
+                              onChange(e);
+                            }}
+                          />
+                        </Col>
+                        {/* End Date */}
+                        <Col md='4' className='form-group'>
+                          <label htmlFor='endDate'>End Date</label>
+                          <FormInput
+                            type='text'
+                            id='endDate'
+                            name='endDate'
+                            value={endDate}
                             onChange={(e) => {
                               onChange(e);
                             }}
                           />
                         </Col>
                       </Row>
-                      <Row form>
-                        {/* Lead */}
-                        <Col md='8' className='form-group'>
-                          <label htmlFor='lead'>Lead</label>
-                          <FormSelect
-                            id='lead'
-                            name='lead'
-                            value={lead}
-                            onChange={(e) => {
-                              onChange(e);
-                            }}>
-                            <option value={''}>None</option>
-                            {users.map((user) => (
-                              <option value={user._id} key={user._id}>
-                                {user.name}
-                              </option>
-                            ))}
-                          </FormSelect>
-                        </Col>
-                      </Row>
 
-                      {/* Description */}
-                      <label htmlFor='description'>Description</label>
+                      {/* goal */}
+                      <label htmlFor='goal'>Goal</label>
                       <FormTextarea
                         style={{ minHeight: '87px' }}
-                        id='description'
-                        name='description'
-                        value={description}
+                        id='goal'
+                        name='goal'
+                        value={goal}
                         onChange={(e) => {
                           onChange(e);
                         }}
@@ -133,7 +127,7 @@ const ProjectForm = ({
                     theme='accent'
                     className='ml-auto d-table mr-3'
                     type='submit'>
-                    Save Project
+                    Save Sprint
                   </Button>
                 </Form>
               </CardBody>
@@ -145,13 +139,14 @@ const ProjectForm = ({
   );
 };
 
-ProjectForm.propTypes = {
+SprintDisplay.propTypes = {
   initialState: PropTypes.object.isRequired,
-  editProject: PropTypes.func.isRequired,
-  createProject: PropTypes.func.isRequired,
-  users: PropTypes.array.isRequired,
+  editSprint: PropTypes.func.isRequired,
+  createSprint: PropTypes.func.isRequired,
+  projectid: PropTypes.number.isRequired,
 };
 
-export default connect(null, { editProject, createProject })(
-  withRouter(ProjectForm)
-);
+export default connect(null, {
+  editSprint,
+  createSprint,
+})(withRouter(SprintDisplay));

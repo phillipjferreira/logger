@@ -3,22 +3,25 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { useParams } from 'react-router';
-import EditTicketForm from './EditTicketForm';
+import EditTicketDisplay from '../components/forms/EditTicketDisplay';
 import {
   createLoadingSelector,
   createErrorMessageSelector,
-} from '../../Selectors';
-import { loadProjects } from '../../actions/projects';
-import { loadSprints } from '../../actions/sprints';
-import { loadTickets, editTicket } from '../../actions/tickets';
+} from '../Selectors';
+import { loadProjects } from '../actions/projects';
+import { loadSprints } from '../actions/sprints';
+import { loadUsers } from '../actions/users';
+import { loadTickets, editTicket } from '../actions/tickets';
 
 const EditTicketFormContainer = ({
   tickets: { tickets },
   sprints: { sprints },
   projects: { projects },
+  users: { users },
   loadTickets,
   loadSprints,
   loadProjects,
+  loadUsers,
   editTicket,
   history,
   isLoading,
@@ -30,6 +33,7 @@ const EditTicketFormContainer = ({
   useEffect(() => {
     loadTickets(ticketid);
     loadProjects();
+    loadUsers();
     loadSprints(projectid);
   }, []);
 
@@ -41,10 +45,16 @@ const EditTicketFormContainer = ({
   };
 
   let initialState = {
+    storyPoint: '',
     name: '',
-    key: '',
+    status: '',
     project: '',
     sprint: '',
+    assignedTo: '',
+    assignedBy: '',
+    created: '',
+    updated: '',
+    description: '',
     id: '',
   };
 
@@ -54,10 +64,16 @@ const EditTicketFormContainer = ({
     if (isInitialMount.current) {
       isInitialMount.current = false;
     } else {
+      dispatch({ field: 'storyPoint', value: tickets.storyPoint });
       dispatch({ field: 'name', value: tickets.name });
-      dispatch({ field: 'key', value: tickets.key });
+      dispatch({ field: 'status', value: tickets.status });
       dispatch({ field: 'project', value: tickets.project });
       dispatch({ field: 'sprint', value: tickets.sprint });
+      dispatch({ field: 'assignedTo', value: tickets.assignedTo });
+      dispatch({ field: 'assignedBy', value: tickets.assignedBy });
+      dispatch({ field: 'created', value: tickets.created });
+      dispatch({ field: 'updated', value: new Date() });
+      dispatch({ field: 'description', value: tickets.description });
       dispatch({ field: 'id', value: tickets._id });
     }
   }, [tickets]);
@@ -68,15 +84,18 @@ const EditTicketFormContainer = ({
 
   const onSubmit = (e) => {
     e.preventDefault();
+    dispatch({ field: 'updated', value: new Date().toString() });
     editTicket(state, history);
   };
 
   return (
     !isLoading && (
-      <EditTicketForm
+      <EditTicketDisplay
         initialState={state}
         sprints={sprints}
         projects={projects}
+        users={users}
+        lastUpdated={tickets.updated}
         onChange={onChange}
         onSubmit={onSubmit}
       />
@@ -101,6 +120,7 @@ const mapStateToProps = (state) => ({
   tickets: state.tickets,
   sprints: state.sprints,
   projects: state.projects,
+  users: state.users,
 });
 
 export default connect(mapStateToProps, {
@@ -108,4 +128,5 @@ export default connect(mapStateToProps, {
   editTicket,
   loadSprints,
   loadProjects,
+  loadUsers,
 })(withRouter(EditTicketFormContainer));

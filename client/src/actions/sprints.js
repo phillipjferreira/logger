@@ -49,7 +49,7 @@ export const createSprint = (formData, history) => async (dispatch) => {
 
     dispatch(setAlert('Sprint Created', 'success'));
 
-    history.push('/dashboard');
+    history.goBack();
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {
@@ -78,7 +78,7 @@ export const editSprint = (formData, history) => async (dispatch) => {
 
     dispatch(setAlert('Sprint Updated', 'success'));
 
-    history.push('/dashboard');
+    history.goBack();
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {

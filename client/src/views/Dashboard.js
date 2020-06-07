@@ -1,14 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { loadUser } from '../actions/auth';
-import {
-  createLoadingSelector,
-  createErrorMessageSelector,
-} from '../Selectors';
 import PropTypes from 'prop-types';
 
-const Dashboard = ({ auth: { user }, isLoading }) => {
-  return isLoading ? (
+const Dashboard = ({ auth: { user }, loading }) => {
+  return loading ? (
     <h1>LOADING...</h1>
   ) : (
     <div>
@@ -26,9 +22,7 @@ Dashboard.propTypes = {
   auth: PropTypes.object.isRequired,
 };
 
-const loadingSelector = createLoadingSelector(['LOAD_USER']);
 const mapStateToProps = (state) => ({
-  isLoading: loadingSelector(state),
   auth: state.auth,
 });
 

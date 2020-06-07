@@ -54,11 +54,14 @@ export const createTicket = (formData, history) => async (dispatch) => {
   try {
     delete formData.id;
     !formData.sprint && delete formData.sprint;
+    !formData.storyPoint && delete formData.storyPoint;
+    !formData.assignedTo && delete formData.assignedTo;
+    !formData.description && delete formData.description;
     await axios.post('/tickets', formData, config);
 
     dispatch(setAlert('Ticket Created', 'success'));
 
-    history.push('/dashboard');
+    history.goBack();
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {
@@ -87,7 +90,7 @@ export const editTicket = (formData, history) => async (dispatch) => {
 
     dispatch(setAlert('Ticket Updated', 'success'));
 
-    history.push('/dashboard');
+    history.goBack();
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {

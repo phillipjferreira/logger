@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { useParams } from 'react-router';
-import SprintForm from './SprintForm';
-import { loadSprints } from '../../actions/sprints';
+import SprintDisplay from '../components/forms/SprintDisplay';
+import { loadSprints } from '../actions/sprints';
 
 const SprintFormContainer = ({
   sprints: { sprints, sprintsLoading },
@@ -40,7 +40,7 @@ const SprintFormContainer = ({
 
   return (
     !sprintsLoading && (
-      <SprintForm initialState={initialState} projectid={projectid} />
+      <SprintDisplay initialState={initialState} projectid={projectid} />
     )
   );
 };

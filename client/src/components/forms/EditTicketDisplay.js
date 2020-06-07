@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
@@ -12,18 +12,31 @@ import {
   Form,
   FormInput,
   FormSelect,
+  FormTextarea,
 } from 'shards-react';
+import { editTicket } from '../../actions/tickets';
 
-const NewTicketForm = ({
-  projects,
-  sprints,
-  users,
+const EditTicketDisplay = ({
   initialState,
   onChange,
   onSubmit,
+  sprints,
+  projects,
+  users,
+  lastUpdated,
 }) => {
-  const { name, key, project, sprint, assignedTo, assignedBy } = initialState;
-
+  const {
+    storyPoint,
+    name,
+    status,
+    project,
+    sprint,
+    assignedTo,
+    assignedBy,
+    created,
+    updated,
+    description,
+  } = initialState;
   return (
     <div>
       <Container fluid className='main-content-container px-4'>
@@ -32,17 +45,39 @@ const NewTicketForm = ({
             <Card small className='edit-user-details mb-4'>
               <CardBody className='p-0'>
                 {/* Title */}
-                <Form
-                  className='py-4'
-                  onSubmit={(e) => {
-                    onSubmit(e);
-                  }}>
+                <Form className='py-4' onSubmit={(e) => onSubmit(e)}>
                   <Row form className='mx-4'>
-                    <Col className='mb-3'>
-                      <h4 className='form-text m-0'>New Ticket</h4>
+                    <Col md='8' className='mb-3'>
+                      <h4 className='form-text m-0'>Edit Ticket</h4>
                       <p className='form-text text-muted m-0'>
-                        Enter ticket details here
+                        Update ticket details here
                       </p>
+                    </Col>
+                    {/* Story Point Estimate -- Large Device */}
+                    <Col
+                      md='2'
+                      className='form-group story label-right hide-small'>
+                      <label htmlFor='storyPoint'>
+                        Story
+                        <br />
+                        Point
+                      </label>
+                    </Col>
+                    <Col md='2' className='form-group story hide-small'>
+                      <FormSelect
+                        id='storyPoint'
+                        name='storyPoint'
+                        value={storyPoint}
+                        onChange={(e) => {
+                          onChange(e);
+                        }}>
+                        <option value={''}>None</option>
+                        {[1, 2, 3, 5, 8, 13, 20, 40, 100].map((num) => (
+                          <option value={num} key={num}>
+                            {num}
+                          </option>
+                        ))}
+                      </FormSelect>
                     </Col>
                   </Row>
                   <Row form className='mx-4'>
@@ -58,30 +93,53 @@ const NewTicketForm = ({
                             onChange={(e) => {
                               onChange(e);
                             }}
-                            required
                           />
                         </Col>
-                        {/* Key */}
+                        {/* Status */}
                         <Col md='4' className='form-group'>
-                          <label htmlFor='key'>Key</label>
-                          <FormInput
-                            type='text'
-                            id='key'
-                            name='key'
-                            value={key}
+                          <label htmlFor='status'>Status</label>
+                          <FormSelect
+                            id='status'
+                            name='status'
+                            value={status}
                             onChange={(e) => {
                               onChange(e);
-                            }}
-                            required
-                          />
+                            }}>
+                            <option value={''}>None</option>
+                            {['To-Do', 'In-Progress', 'Done'].map((stat) => (
+                              <option value={stat} key={stat}>
+                                {stat}
+                              </option>
+                            ))}
+                          </FormSelect>
+                        </Col>
+                      </Row>
+                      {/* Story Point Estimate -- Small Device */}
+                      <Row className='hide-large'>
+                        <Col md='6' className='form-group'>
+                          <label htmlFor='storyPoint'>Story Point</label>
+                          <FormSelect
+                            id='storyPoint'
+                            name='storyPoint'
+                            value={storyPoint}
+                            onChange={(e) => {
+                              onChange(e);
+                            }}>
+                            <option value={''}>None</option>
+                            {[1, 2, 3, 5, 8, 13, 20, 40, 100].map((num) => (
+                              <option value={num} key={num}>
+                                {num}
+                              </option>
+                            ))}
+                          </FormSelect>
                         </Col>
                       </Row>
                       <Row>
                         {/* Project */}
                         <Col md='6' className='form-group'>
                           <label htmlFor='project'>Project</label>
-
                           <FormSelect
+                            disabled
                             id='project'
                             name='project'
                             value={project}
@@ -89,7 +147,6 @@ const NewTicketForm = ({
                               onChange(e);
                             }}
                             required>
-                            <option value={''}>None</option>
                             {projects.map((project) => (
                               <option value={project._id} key={project._id}>
                                 {project.name}
@@ -102,7 +159,6 @@ const NewTicketForm = ({
                           <label htmlFor='sprint'>Sprint</label>
 
                           <FormSelect
-                            disabled={!project}
                             id='sprint'
                             name='sprint'
                             value={sprint}
@@ -119,7 +175,7 @@ const NewTicketForm = ({
                         </Col>
                       </Row>
                       <Row>
-                        {/* Assigned To */}
+                        {/* AssignedTo */}
                         <Col md='6' className='form-group'>
                           <label htmlFor='assignedTo'>Assigned To</label>
                           <FormSelect
@@ -140,7 +196,6 @@ const NewTicketForm = ({
                         {/* Assigned By */}
                         <Col md='6' className='form-group'>
                           <label htmlFor='assignedBy'>Assigned By</label>
-
                           <FormSelect
                             disabled
                             id='assignedBy'
@@ -155,6 +210,38 @@ const NewTicketForm = ({
                               </option>
                             ))}
                           </FormSelect>
+                        </Col>
+                      </Row>
+                      <Row>
+                        {/* Description */}
+                        <Col>
+                          <label htmlFor='description'>Description</label>
+                          <FormTextarea
+                            style={{ minHeight: '87px' }}
+                            id='description'
+                            name='description'
+                            value={description}
+                            onChange={(e) => {
+                              onChange(e);
+                            }}
+                          />
+                        </Col>
+                      </Row>
+                      <br />
+                      <Row>
+                        {/* Created */}
+                        <Col md='6' className='form-group mb-0'>
+                          <label htmlFor='created'>Created:&nbsp;</label>
+                          <span id='created' name='created'>
+                            {new Date(created).toDateString()}
+                          </span>
+                        </Col>
+                        {/* Last Updated */}
+                        <Col md='6' className='form-group mb-0'>
+                          <label htmlFor='updated'>Last Updated:&nbsp;</label>
+                          <span id='updated' name='updated'>
+                            {new Date(lastUpdated).toDateString()}
+                          </span>
                         </Col>
                       </Row>
                     </Col>
@@ -177,10 +264,10 @@ const NewTicketForm = ({
   );
 };
 
-NewTicketForm.propTypes = {
-  projects: PropTypes.array.isRequired,
-  sprints: PropTypes.array.isRequired,
-  initialState: PropTypes.object.isRequired,
+EditTicketDisplay.propTypes = {
+  editTicket: PropTypes.func.isRequired,
 };
 
-export default connect(null, {})(withRouter(NewTicketForm));
+export default connect(null, {
+  editTicket,
+})(withRouter(EditTicketDisplay));

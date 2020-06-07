@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
-import MainNavbar from './components/layout/MainNavbar';
-import SideBar from './components/layout/SideBar';
+import MainNavbar from './layout/MainNavbar';
+import SideBar from './layout/SideBar';
 import { openSidebar } from './actions/menus';
 import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

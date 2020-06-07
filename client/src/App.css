@@ -41,23 +41,32 @@
   background-color: #ddd;
 }
 
+.story {
+  display: flex;
+  align-items: center;
+}
+
+.label-right {
+  justify-content: flex-end;
+}
+
 /* .no-margin {
   margin: 0;
 } */
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
-/* @media only screen and (min-width: 600px) {
-  .sidebar-right {
-    transform: translateX(100vw);
+@media only screen and (min-width: 768px) {
+  .hide-large {
+    display: none;
   }
-} */
+}
 
 /* Medium devices (landscape tablets, 768px and up) */
-/* @media only screen and (min-width: 768px) {
-  .sidebar-right {
-    transform: translateX(25vw);
+@media only screen and (max-width: 767px) {
+  .hide-small {
+    display: none;
   }
-} */
+}
 
 /* Large devices (laptops/desktops, 992px and up) */
 /* @media only screen and (min-width: 992px) {

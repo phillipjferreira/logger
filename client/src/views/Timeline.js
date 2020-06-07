@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import {
   createLoadingSelector,
@@ -17,14 +17,17 @@ const Timeline = ({
   selectProject,
 }) => {
   const { projectid } = useParams();
+  const [skip, setSkip] = useState(false);
 
   useEffect(() => {
+    setSkip(true);
     selectProject(projectid);
     loadTickets(projectid, 'project');
   }, []);
 
   return (
-    !isLoading && (
+    !isLoading &&
+    skip && (
       <div>
         <h1>Timeline</h1>
         <div>

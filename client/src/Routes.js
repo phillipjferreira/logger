@@ -1,19 +1,19 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
+import AlertBar from './layout/AlertBar';
 import Register from './views/Register';
 import Login from './views/Login';
+import PrivateRoute from './PrivateRoute';
 import Dashboard from './views/Dashboard';
 import Timeline from './views/Timeline';
 import TicketLog from './views/TicketLog';
 import Board from './views/Board';
 import Metrics from './views/Metrics';
 import Users from './views/Users';
-import AlertBar from './components/layout/AlertBar';
-import PrivateRoute from './PrivateRoute';
-import ProjectFormContainer from './components/forms/ProjectFormContainer';
-import SprintFormContainer from './components/forms/SprintFormContainer';
-import NewTicketFormContainer from './components/forms/NewTicketFormContainer';
-import EditTicketFormContainer from './components/forms/EditTicketFormContainer';
+import ProjectForm from './views/ProjectForm';
+import SprintForm from './views/SprintForm';
+import NewTicketForm from './views/NewTicketForm';
+import EditTicketForm from './views/EditTicketForm';
 
 const Routes = (props) => {
   return (
@@ -23,35 +23,27 @@ const Routes = (props) => {
         <Route exact path='/register' component={Register} />
         <Route exact path='/login' component={Login} />
         <PrivateRoute exact path='/dashboard' component={Dashboard} />
-        <PrivateRoute
-          exact
-          path='/new-project'
-          component={ProjectFormContainer}
-        />
+        <PrivateRoute exact path='/new-project' component={ProjectForm} />
         <PrivateRoute
           exact
           path='/projects/:projectid/edit-project'
-          component={ProjectFormContainer}
+          component={ProjectForm}
         />
         <PrivateRoute
           exact
           path='/projects/:projectid/new-sprint'
-          component={SprintFormContainer}
+          component={SprintForm}
         />
         <PrivateRoute
           exact
           path='/projects/:projectid/:sprintid/edit-sprint'
-          component={SprintFormContainer}
+          component={SprintForm}
         />
-        <PrivateRoute
-          exact
-          path='/make-ticket'
-          component={NewTicketFormContainer}
-        />
+        <PrivateRoute exact path='/make-ticket' component={NewTicketForm} />
         <PrivateRoute
           exact
           path='/projects/:projectid/:ticketid/edit-ticket'
-          component={EditTicketFormContainer}
+          component={EditTicketForm}
         />
         <PrivateRoute exact path='/users' component={Users} />
         <PrivateRoute

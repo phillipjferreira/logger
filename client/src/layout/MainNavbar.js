@@ -3,8 +3,8 @@ import { Container, Navbar, NavbarBrand } from 'shards-react';
 import { NavLink as RouteNavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import AuthLinks from '../navlinks/AuthLinks';
-import GuestLinks from '../navlinks/GuestLinks';
+import AuthLinks from '../components/navlinks/AuthLinks';
+import GuestLinks from '../components/navlinks/GuestLinks';
 
 // import NavbarSearch from "./NavbarSearch";
 // import NavbarNav from "./NavbarNav/NavbarNav";
@@ -21,7 +21,7 @@ const MainNavbar = ({ auth: { isAuthenticated, loading } }) => {
                 id='main-logo'
                 className='d-inline-block align-top mr-1 ml-3'
                 style={{ maxWidth: '25px' }}
-                src={require('../../images/shards-dashboards-logo.svg')}
+                src={require('../images/shards-dashboards-logo.svg')}
                 alt='Shards Dashboard'
               />
               <span className='d-none d-md-inline ml-1'>BugTracker</span>

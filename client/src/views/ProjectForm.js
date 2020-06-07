@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { useParams } from 'react-router';
-import ProjectForm from './ProjectForm';
-import { loadProjects } from '../../actions/projects';
-import { loadUsers } from '../../actions/users';
+import ProjectDisplay from '../components/forms/ProjectDisplay';
+import { loadProjects } from '../actions/projects';
+import { loadUsers } from '../actions/users';
 
 const ProjectFormContainer = ({
   projects: { projects, projectsLoading },
@@ -20,7 +20,6 @@ const ProjectFormContainer = ({
 
   let initialState = {
     name: '',
-    key: '',
     lead: '',
     description: '',
     id: '',
@@ -34,7 +33,6 @@ const ProjectFormContainer = ({
       project = projects.find((project) => projectid === project._id);
       initialState = {
         name: project.name,
-        key: project.key,
         lead: project.lead || '',
         description: project.description || '',
         id: project._id,
@@ -44,7 +42,7 @@ const ProjectFormContainer = ({
 
   return (
     !projectsLoading &&
-    !loading && <ProjectForm initialState={initialState} users={users} />
+    !loading && <ProjectDisplay initialState={initialState} users={users} />
   );
 };
 

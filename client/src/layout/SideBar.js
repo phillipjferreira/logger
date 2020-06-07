@@ -5,11 +5,11 @@ import { connect } from 'react-redux';
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
-import { openSidebar, closeSidebar } from '../../actions/menus';
-import { selectProject } from '../../actions/projects';
+import { openSidebar, closeSidebar } from '../actions/menus';
+import { selectProject } from '../actions/projects';
 import classNames from 'classnames';
-import ProjectCard from '../sidebar/ProjectCard';
-import ProjectDetails from '../sidebar/ProjectDetails';
+import ProjectCard from '../components/sidebar/ProjectCard';
+import ProjectDetails from '../components/sidebar/ProjectDetails';
 
 const SideBar = ({
   menus: { sidebar },

@@ -2,15 +2,15 @@ import React, { useEffect, useReducer } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
-import NewTicketForm from './NewTicketForm';
+import NewTicketDisplay from '../components/forms/NewTicketDisplay';
 import {
   createLoadingSelector,
   createErrorMessageSelector,
-} from '../../Selectors';
-import { loadProjects } from '../../actions/projects';
-import { loadSprints } from '../../actions/sprints';
-import { loadUsers } from '../../actions/users';
-import { createTicket } from '../../actions/tickets';
+} from '../Selectors';
+import { loadProjects } from '../actions/projects';
+import { loadSprints } from '../actions/sprints';
+import { loadUsers } from '../actions/users';
+import { createTicket } from '../actions/tickets';
 
 const NewTicketFormContainer = ({
   projects: { projects, project },
@@ -38,11 +38,12 @@ const NewTicketFormContainer = ({
 
   let initialState = {
     name: '',
-    key: '',
+    storyPoint: '',
     project: project._id || '',
     sprint: '',
     assignedTo: '',
     assignedBy: user._id || '',
+    description: '',
     id: '',
   };
 
@@ -67,7 +68,7 @@ const NewTicketFormContainer = ({
 
   return (
     !isLoading && (
-      <NewTicketForm
+      <NewTicketDisplay
         projects={projects}
         users={users}
         sprints={sprints}
@@ -89,11 +90,7 @@ NewTicketFormContainer.propTypes = {
   createTicket: PropTypes.func.isRequired,
 };
 
-const loadingSelector = createLoadingSelector([
-  'GET_USERS',
-  'GET_SPRINTS',
-  'GET_PROJECTS',
-]);
+const loadingSelector = createLoadingSelector(['GET_USERS', 'GET_PROJECTS']);
 const mapStateToProps = (state) => ({
   isLoading: loadingSelector(state),
   projects: state.projects,

@@ -92,7 +92,7 @@ export const createProject = (formData, history) => async (dispatch) => {
 
     dispatch(setAlert('Project Created', 'success'));
 
-    history.push('/dashboard');
+    history.goBack();
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {
@@ -132,7 +132,7 @@ export const editProject = (formData, history) => async (dispatch) => {
 
     dispatch(setAlert('Project Updated', 'success'));
 
-    history.push('/dashboard');
+    history.goBack();
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {
