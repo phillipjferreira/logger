@@ -1,11 +1,37 @@
 import axios from 'axios';
 import {
+  GET_TICKET_REQ,
+  GET_TICKET_SUC,
+  GET_TICKET_ERR,
   GET_TICKETS_REQUEST,
   GET_TICKETS_SUCCESS,
   GET_TICKETS_ERROR,
 } from './types';
 import { setAlert } from './alert';
 import setAuthToken from '../utils/setAuthToken';
+
+// Load Ticket by id
+export const loadTicket = (id) => async (dispatch) => {
+  dispatch({
+    type: GET_TICKET_REQ,
+  });
+  if (localStorage.token) {
+    setAuthToken(localStorage.token);
+  }
+  try {
+    const res = await axios.get(`/tickets/${id}`);
+
+    dispatch({
+      type: GET_TICKET_SUC,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: GET_TICKET_ERR,
+    });
+    dispatch(setAlert('Error loading ticket', 'danger'));
+  }
+};
 
 // Load Tickets
 export const loadTickets = (id, filter) => async (dispatch) => {
@@ -84,9 +110,9 @@ export const editTicket = (formData, history) => async (dispatch) => {
   try {
     const id = formData.id;
     delete formData.id;
-
-    // !formData.lead && delete formData.lead;
-    // !formData.description && delete formData.description;
+    !formData.assignedTo && delete formData.assignedTo;
+    !formData.lead && delete formData.lead;
+    !formData.description && delete formData.description;
     await axios.put(`/tickets/${id}`, formData, config);
 
     dispatch(setAlert('Ticket Updated', 'success'));

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Fragment } from 'react';
 import ControlledBoard from '../components/gadgets/ControlledBoard';
 import {
   createLoadingSelector,
@@ -6,21 +6,24 @@ import {
 } from '../Selectors';
 import { useParams } from 'react-router';
 import { selectProject } from '../actions/projects';
-import { loadTickets, editTicket } from '../actions/tickets';
+import { loadTicket, loadTickets, editTicket } from '../actions/tickets';
 import { Row, Col, Container } from 'shards-react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import ViewTicket from '../components/modals/ViewTicket';
 
 const Board = ({
   projects: { project },
-  tickets: { tickets },
+  tickets: { tickets, ticket, loading },
   selectProject,
+  loadTicket,
   loadTickets,
   editTicket,
   isLoading,
 }) => {
   const { projectid } = useParams();
   const [skip, setSkip] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
     setSkip(true);
@@ -37,31 +40,43 @@ const Board = ({
     }
   };
 
+  const toggle = () => {
+    setModalOpen(!modalOpen);
+  };
+
   const viewTicket = (id) => {
-    console.log(tickets.filter((ticket) => ticket._id === id));
+    loadTicket(id);
+    toggle();
   };
 
   return (
-    !isLoading &&
-    skip && (
-      <Container fluid className='main-content-container px-4'>
-        <Row>
-          <Col lg='12' className='mx-auto mt-4'>
-            <h1>Sprint Board</h1>
-            <h3>{projectid}</h3>
-            <h5>{project.name}</h5>
-          </Col>
-        </Row>
-        <Row>
-          <Col lg='12' className='mx-auto mt-4'>
-            <ControlledBoard
-              onCardDragEnd={onDrag}
-              tickets={tickets}
-              view={viewTicket}
-            />
-          </Col>
-        </Row>
-      </Container>
+    skip &&
+    !isLoading && (
+      <Fragment>
+        <ViewTicket
+          ticket={ticket}
+          isLoading={loading}
+          toggle={toggle}
+          open={modalOpen}
+        />
+        <Container fluid className='main-content-container px-4'>
+          <Row>
+            <Col lg='12' className='mx-auto mt-4'>
+              <h1>Sprint Board</h1>
+              <h5>{project.name}</h5>
+            </Col>
+          </Row>
+          <Row>
+            <Col lg='12' className='mx-auto mt-4'>
+              <ControlledBoard
+                onCardDragEnd={onDrag}
+                tickets={tickets}
+                view={viewTicket}
+              />
+            </Col>
+          </Row>
+        </Container>
+      </Fragment>
     )
   );
 };
@@ -69,6 +84,7 @@ const Board = ({
 Board.propTypes = {
   projects: PropTypes.object.isRequired,
   tickets: PropTypes.object.isRequired,
+  loadTicket: PropTypes.func.isRequired,
   loadTickets: PropTypes.func.isRequired,
 };
 
@@ -84,6 +100,7 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
   selectProject,
+  loadTicket,
   loadTickets,
   editTicket,
 })(Board);

@@ -8,7 +8,6 @@ const BoardCard = ({ card, dragging, view }) => {
     view(card.id);
   };
   return (
-    // <h1>hi</h1>
     <div
       className={`react-kanban-card ${
         dragging ? 'react-kanban-card--dragging' : ''
@@ -27,8 +26,3 @@ const BoardCard = ({ card, dragging, view }) => {
 };
 
 export default BoardCard;
-// { children: { id, title, description }, dragging }
-// : {
-//     card: { id, title, description },
-//     button,
-//   },

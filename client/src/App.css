@@ -1,4 +1,14 @@
 /* CUSTOM CSS ADDITIONS */
+
+:root {
+  /* --size-xsmall: brown; */
+  --size-small: 472px;
+  --size-medium: 632px;
+  --size-large: 872px;
+  --size-xlarge: 1052px;
+  --subtract: 40px;
+}
+
 .landing-container {
   height: calc(100vh - 3.75rem);
   padding-top: 3rem;
@@ -50,29 +60,96 @@
   justify-content: flex-end;
 }
 
+.button-view {
+  display: flex;
+  justify-content: space-between;
+}
+
+.button-right {
+  margin-left: auto;
+  margin-right: 5px;
+}
+
 /* .no-margin {
   margin: 0;
 } */
 
-/* Small devices (portrait tablets and large phones, 600px and up) */
+/* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
   .hide-large {
     display: none;
   }
+  .custom .react-kanban-board {
+    width: calc(var(--size-medium));
+  }
+  .custom .react-kanban-column {
+    width: calc(var(--size-medium) - 40px);
+  }
+  .custom .react-kanban-card {
+    width: calc(var(--size-medium) - 70px);
+  }
 }
 
-/* Medium devices (landscape tablets, 768px and up) */
+/* Small devices (up to 767px) */
 @media only screen and (max-width: 767px) {
   .hide-small {
     display: none;
   }
+  .custom .react-kanban-board {
+    width: calc(var(--size-small));
+  }
+  .custom .react-kanban-column {
+    width: calc(var(--size-small) - 40px);
+  }
+  .custom .react-kanban-card {
+    width: calc(var(--size-small) - 70px);
+  }
 }
 
 /* Large devices (laptops/desktops, 992px and up) */
-/* @media only screen and (min-width: 992px) {
-  .sidebar-right {
-    transform: translateX(16.66vw);
+@media only screen and (min-width: 992px) {
+  .custom .react-kanban-board {
+    width: calc(var(--size-large));
   }
+  .custom .react-kanban-column {
+    width: calc(var(--size-large) - 40px);
+  }
+  .custom .react-kanban-card {
+    width: calc(var(--size-large) - 70px);
+  }
+}
+
+/* Extra-Large devices (laptops/desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+  .custom .react-kanban-board {
+    width: calc(var(--size-xlarge));
+  }
+  .custom .react-kanban-column {
+    width: calc(var(--size-xlarge) - 40px);
+  }
+  .custom .react-kanban-card {
+    width: calc(var(--size-xlarge) - 70px);
+  }
+}
+
+.custom .react-kanban-column {
+  display: block !important;
+}
+
+.custom .react-kanban-card {
+  display: flex;
+  max-width: none;
+  min-width: 0;
+}
+
+/* Extra small devices (phones, 600px and down) */
+/* @media only screen and (max-width: 600px) {
+  .example {background: red;}
+} */
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+/* @media only screen and (min-width: 600px) {
+  .example {background: green;}
 } */
 
 .no-overflow {

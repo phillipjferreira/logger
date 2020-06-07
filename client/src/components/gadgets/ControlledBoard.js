@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-// import PropTypes from 'prop-types';
 import Board, { moveCard } from '@lourenci/react-kanban';
 import '@lourenci/react-kanban/dist/styles.css';
 import BoardCard from './BoardCard';
@@ -73,7 +72,5 @@ const ControlledBoard = ({ tickets, onCardDragEnd, view }) => {
     </Board>
   );
 };
-
-// ControlledBoard.propTypes = {};
 
 export default ControlledBoard;
