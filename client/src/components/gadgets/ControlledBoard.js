@@ -2,14 +2,18 @@ import React, { useState } from 'react';
 // import PropTypes from 'prop-types';
 import Board, { moveCard } from '@lourenci/react-kanban';
 import '@lourenci/react-kanban/dist/styles.css';
+import BoardCard from './BoardCard';
 
-const ControlledBoard = ({ tickets, onCardDragEnd }) => {
+const ControlledBoard = ({ tickets, onCardDragEnd, view }) => {
   let todoTickets = [],
     inprogressTickets = [],
     doneTickets = [];
   tickets.map((ticket) => {
     let obj = {
-      title: ticket.name,
+      title:
+        ticket.name.length > 22
+          ? ticket.name.substring(0, 21).concat('...')
+          : ticket.name,
       description:
         ticket.description && ticket.description.length > 55
           ? ticket.description.substring(0, 54).concat('...')
@@ -50,11 +54,6 @@ const ControlledBoard = ({ tickets, onCardDragEnd }) => {
   // You need to control the state yourself.
   const [controlledBoard, setBoard] = useState(board);
 
-  // const callback = (props) => {
-  //   handleCardMove(props);
-  //   onCardDragEnd(props);
-  // };
-
   function handleCardMove(_card, source, destination) {
     const updatedBoard = moveCard(controlledBoard, source, destination);
     setBoard(updatedBoard);
@@ -66,6 +65,9 @@ const ControlledBoard = ({ tickets, onCardDragEnd }) => {
         handleCardMove(...props);
         onCardDragEnd(...props);
       }}
+      renderCard={(card, { dragging }) => (
+        <BoardCard card={card} dragging={dragging} view={view}></BoardCard>
+      )}
       disableColumnDrag>
       {controlledBoard}
     </Board>

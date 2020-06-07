@@ -82,11 +82,8 @@ export const editTicket = (formData, history) => async (dispatch) => {
   };
 
   try {
-    console.log(formData);
-
     const id = formData.id;
     delete formData.id;
-    console.log(formData);
 
     // !formData.lead && delete formData.lead;
     // !formData.description && delete formData.description;

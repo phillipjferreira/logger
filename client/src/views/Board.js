@@ -29,11 +29,16 @@ const Board = ({
   }, []);
 
   const onDrag = (card, source, destination) => {
-    console.log(destination);
-    editTicket({
-      id: card.id,
-      status: ['To-Do', 'In-Progress', 'Done'][destination.toColumnId],
-    });
+    if (source.fromColumnId != destination.toColumnId) {
+      editTicket({
+        id: card.id,
+        status: ['To-Do', 'In-Progress', 'Done'][destination.toColumnId],
+      });
+    }
+  };
+
+  const viewTicket = (id) => {
+    console.log(tickets.filter((ticket) => ticket._id === id));
   };
 
   return (
@@ -49,7 +54,11 @@ const Board = ({
         </Row>
         <Row>
           <Col lg='12' className='mx-auto mt-4'>
-            <ControlledBoard onCardDragEnd={onDrag} tickets={tickets} />
+            <ControlledBoard
+              onCardDragEnd={onDrag}
+              tickets={tickets}
+              view={viewTicket}
+            />
           </Col>
         </Row>
       </Container>
