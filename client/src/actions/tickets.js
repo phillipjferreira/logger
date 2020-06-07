@@ -82,15 +82,19 @@ export const editTicket = (formData, history) => async (dispatch) => {
   };
 
   try {
+    console.log(formData);
+
     const id = formData.id;
     delete formData.id;
+    console.log(formData);
+
     // !formData.lead && delete formData.lead;
     // !formData.description && delete formData.description;
     await axios.put(`/tickets/${id}`, formData, config);
 
     dispatch(setAlert('Ticket Updated', 'success'));
 
-    history.goBack();
+    history && history.goBack();
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {

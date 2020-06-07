@@ -4,7 +4,7 @@ import {
   createLoadingSelector,
   createErrorMessageSelector,
 } from '../Selectors';
-import { loadProjects, selectProject } from '../actions/projects';
+import { selectProject } from '../actions/projects';
 import { loadTickets } from '../actions/tickets';
 import { connect } from 'react-redux';
 // import PropTypes from 'prop-types';
