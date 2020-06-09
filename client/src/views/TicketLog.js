@@ -31,13 +31,10 @@ const TicketLog = ({
   useEffect(() => {
     setSkip(true);
     selectProject(projectid);
-    
+    loadSprints(projectid);
     loadTickets(projectid, 'project');
   }, []);
 
-  useEffect(() => {
-  skip && loadSprints(projectid);;
-  }, [sprints])
 
   const onDrag = (card, source, destination) => {
     let temp = destination.toColumnId;
