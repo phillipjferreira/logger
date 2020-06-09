@@ -6,6 +6,11 @@ const SprintSchema = new mongoose.Schema({
   endDate: Date,
   goal: String,
   project: { type: mongoose.Schema.Types.ObjectId, ref: 'Project' },
+  status: {
+    type: String,
+    enum: ['Planned', 'Active', 'Complete'],
+    default: 'Planned',
+  },
 });
 
 module.exports = mongoose.model('Sprint', SprintSchema);

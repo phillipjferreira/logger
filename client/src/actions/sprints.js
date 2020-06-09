@@ -8,7 +8,7 @@ import { setAlert } from './alert';
 import setAuthToken from '../utils/setAuthToken';
 
 // Load Sprints
-export const loadSprints = (projectid) => async (dispatch) => {
+export const loadSprints = (projectid, active) => async (dispatch) => {
   dispatch({
     type: GET_SPRINTS_REQUEST,
   });
@@ -17,7 +17,13 @@ export const loadSprints = (projectid) => async (dispatch) => {
   }
   try {
     // Load Sprints by Project ID (for TicketLog, filter Active sprint for Board)
-    const res = await axios.get(`/sprints/${projectid}`);
+    let res;
+    if (active) {
+      res = await axios.get(`/sprints/active/${projectid}`);
+    }
+    else {
+      res = await axios.get(`/sprints/${projectid}`);
+    }
     dispatch({
       type: GET_SPRINTS_SUCCESS,
       payload: res.data,
