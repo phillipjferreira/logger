@@ -1,5 +1,6 @@
 import React, { useEffect, useState, Fragment } from 'react';
 import { Button, Container, Row, Col } from 'shards-react';
+import { withRouter } from 'react-router-dom';
 import {
   createLoadingSelector,
   createErrorMessageSelector,
@@ -23,6 +24,7 @@ const TicketLog = ({
   loadTickets,
   editTicket,
   isLoading,
+  history,
 }) => {
   const { projectid } = useParams();
   const [skip, setSkip] = useState(false);
@@ -34,7 +36,6 @@ const TicketLog = ({
     loadSprints(projectid);
     loadTickets(projectid, 'project');
   }, []);
-
 
   const onDrag = (card, source, destination) => {
     let temp = destination.toColumnId;
@@ -56,6 +57,10 @@ const TicketLog = ({
     toggle();
   };
 
+  const newSprint = () => {
+    history.push(`/projects/${projectid}/new-sprint`);
+  };
+
   return (
     skip &&
     !isLoading && (
@@ -67,11 +72,25 @@ const TicketLog = ({
           open={modalOpen}
         />
         <Container fluid className='main-content-container px-4 custom'>
-          <Row>
-            <Col lg='12' className='mx-auto mt-4'>
-              <h1>Ticket Log</h1>
-              <h5>{project.name}</h5>
+          <Row noGutters className='page-header pt-4'>
+            <Col xs='12' sm='4' className='text-center, text-md-left, mb-sm-0'>
+              <span className='text-uppercase page-subtitle'>
+                {project.name}
+              </span>
+              <h2>Ticket Log</h2>
             </Col>
+          </Row>
+          <hr />
+          <Row className='pt-4 px-4 tab-title'>
+            <p>Lead: {project.lead || 'N/A'}</p>
+
+            <p>Description: {project.description || 'N/A'}</p>
+
+            <p>
+              <Button className='btn-success' onClick={newSprint}>
+                Add New Sprint
+              </Button>
+            </p>
           </Row>
           <Row>
             <Col lg='12' className='mx-auto mt-4'>
@@ -114,4 +133,4 @@ export default connect(mapStateToProps, {
   loadTickets,
   loadTicket,
   editTicket,
-})(TicketLog);
+})(withRouter(TicketLog));

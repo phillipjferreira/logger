@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Board, { moveCard } from '@lourenci/react-kanban';
 import '@lourenci/react-kanban/dist/styles.css';
 import CustomCard from './CustomCard';
+// import CustomColumnHeader from './CustomColumnHeader';
 
 const CustomBoard = ({ onCardDragEnd, tickets, sprints, view }) => {
   let arr = [];
@@ -50,7 +51,11 @@ const CustomBoard = ({ onCardDragEnd, tickets, sprints, view }) => {
       renderCard={(card, { dragging }) => (
         <CustomCard card={card} dragging={dragging} view={view}></CustomCard>
       )}
-      disableColumnDrag>
+      disableColumnDrag
+      // renderColumnHeader={({ title, status, updateStatus }) => (
+      //   <CustomColumnHeader title={title} status={status} updateStatus={updateStatus} />
+      // )}
+    >
       {customBoard}
     </Board>
   );

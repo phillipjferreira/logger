@@ -6,6 +6,7 @@ import {
   createErrorMessageSelector,
 } from '../Selectors';
 import { useParams } from 'react-router';
+import { selectProject } from '../actions/projects';
 import { loadSprints, editSprint } from '../actions/sprints';
 import { loadTicket, loadTickets, editTicket } from '../actions/tickets';
 import { Row, Col, Container, Button } from 'shards-react';
@@ -14,11 +15,13 @@ import PropTypes from 'prop-types';
 import ViewTicket from '../components/modals/ViewTicket';
 
 const Board = ({
+  projects: { project },
   sprints: { sprints },
   tickets: { tickets, ticket, loading },
   loadTicket,
   loadTickets,
   loadSprints,
+  selectProject,
   editTicket,
   editSprint,
   isLoading,
@@ -33,6 +36,7 @@ const Board = ({
 
   useEffect(() => {
     setSkip(true);
+    selectProject(projectid);
     loadSprints(projectid);
   }, []);
 
@@ -97,39 +101,36 @@ const Board = ({
           open={modalOpen}
         />
         <Container fluid className='main-content-container px-4'>
-          <Row noGutters className='page-header py-4'>
+          <Row noGutters className='page-header pt-4'>
             <Col xs='12' sm='4' className='text-center, text-md-left, mb-sm-0'>
-              <span className='text-uppercase page-subtitle'>Sprint Board</span>
-              <h3 className='page-title'>
-                {activeSprint && activeSprint.name}
-              </h3>
+              <span className='text-uppercase page-subtitle'>
+                {activeSprint && project.name + ' - ' + activeSprint.name}
+              </span>
+              <h2>Sprint Board</h2>
             </Col>
           </Row>
+          <hr />
           {activeSprint && (
             <Fragment>
-              <Row>
-                <Col sm='6' md='4'>
-                  <h5 className='card-title'>
-                    Start Date: {activeSprint.startDate || 'N/A'}
-                  </h5>
-                </Col>
-                <Col sm='6' md='4'>
-                  <h5 className='card-title'>
-                    End Date: {activeSprint.endDate || 'N/A'}
-                  </h5>
-                </Col>
-                <Col sm='6' md='4'>
+              <Row className='pt-4 px-4 tab-title'>
+                <p className='card-title'>
+                  Start Date: {activeSprint.startDate || 'N/A'}
+                </p>
+
+                <p className='card-title'>
+                  End Date: {activeSprint.endDate || 'N/A'}
+                </p>
+
+                <p>
                   <Button className='btn-success' onClick={submit}>
                     Complete Sprint
                   </Button>
-                </Col>
+                </p>
               </Row>
-              <Row>
-                <Col sm='12'>
-                  <p className='card-text text-muted'>
-                    Goal: {activeSprint.goal || 'N/A'}
-                  </p>
-                </Col>
+              <Row className='px-4'>
+                <p className='card-text text-muted'>
+                  Goal: {activeSprint.goal || 'N/A'}
+                </p>
               </Row>
             </Fragment>
           )}
@@ -154,8 +155,10 @@ const Board = ({
 };
 
 Board.propTypes = {
+  projects: PropTypes.object.isRequired,
   tickets: PropTypes.object.isRequired,
   sprints: PropTypes.object.isRequired,
+  selectProject: PropTypes.func.isRequired,
   loadTicket: PropTypes.func.isRequired,
   loadTickets: PropTypes.func.isRequired,
   loadSprints: PropTypes.func.isRequired,
@@ -166,11 +169,13 @@ Board.propTypes = {
 const loadingSelector = createLoadingSelector(['GET_TICKETS', 'GET_SPRINTS']);
 const mapStateToProps = (state) => ({
   isLoading: loadingSelector(state),
+  projects: state.projects,
   tickets: state.tickets,
   sprints: state.sprints,
 });
 
 export default connect(mapStateToProps, {
+  selectProject,
   loadTicket,
   loadTickets,
   loadSprints,
