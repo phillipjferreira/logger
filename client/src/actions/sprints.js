@@ -18,7 +18,7 @@ export const loadSprints = (projectid) => async (dispatch) => {
   try {
     // Load Sprints by Project ID (for TicketLog and Board)
     const res = await axios.get(`/sprints/${projectid}`);
-    
+
     dispatch({
       type: GET_SPRINTS_SUCCESS,
       payload: res.data,
@@ -73,13 +73,18 @@ export const editSprint = (formData, history) => async (dispatch) => {
   try {
     const id = formData.id;
     delete formData.id;
-    // !formData.lead && delete formData.lead;
-    // !formData.description && delete formData.description;
+    !formData.startDate && delete formData.startDate;
+    !formData.endDate && delete formData.endDate;
+    !formData.goal && delete formData.goal;
     await axios.put(`/sprints/${id}`, formData, config);
 
     dispatch(setAlert('Sprint Updated', 'success'));
 
-    history.goBack();
+    if (formData.status === 'Complete') {
+      history.push(`/projects/${formData.project}/ticket-log`);
+    } else {
+      history.goBack();
+    }
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {
