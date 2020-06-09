@@ -12,6 +12,9 @@ const CustomBoard = ({
   updateStatus,
 }) => {
   let arr = [];
+  const isActive = Boolean(
+    sprints.find((sprint) => sprint.status === 'Active')
+  );
   const backlog = { _id: 'Backlog', name: 'Backlog' };
   Array.isArray(sprints)
     ? (arr = [...sprints, backlog])
@@ -65,6 +68,7 @@ const CustomBoard = ({
           status={status}
           id={id}
           updateStatus={updateStatus}
+          isActive={isActive}
         />
       )}
     >
