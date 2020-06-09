@@ -7,7 +7,7 @@ import {
 } from '../Selectors';
 import { useParams } from 'react-router';
 import { selectProject } from '../actions/projects';
-import { loadSprints } from '../actions/sprints';
+import { loadSprints, editSprint } from '../actions/sprints';
 import { loadTickets, loadTicket, editTicket } from '../actions/tickets';
 import CustomBoard from '../components/gadgets/CustomBoard';
 import { connect } from 'react-redux';
@@ -23,6 +23,7 @@ const TicketLog = ({
   loadTicket,
   loadTickets,
   editTicket,
+  editSprint,
   isLoading,
   history,
 }) => {
@@ -59,6 +60,17 @@ const TicketLog = ({
 
   const newSprint = () => {
     history.push(`/projects/${projectid}/new-sprint`);
+  };
+
+  const updateStatus = (id, newStatus) => {
+    let sprint = sprints.find((sprint) => sprint._id === id);
+    if (sprint) {
+      sprint.status = newStatus;
+      sprint.id = id;
+      delete sprint._id;
+      console.log(history);
+      editSprint(sprint, history);
+    }
   };
 
   return (
@@ -99,6 +111,7 @@ const TicketLog = ({
                 tickets={tickets}
                 sprints={sprints}
                 view={viewTicket}
+                updateStatus={updateStatus}
               />
             </Col>
           </Row>
@@ -133,4 +146,5 @@ export default connect(mapStateToProps, {
   loadTickets,
   loadTicket,
   editTicket,
+  editSprint,
 })(withRouter(TicketLog));

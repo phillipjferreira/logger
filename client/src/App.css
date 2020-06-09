@@ -71,6 +71,14 @@
   margin-right: 5px;
 }
 
+.sprint-select {
+  width: auto;
+}
+
+.ticket-button {
+  padding: 0.375rem 0.75rem;
+}
+
 /* .no-margin {
   margin: 0;
 } */

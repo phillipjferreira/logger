@@ -11,10 +11,14 @@ const CustomCard = ({ card, dragging, view }) => {
     <div
       className={`react-kanban-card ${
         dragging ? 'react-kanban-card--dragging' : ''
-      }`}>
+      }`}
+    >
       {/* <div className='react-kanban-card__title'> */}
       <span>{card.title}</span>
-      <Button className={'btn-primary button-right'} onClick={handleClick}>
+      <Button
+        className={'btn-primary button-right ticket-button'}
+        onClick={handleClick}
+      >
         View
       </Button>
       {/* </div> */}

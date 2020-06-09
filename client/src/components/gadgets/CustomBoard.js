@@ -2,9 +2,15 @@ import React, { useState } from 'react';
 import Board, { moveCard } from '@lourenci/react-kanban';
 import '@lourenci/react-kanban/dist/styles.css';
 import CustomCard from './CustomCard';
-// import CustomColumnHeader from './CustomColumnHeader';
+import CustomColumnHeader from './CustomColumnHeader';
 
-const CustomBoard = ({ onCardDragEnd, tickets, sprints, view }) => {
+const CustomBoard = ({
+  onCardDragEnd,
+  tickets,
+  sprints,
+  view,
+  updateStatus,
+}) => {
   let arr = [];
   const backlog = { _id: 'Backlog', name: 'Backlog' };
   Array.isArray(sprints)
@@ -27,6 +33,7 @@ const CustomBoard = ({ onCardDragEnd, tickets, sprints, view }) => {
     return {
       id: sprint._id,
       title: sprint.name,
+      status: sprint.status,
       cards: output,
     };
   });
@@ -37,10 +44,10 @@ const CustomBoard = ({ onCardDragEnd, tickets, sprints, view }) => {
   // You need to control the state yourself.
   const [customBoard, setBoard] = useState(board);
 
-  function handleCardMove(_card, source, destination) {
+  const handleCardMove = (_card, source, destination) => {
     const updatedBoard = moveCard(customBoard, source, destination);
     setBoard(updatedBoard);
-  }
+  };
 
   return (
     <Board
@@ -52,9 +59,14 @@ const CustomBoard = ({ onCardDragEnd, tickets, sprints, view }) => {
         <CustomCard card={card} dragging={dragging} view={view}></CustomCard>
       )}
       disableColumnDrag
-      // renderColumnHeader={({ title, status, updateStatus }) => (
-      //   <CustomColumnHeader title={title} status={status} updateStatus={updateStatus} />
-      // )}
+      renderColumnHeader={({ title, status, id }) => (
+        <CustomColumnHeader
+          title={title}
+          status={status}
+          id={id}
+          updateStatus={updateStatus}
+        />
+      )}
     >
       {customBoard}
     </Board>

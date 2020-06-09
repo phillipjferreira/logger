@@ -80,8 +80,15 @@ export const editSprint = (formData, history) => async (dispatch) => {
 
     dispatch(setAlert('Sprint Updated', 'success'));
 
-    if (formData.status === 'Complete') {
-      history.push(`/projects/${formData.project}/ticket-log`);
+    if (
+      history.location.pathname.slice(-10) === 'ticket-log' ||
+      history.location.pathname.slice(-5) === 'board'
+    ) {
+      if (formData.status === 'Complete') {
+        history.push(`/projects/${formData.project}/ticket-log`);
+      } else if (formData.status === 'Active') {
+        history.push(`/projects/${formData.project}/board`);
+      }
     } else {
       history.goBack();
     }
