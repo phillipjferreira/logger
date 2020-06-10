@@ -13,7 +13,6 @@ const CustomCard = ({ card, dragging, view }) => {
         dragging ? 'react-kanban-card--dragging' : ''
       }`}
     >
-      {/* <div className='react-kanban-card__title'> */}
       <span>{card.title}</span>
       <Button
         className={'btn-primary button-right ticket-button'}

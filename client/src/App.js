@@ -13,7 +13,6 @@ import setAuthToken from './utils/setAuthToken';
 
 // CSS
 import 'bootstrap/dist/css/bootstrap.min.css';
-import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 import './assets/main.scss';
 import './App.css';
 

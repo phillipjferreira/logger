@@ -100,8 +100,13 @@ const TicketLog = ({
             </Col>
           </Row>
           <hr />
-          <Row className='pt-4 px-4 tab-title'>
-            <p>Lead: {project.lead || 'N/A'}</p>
+          <Row className='pt-4 px-4 tab-title font-400'>
+            <p>
+              Lead:{' '}
+              {(project.lead &&
+                users.find((obj) => obj._id === project.lead).name) ||
+                'N/A'}
+            </p>
 
             <p>Description: {project.description || 'N/A'}</p>
 

@@ -11,7 +11,8 @@ const BoardCard = ({ card, dragging, view }) => {
     <div
       className={`react-kanban-card ${
         dragging ? 'react-kanban-card--dragging' : ''
-      }`}>
+      }`}
+    >
       <span>
         <div className='react-kanban-card__title'>
           <span>{card.title}</span>
@@ -20,7 +21,9 @@ const BoardCard = ({ card, dragging, view }) => {
           </Button>
         </div>
       </span>
-      <div className='react-kanban-card__description'>{card.description}</div>
+      <div className='react-kanban-card__description font-400'>
+        {card.description}
+      </div>
     </div>
   );
 };

@@ -44,7 +44,7 @@ const ViewTicket = ({
               <h4 className='form-text m-0'>{name}</h4>
             </Col>
           </Row>
-          <Row form className='mx-4 modal-scroll'>
+          <Row form className='mx-4 modal-scroll font-400'>
             <Col lg='12'>
               <Row>
                 {/* Status */}

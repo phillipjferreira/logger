@@ -7,6 +7,11 @@
   --size-large: 872px;
   --size-xlarge: 1052px;
   --subtract: 40px;
+  font-weight: 400 !important;
+}
+
+body .font-400 {
+  font-weight: 400 !important;
 }
 
 .landing-container {
