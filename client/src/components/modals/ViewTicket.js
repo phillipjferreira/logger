@@ -1,22 +1,37 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import { NavLink as RouteNavLink } from 'react-router-dom';
-
+import HistoryLog from './HistoryLog';
 import { Row, Col, Button, Modal } from 'shards-react';
 
-const ViewTicket = ({ ticket, isLoading, toggle, open }) => {
+const ViewTicket = ({
+  users,
+  project,
+  sprints,
+  ticket,
+  isLoading,
+  toggle,
+  open,
+}) => {
+  const [hist, setHistory] = useState(false);
+  const toggleHistory = () => {
+    setHistory(!hist);
+  };
   const {
     _id,
     storyPoint,
     name,
     status,
-    project,
     sprint,
     assignedTo,
     assignedBy,
     created,
     updated,
     description,
+    history,
   } = ticket;
+
+  // let resolveSprint = ;
+
   return (
     <Modal open={open} toggle={toggle} size='lg'>
       {isLoading ? (
@@ -29,7 +44,7 @@ const ViewTicket = ({ ticket, isLoading, toggle, open }) => {
               <h4 className='form-text m-0'>{name}</h4>
             </Col>
           </Row>
-          <Row form className='mx-4'>
+          <Row form className='mx-4 modal-scroll'>
             <Col lg='12'>
               <Row>
                 {/* Status */}
@@ -53,7 +68,7 @@ const ViewTicket = ({ ticket, isLoading, toggle, open }) => {
                 <Col md='6' className='form-group'>
                   <label htmlFor='project'>Project:&nbsp;</label>
                   <span disabled id='project' name='project'>
-                    {project}
+                    {project.name}
                   </span>
                 </Col>
                 {/* Sprint */}
@@ -61,7 +76,9 @@ const ViewTicket = ({ ticket, isLoading, toggle, open }) => {
                   <label htmlFor='sprint'>Sprint:&nbsp;</label>
 
                   <span id='sprint' name='sprint'>
-                    {sprint}
+                    {sprint &&
+                      Array.isArray(sprints) &&
+                      sprints.find((obj) => obj._id === sprint).name}
                   </span>
                 </Col>
               </Row>
@@ -70,14 +87,16 @@ const ViewTicket = ({ ticket, isLoading, toggle, open }) => {
                 <Col md='6' className='form-group'>
                   <label htmlFor='assignedTo'>Assigned To:&nbsp;</label>
                   <span id='assignedTo' name='assignedTo'>
-                    {assignedTo}
+                    {assignedTo &&
+                      users.find((obj) => obj._id === assignedTo).name}
                   </span>
                 </Col>
                 {/* Assigned By */}
                 <Col md='6' className='form-group'>
                   <label htmlFor='assignedBy'>Assigned By:&nbsp;</label>
                   <span id='assignedBy' name='assignedBy'>
-                    {assignedBy}
+                    {assignedBy &&
+                      users.find((obj) => obj._id === assignedBy).name}
                   </span>
                 </Col>
               </Row>
@@ -85,10 +104,7 @@ const ViewTicket = ({ ticket, isLoading, toggle, open }) => {
                 {/* Description */}
                 <Col>
                   <label htmlFor='description'>Description:&nbsp;</label>
-                  <span
-                    style={{ minHeight: '87px' }}
-                    id='description'
-                    name='description'>
+                  <span id='description' name='description'>
                     {description}
                   </span>
                 </Col>
@@ -118,12 +134,23 @@ const ViewTicket = ({ ticket, isLoading, toggle, open }) => {
               <Button onClick={toggle} className='btn-secondary'>
                 Close
               </Button>
+              <Button onClick={toggleHistory} className='btn-primary'>
+                {hist ? 'Hide History' : 'Show History'}
+              </Button>
               <Button
                 tag={RouteNavLink}
-                to={`/projects/${project}/${_id}/edit-ticket`}
-                className='btn-success'>
+                to={`/projects/${project._id}/${_id}/edit-ticket`}
+                className='btn-success'
+              >
                 Edit Ticket
               </Button>
+            </Col>
+            {/* Historyy */}
+            <Col className={hist ? '' : 'hide'}>
+              <label htmlFor='history'>History:&nbsp;</label>
+              <span id='history' name='history'>
+                <HistoryLog history={history} users={users} />
+              </span>
             </Col>
           </Row>
         </Fragment>

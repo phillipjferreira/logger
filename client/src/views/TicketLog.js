@@ -9,12 +9,15 @@ import { useParams } from 'react-router';
 import { selectProject } from '../actions/projects';
 import { loadSprints, editSprint } from '../actions/sprints';
 import { loadTickets, loadTicket, editTicket } from '../actions/tickets';
+import { loadUsers } from '../actions/users';
 import CustomBoard from '../components/gadgets/CustomBoard';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ViewTicket from '../components/modals/ViewTicket';
 
 const TicketLog = ({
+  users: { users },
+  loadUsers,
   projects: { project },
   selectProject,
   sprints: { sprints },
@@ -34,6 +37,7 @@ const TicketLog = ({
   useEffect(() => {
     setSkip(true);
     selectProject(projectid);
+    loadUsers();
     loadSprints(projectid);
     loadTickets(projectid, 'project');
   }, []);
@@ -78,6 +82,9 @@ const TicketLog = ({
     !isLoading && (
       <Fragment>
         <ViewTicket
+          users={users}
+          project={project}
+          sprints={sprints}
           ticket={ticket}
           isLoading={loading}
           toggle={toggle}
@@ -123,24 +130,28 @@ const TicketLog = ({
 
 TicketLog.propTypes = {
   selectProject: PropTypes.func.isRequired,
+  loadUsers: PropTypes.func.isRequired,
   loadSprints: PropTypes.func.isRequired,
   loadTickets: PropTypes.func.isRequired,
   loadTicket: PropTypes.func.isRequired,
 };
 
 const loadingSelector = createLoadingSelector([
+  'GET_USERS',
   'GET_TICKETS',
   'GET_SPRINTS',
   'SELECT_PROJECT',
 ]);
 const mapStateToProps = (state) => ({
   isLoading: loadingSelector(state),
+  users: state.users,
   projects: state.projects,
   sprints: state.sprints,
   tickets: state.tickets,
 });
 
 export default connect(mapStateToProps, {
+  loadUsers,
   selectProject,
   loadSprints,
   loadTickets,

@@ -13,11 +13,14 @@ import { Row, Col, Container, Button } from 'shards-react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ViewTicket from '../components/modals/ViewTicket';
+import { loadUsers } from '../actions/users';
 
 const Board = ({
+  users: { users },
   projects: { project },
   sprints: { sprints },
   tickets: { tickets, ticket, loading },
+  loadUsers,
   loadTicket,
   loadTickets,
   loadSprints,
@@ -36,6 +39,7 @@ const Board = ({
 
   useEffect(() => {
     setSkip(true);
+    loadUsers();
     selectProject(projectid);
     loadSprints(projectid);
   }, []);
@@ -95,6 +99,9 @@ const Board = ({
     show && (
       <Fragment>
         <ViewTicket
+          users={users}
+          project={project}
+          sprints={sprints}
           ticket={ticket}
           isLoading={loading}
           toggle={toggle}
@@ -114,11 +121,13 @@ const Board = ({
             <Fragment>
               <Row className='pt-4 px-4 tab-title'>
                 <p className='card-title'>
-                  Start Date: {activeSprint.startDate || 'N/A'}
+                  Start Date:&nbsp;
+                  {new Date(activeSprint.startDate).toDateString() || 'N/A'}
                 </p>
 
                 <p className='card-title'>
-                  End Date: {activeSprint.endDate || 'N/A'}
+                  End Date:&nbsp;
+                  {new Date(activeSprint.endDate).toDateString() || 'N/A'}
                 </p>
 
                 <p>
@@ -166,9 +175,14 @@ Board.propTypes = {
   editSprint: PropTypes.func.isRequired,
 };
 
-const loadingSelector = createLoadingSelector(['GET_TICKETS', 'GET_SPRINTS']);
+const loadingSelector = createLoadingSelector([
+  'GET_TICKETS',
+  'GET_SPRINTS',
+  'GET_USERS',
+]);
 const mapStateToProps = (state) => ({
   isLoading: loadingSelector(state),
+  users: state.users,
   projects: state.projects,
   tickets: state.tickets,
   sprints: state.sprints,
@@ -177,6 +191,7 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   selectProject,
   loadTicket,
+  loadUsers,
   loadTickets,
   loadSprints,
   editTicket,

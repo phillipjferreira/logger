@@ -21,7 +21,6 @@ export const loadTicket = (id) => async (dispatch) => {
   try {
     const res = await axios.get(`/tickets/${id}`);
     const test = await axios.get(`/history/${id}`);
-    // console.log(test.data);
 
     dispatch({
       type: GET_TICKET_SUC,

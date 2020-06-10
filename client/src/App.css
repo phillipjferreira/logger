@@ -220,6 +220,21 @@
   pointer-events: none;
 }
 
+.history-object {
+  display: block;
+}
+
+.history-field {
+  display: block;
+  text-indent: 4rem;
+}
+
+.modal-scroll {
+  max-height: 80vh;
+  overflow-y: auto;
+  padding-right: 15px;
+}
+
 /* body {
   font-size: 30px;
 } */
