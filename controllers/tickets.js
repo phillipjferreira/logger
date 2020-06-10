@@ -1,4 +1,5 @@
 const auth = require('../middleware/auth');
+const mongoose = require('mongoose');
 
 // import models
 // const User = require('../models/User');
@@ -97,7 +98,10 @@ exports.editTicket = [
   auth,
   async (req, res) => {
     try {
-      let ticket = await Ticket.findByIdAndUpdate(req.params.id, req.body);
+      let ticket = await Ticket.findByIdAndUpdate(req.params.id, req.body, {
+        new: true,
+        __user: mongoose.Types.ObjectId(req.user.id),
+      });
       res.json(ticket);
     } catch (err) {
       console.error(err.message);

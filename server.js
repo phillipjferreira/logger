@@ -20,6 +20,7 @@ app.use('/projects', require('./routes/projects'));
 app.use('/sprints', require('./routes/sprints'));
 app.use('/epics', require('./routes/epics'));
 app.use('/tickets', require('./routes/tickets'));
+app.use('/history', require('./routes/history'));
 
 // Production build
 if (process.env.NODE_ENV === 'production') {
