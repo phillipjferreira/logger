@@ -3,6 +3,9 @@ import {
   GET_SPRINTS_REQUEST,
   GET_SPRINTS_SUCCESS,
   GET_SPRINTS_ERROR,
+  GET_SPRINT_HISTORY_REQ,
+  GET_SPRINT_HISTORY_SUC,
+  GET_SPRINT_HISTORY_ERR,
 } from './types';
 import { setAlert } from './alert';
 import setAuthToken from '../utils/setAuthToken';
@@ -97,5 +100,32 @@ export const editSprint = (formData, history) => async (dispatch) => {
     if (errors) {
       errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
     }
+  }
+};
+
+// Get Sprint History
+export const getSprintHistory = (id) => async (dispatch) => {
+  dispatch({
+    type: GET_SPRINT_HISTORY_REQ,
+  });
+  if (localStorage.token) {
+    setAuthToken(localStorage.token);
+  }
+
+  try {
+    const res = await axios.get(`/history/sprint/${id}`);
+    dispatch({
+      type: GET_SPRINT_HISTORY_SUC,
+      payload: res.data,
+    });
+  } catch (err) {
+    const errors = err.response.data.errors;
+    if (errors) {
+      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+    }
+    dispatch({
+      type: GET_SPRINT_HISTORY_ERR,
+    });
+    dispatch(setAlert('Error loading sprints', 'danger'));
   }
 };
