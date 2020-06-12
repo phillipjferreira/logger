@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
@@ -34,7 +34,6 @@ const EditTicketDisplay = ({
     assignedTo,
     assignedBy,
     created,
-    updated,
     description,
   } = initialState;
   return (
@@ -56,7 +55,8 @@ const EditTicketDisplay = ({
                     {/* Story Point Estimate -- Large Device */}
                     <Col
                       md='2'
-                      className='form-group story label-right hide-small'>
+                      className='form-group story label-right hide-small'
+                    >
                       <label htmlFor='storyPoint'>
                         Story
                         <br />
@@ -70,7 +70,8 @@ const EditTicketDisplay = ({
                         value={storyPoint}
                         onChange={(e) => {
                           onChange(e);
-                        }}>
+                        }}
+                      >
                         <option value={''}>None</option>
                         {[1, 2, 3, 5, 8, 13, 20, 40, 100].map((num) => (
                           <option value={num} key={num}>
@@ -104,7 +105,8 @@ const EditTicketDisplay = ({
                             value={status}
                             onChange={(e) => {
                               onChange(e);
-                            }}>
+                            }}
+                          >
                             <option value={''}>None</option>
                             {['To-Do', 'In-Progress', 'Done'].map((stat) => (
                               <option value={stat} key={stat}>
@@ -124,7 +126,8 @@ const EditTicketDisplay = ({
                             value={storyPoint}
                             onChange={(e) => {
                               onChange(e);
-                            }}>
+                            }}
+                          >
                             <option value={''}>None</option>
                             {[1, 2, 3, 5, 8, 13, 20, 40, 100].map((num) => (
                               <option value={num} key={num}>
@@ -146,7 +149,8 @@ const EditTicketDisplay = ({
                             onChange={(e) => {
                               onChange(e);
                             }}
-                            required>
+                            required
+                          >
                             {projects.map((project) => (
                               <option value={project._id} key={project._id}>
                                 {project.name}
@@ -164,7 +168,8 @@ const EditTicketDisplay = ({
                             value={sprint}
                             onChange={(e) => {
                               onChange(e);
-                            }}>
+                            }}
+                          >
                             <option value={''}>Backlog</option>
                             {sprints.map((sprint) => (
                               <option value={sprint._id} key={sprint._id}>
@@ -184,7 +189,8 @@ const EditTicketDisplay = ({
                             value={assignedTo}
                             onChange={(e) => {
                               onChange(e);
-                            }}>
+                            }}
+                          >
                             <option value={''}>None</option>
                             {users.map((user) => (
                               <option value={user._id} key={user._id}>
@@ -203,7 +209,8 @@ const EditTicketDisplay = ({
                             value={assignedBy}
                             onChange={(e) => {
                               onChange(e);
-                            }}>
+                            }}
+                          >
                             {users.map((user) => (
                               <option value={user._id} key={user._id}>
                                 {user.name}
@@ -251,7 +258,8 @@ const EditTicketDisplay = ({
                     size='sm'
                     theme='accent'
                     className='ml-auto d-table mr-3'
-                    type='submit'>
+                    type='submit'
+                  >
                     Save Ticket
                   </Button>
                 </Form>

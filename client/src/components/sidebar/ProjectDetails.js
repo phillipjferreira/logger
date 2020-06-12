@@ -11,16 +11,9 @@ const ProjectDetails = ({ project }) => {
       <NavItem>
         <NavLink
           tag={RouteNavLink}
-          to={`/projects/${project._id}/timeline`}
-          className='py-4'>
-          Timeline
-        </NavLink>
-      </NavItem>
-      <NavItem>
-        <NavLink
-          tag={RouteNavLink}
           to={`/projects/${project._id}/ticket-log`}
-          className='py-4'>
+          className='py-4'
+        >
           Ticket Log
         </NavLink>
       </NavItem>
@@ -28,7 +21,8 @@ const ProjectDetails = ({ project }) => {
         <NavLink
           tag={RouteNavLink}
           to={`/projects/${project._id}/board`}
-          className='py-4'>
+          className='py-4'
+        >
           Sprint Board
         </NavLink>
       </NavItem>
@@ -36,7 +30,8 @@ const ProjectDetails = ({ project }) => {
         <NavLink
           tag={RouteNavLink}
           to={`/projects/${project._id}/metrics`}
-          className='py-4'>
+          className='py-4'
+        >
           {'Charts & Metrics'}
         </NavLink>
       </NavItem>

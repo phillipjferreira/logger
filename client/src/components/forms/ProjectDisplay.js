@@ -36,7 +36,7 @@ const ProjectDisplay = ({
     dispatch({ field: e.target.name, value: e.target.value });
   };
 
-  const { name, key, lead, description, id } = state;
+  const { name, lead, description, id } = state;
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -88,7 +88,8 @@ const ProjectDisplay = ({
                             value={lead}
                             onChange={(e) => {
                               onChange(e);
-                            }}>
+                            }}
+                          >
                             <option value={''}>None</option>
                             {users.map((user) => (
                               <option value={user._id} key={user._id}>
@@ -118,7 +119,8 @@ const ProjectDisplay = ({
                     size='sm'
                     theme='accent'
                     className='ml-auto d-table mr-3'
-                    type='submit'>
+                    type='submit'
+                  >
                     Save Project
                   </Button>
                 </Form>

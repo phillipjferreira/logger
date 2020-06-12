@@ -1,12 +1,9 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import UserInfo from '../components/navbar/UserInfo';
-import {
-  createLoadingSelector,
-  createErrorMessageSelector,
-} from '../Selectors';
+import { createLoadingSelector } from '../Selectors';
 import { Row, Col, Container, Card, CardBody, CardHeader } from 'shards-react';
-import Loader from 'react-loader-spinner';
+// import Loader from 'react-loader-spinner';
 import { connect } from 'react-redux';
 import { loadUsers, updateUser } from '../actions/users';
 

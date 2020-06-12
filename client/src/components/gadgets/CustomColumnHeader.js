@@ -1,11 +1,11 @@
-import React, { useState, Fragment } from 'react';
-import { Form, Button, FormSelect } from 'shards-react';
+import React, { Fragment } from 'react';
+import { Button } from 'shards-react';
 
 const CustomColumnHeader = ({ title, status, id, updateStatus, isActive }) => {
   return (
     <div className='react-kanban-column-header tab-title'>
       <span>{title}</span>
-      {id != 'Backlog' && (
+      {id !== 'Backlog' && (
         <Fragment>
           <span className='text-muted'>Status: {status}</span>
           {status === 'Planned' && (

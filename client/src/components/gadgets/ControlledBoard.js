@@ -7,7 +7,7 @@ const ControlledBoard = ({ tickets, onCardDragEnd, view }) => {
   let todoTickets = [],
     inprogressTickets = [],
     doneTickets = [];
-  tickets.map((ticket) => {
+  tickets.forEach((ticket) => {
     let obj = {
       title:
         ticket.name.length > 22
@@ -67,7 +67,8 @@ const ControlledBoard = ({ tickets, onCardDragEnd, view }) => {
       renderCard={(card, { dragging }) => (
         <BoardCard card={card} dragging={dragging} view={view}></BoardCard>
       )}
-      disableColumnDrag>
+      disableColumnDrag
+    >
       {controlledBoard}
     </Board>
   );

@@ -5,7 +5,7 @@ export const createLoadingSelector = (actions) => (state) => {
   // returns true only when all actions is not loading
   return (
     !state.loading ||
-    Object.keys(state.loading).length == 0 ||
+    Object.keys(state.loading).length === 0 ||
     actions.some((action) => state.loading[action])
   );
 };
@@ -26,7 +26,6 @@ export const createBurndownChartSelector = () => ({ sprints, tickets }) => {
   // Take in state.sprints.sprintHistory and tickets in sprint
   if (sprints.sprintHistory.history && sprints.sprintHistory.sprint) {
     const sprint = sprints.sprintHistory.sprint;
-    console.log(sprint);
 
     let sp = 0;
     tickets.tickets.forEach((ticket) => {
@@ -36,7 +35,7 @@ export const createBurndownChartSelector = () => ({ sprints, tickets }) => {
     });
 
     let output = [{ t: sprint.startDate, y: sp, name: 'Start' }];
-    sprints.sprintHistory.history.map((history) => {
+    sprints.sprintHistory.history.forEach((history) => {
       if (history.diff.status[1] === 'Done' && history.storyPoint) {
         sp = sp - Number(history.storyPoint);
       } else if (history.diff.status[0] === 'Done' && history.storyPoint) {

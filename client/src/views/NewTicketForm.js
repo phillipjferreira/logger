@@ -3,10 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import NewTicketDisplay from '../components/forms/NewTicketDisplay';
-import {
-  createLoadingSelector,
-  createErrorMessageSelector,
-} from '../Selectors';
+import { createLoadingSelector } from '../Selectors';
 import { loadProjects } from '../actions/projects';
 import { loadSprints } from '../actions/sprints';
 import { loadUsers } from '../actions/users';
@@ -27,7 +24,7 @@ const NewTicketFormContainer = ({
   useEffect(() => {
     loadProjects();
     loadUsers();
-  }, []);
+  }, [loadProjects, loadUsers]);
 
   const reducer = (state, { field, value }) => {
     return {
@@ -51,7 +48,7 @@ const NewTicketFormContainer = ({
 
   useEffect(() => {
     state.project && loadSprints(state.project);
-  }, [state.project]);
+  }, [state.project, loadSprints]);
 
   useEffect(() => {
     dispatch({ field: 'sprint', value: '' });

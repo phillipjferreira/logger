@@ -5,7 +5,6 @@ import Register from './views/Register';
 import Login from './views/Login';
 import PrivateRoute from './PrivateRoute';
 import Dashboard from './views/Dashboard';
-import Timeline from './views/Timeline';
 import TicketLog from './views/TicketLog';
 import Board from './views/Board';
 import Metrics from './views/Metrics';
@@ -46,11 +45,6 @@ const Routes = (props) => {
           component={EditTicketForm}
         />
         <PrivateRoute exact path='/users' component={Users} />
-        <PrivateRoute
-          exact
-          path='/projects/:projectid/timeline'
-          component={Timeline}
-        />
         <PrivateRoute
           exact
           path='/projects/:projectid/ticket-log'

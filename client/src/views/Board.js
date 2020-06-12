@@ -1,10 +1,7 @@
 import React, { useEffect, useState, Fragment } from 'react';
 import ControlledBoard from '../components/gadgets/ControlledBoard';
 import { withRouter } from 'react-router-dom';
-import {
-  createLoadingSelector,
-  createErrorMessageSelector,
-} from '../Selectors';
+import { createLoadingSelector } from '../Selectors';
 import { useParams } from 'react-router';
 import { selectProject } from '../actions/projects';
 import { loadSprints, editSprint } from '../actions/sprints';
@@ -42,13 +39,13 @@ const Board = ({
     loadUsers();
     selectProject(projectid);
     loadSprints(projectid);
-  }, []);
+  }, [setSkip, loadUsers, selectProject, loadSprints, projectid]);
 
   useEffect(() => {
     if (skip && sprints) {
       setActiveSprint(sprints.find((sprint) => sprint.status === 'Active'));
     }
-  }, [sprints]);
+  }, [sprints, skip]);
 
   useEffect(() => {
     if (skip && sprints) {
@@ -65,10 +62,10 @@ const Board = ({
       }
       setShow(true);
     }
-  }, [activeSprint]);
+  }, [activeSprint, loadTickets, setMessage, setShow, skip, sprints]);
 
   const onDrag = (card, source, destination) => {
-    if (source.fromColumnId != destination.toColumnId) {
+    if (source.fromColumnId !== destination.toColumnId) {
       editTicket({
         id: card.id,
         status: ['To-Do', 'In-Progress', 'Done'][destination.toColumnId],

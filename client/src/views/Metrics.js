@@ -38,7 +38,7 @@ const Metrics = ({
     selectProject(projectid);
     loadUsers();
     loadSprints(projectid);
-  }, []);
+  }, [setSkip, selectProject, loadUsers, loadSprints, projectid]);
 
   const onChange = (e) => {
     setSprint(e.target.value);

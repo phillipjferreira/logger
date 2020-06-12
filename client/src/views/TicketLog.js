@@ -1,10 +1,7 @@
 import React, { useEffect, useState, Fragment } from 'react';
 import { Button, Container, Row, Col } from 'shards-react';
 import { withRouter } from 'react-router-dom';
-import {
-  createLoadingSelector,
-  createErrorMessageSelector,
-} from '../Selectors';
+import { createLoadingSelector } from '../Selectors';
 import { useParams } from 'react-router';
 import { selectProject } from '../actions/projects';
 import { loadSprints, editSprint } from '../actions/sprints';
@@ -40,12 +37,12 @@ const TicketLog = ({
     loadUsers();
     loadSprints(projectid);
     loadTickets(projectid, 'project');
-  }, []);
+  }, [setSkip, selectProject, loadUsers, loadSprints, loadTickets, projectid]);
 
   const onDrag = (card, source, destination) => {
     let temp = destination.toColumnId;
     if (temp === 'Backlog') temp = null;
-    if (source.fromColumnId != destination.toColumnId) {
+    if (source.fromColumnId !== destination.toColumnId) {
       editTicket({
         id: card.id,
         sprint: temp,

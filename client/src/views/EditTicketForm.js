@@ -4,10 +4,7 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { useParams } from 'react-router';
 import EditTicketDisplay from '../components/forms/EditTicketDisplay';
-import {
-  createLoadingSelector,
-  createErrorMessageSelector,
-} from '../Selectors';
+import { createLoadingSelector } from '../Selectors';
 import { loadProjects } from '../actions/projects';
 import { loadSprints } from '../actions/sprints';
 import { loadUsers } from '../actions/users';
@@ -35,7 +32,7 @@ const EditTicketFormContainer = ({
     loadProjects();
     loadUsers();
     loadSprints(projectid);
-  }, []);
+  }, [loadTickets, loadProjects, loadUsers, loadSprints, ticketid, projectid]);
 
   const reducer = (state, { field, value }) => {
     return {

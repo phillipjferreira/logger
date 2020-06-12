@@ -23,12 +23,12 @@ const CustomBoard = ({
   let columns = arr.map((sprint) => {
     let output = [];
     sprint._id !== 'Backlog'
-      ? tickets.map((ticket) => {
+      ? tickets.forEach((ticket) => {
           if (ticket.sprint === sprint._id) {
             output.push({ title: ticket.name, id: ticket._id });
           }
         })
-      : tickets.map((ticket) => {
+      : tickets.forEach((ticket) => {
           if (!ticket.sprint) {
             output.push({ title: ticket.name, id: ticket._id });
           }
