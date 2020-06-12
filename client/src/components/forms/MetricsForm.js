@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, FormSelect, Button, Container, Row, Col } from 'shards-react';
+import { Form, FormSelect, Button, Col } from 'shards-react';
 
 const MetricsForm = ({ onSubmit, onChange, sprints, sprint }) => {
   return (
@@ -10,7 +10,7 @@ const MetricsForm = ({ onSubmit, onChange, sprints, sprint }) => {
         }}
       >
         <Col md='6' className='form-group'>
-          <label htmlFor='sprint'>Project</label>
+          <label htmlFor='sprint'>Choose Sprint:</label>
 
           <FormSelect
             id='sprint'
@@ -28,8 +28,9 @@ const MetricsForm = ({ onSubmit, onChange, sprints, sprint }) => {
               </option>
             ))}
           </FormSelect>
+
+          <Button>Load Graph</Button>
         </Col>
-        <Button>Load Graph</Button>
       </Form>
     </div>
   );

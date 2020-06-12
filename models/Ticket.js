@@ -3,7 +3,7 @@ const diffHistory = require('mongoose-diff-history/diffHistory');
 
 const TicketSchema = new mongoose.Schema({
   name: { type: String, required: true },
-  storyPoint: Number,
+  storyPoint: { type: Number, required: true },
   status: {
     type: String,
     enum: ['To-Do', 'In-Progress', 'Done'],

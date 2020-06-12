@@ -3,6 +3,7 @@ const diffHistory = require('mongoose-diff-history/diffHistory');
 
 // import models
 const Ticket = require('../models/Ticket');
+const Sprint = require('../models/Sprint');
 const History = require('mongoose-diff-history/diffHistoryModel').model;
 
 // @route    GET /history/:id
@@ -29,17 +30,24 @@ exports.getHistoryBySprint = [
   auth,
   async (req, res) => {
     try {
+      const sprint = await Sprint.findById(req.params.id);
       const tickets = await Ticket.find({ sprint: req.params.id });
       const ticketids = tickets.map((ticket) => ticket._id);
       const history = await History.find(
-        { collectionId: { $in: ticketids }, 'diff.status': 'Done' },
+        {
+          collectionId: { $in: ticketids },
+          'diff.status': 'Done',
+          createdAt: { $gte: sprint.startDate, $lte: sprint.endDate },
+        },
         {
           collectionId: 1,
           createdAt: 1,
           'diff.status': 1,
           'diff.storyPoint': 1,
         }
-      );
+      ).sort({
+        createdAt: 1,
+      });
 
       const output = history.map((hist) => {
         let h = hist.toObject();
@@ -52,8 +60,9 @@ exports.getHistoryBySprint = [
         }
         return h;
       });
+
       // TO DO add ObjectID format error handling
-      res.json(output);
+      res.json({ history: output, sprint: sprint });
     } catch (err) {
       console.error(err.message);
       res.status(500).send('Server Error');

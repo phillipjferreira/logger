@@ -6,8 +6,8 @@ import {
 
 const initialState = {
   sprints: [],
-  sprintHistory: [],
-  sprintLoading: false,
+  sprintHistory: {},
+  historyLoading: false,
 };
 
 export default function (state = initialState, action) {
@@ -16,9 +16,9 @@ export default function (state = initialState, action) {
     case GET_SPRINTS_SUCCESS:
       return { ...state, sprints: payload };
     case GET_SPRINT_HISTORY_REQ:
-      return { ...state, sprintLoading: true };
+      return { ...state, historyLoading: true };
     case GET_SPRINT_HISTORY_SUC:
-      return { ...state, sprintHistory: payload, sprintLoading: false };
+      return { ...state, sprintHistory: payload, historyLoading: false };
     default:
       return state;
   }

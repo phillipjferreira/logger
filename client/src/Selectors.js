@@ -21,3 +21,30 @@ export const createErrorMessageSelector = (actions) => (state) => {
       .first() || ''
   );
 };
+
+export const createBurndownChartSelector = () => ({ sprints, tickets }) => {
+  // Take in state.sprints.sprintHistory and tickets in sprint
+  if (sprints.sprintHistory.history && sprints.sprintHistory.sprint) {
+    const sprint = sprints.sprintHistory.sprint;
+    console.log(sprint);
+
+    let sp = 0;
+    tickets.tickets.forEach((ticket) => {
+      if (ticket.storyPoint) {
+        sp += Number(ticket.storyPoint);
+      }
+    });
+
+    let output = [{ t: sprint.startDate, y: sp, name: 'Start' }];
+    sprints.sprintHistory.history.map((history) => {
+      if (history.diff.status[1] === 'Done' && history.storyPoint) {
+        sp = sp - Number(history.storyPoint);
+      } else if (history.diff.status[0] === 'Done' && history.storyPoint) {
+        sp = sp + Number(history.storyPoint);
+      }
+      output.push({ t: history.createdAt, y: sp, name: history.name });
+    });
+    // Return data object for chart in format [ {t: Date(createdAt), y:  spValue(totalSp of sprint - sp changes)} ]
+    return { chartData: output, sprint: sprint };
+  }
+};

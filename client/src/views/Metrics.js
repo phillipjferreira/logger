@@ -1,9 +1,9 @@
 import React, { useEffect, useState, Fragment } from 'react';
-import { Button, Container, Row, Col } from 'shards-react';
+import { Container, Row, Col } from 'shards-react';
 import { withRouter } from 'react-router-dom';
 import {
   createLoadingSelector,
-  createErrorMessageSelector,
+  createBurndownChartSelector,
 } from '../Selectors';
 import { useParams } from 'react-router';
 import { selectProject } from '../actions/projects';
@@ -12,7 +12,6 @@ import { loadTickets, loadTicket } from '../actions/tickets';
 import { loadUsers } from '../actions/users';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import ViewTicket from '../components/modals/ViewTicket';
 import BurndownContainer from '../components/gadgets/BurndownContainer';
 import MetricsForm from '../components/forms/MetricsForm';
 
@@ -21,18 +20,17 @@ const Metrics = ({
   loadUsers,
   projects: { project },
   selectProject,
-  sprints: { sprints, sprintHistory, sprintLoading },
+  sprintData,
+  sprints: { sprints, historyLoading },
   loadSprints,
   getSprintHistory,
-  tickets: { tickets, ticket, loading },
-  loadTicket,
   loadTickets,
   isLoading,
+  isTicketsLoading,
 }) => {
   const { projectid } = useParams();
   const [skip, setSkip] = useState(false);
   const [show, setShow] = useState(false);
-  const [modalOpen, setModalOpen] = useState(false);
   const [sprint, setSprint] = useState('');
 
   useEffect(() => {
@@ -42,10 +40,6 @@ const Metrics = ({
     loadSprints(projectid);
   }, []);
 
-  const toggle = () => {
-    setModalOpen(!modalOpen);
-  };
-
   const onChange = (e) => {
     setSprint(e.target.value);
   };
@@ -53,28 +47,14 @@ const Metrics = ({
   const onSubmit = (e) => {
     e.preventDefault();
     setShow(true);
-    getSprintHistory(sprint);
     loadTickets(sprint, 'sprint');
-  };
-
-  const viewTicket = (id) => {
-    loadTicket(id);
-    toggle();
+    getSprintHistory(sprint);
   };
 
   return (
     skip &&
     !isLoading && (
       <Fragment>
-        <ViewTicket
-          users={users}
-          project={project}
-          sprints={sprints}
-          ticket={ticket}
-          isLoading={loading}
-          toggle={toggle}
-          open={modalOpen}
-        />
         <Container fluid className='main-content-container px-4 custom'>
           <Row noGutters className='page-header pt-4'>
             <Col xs='12' sm='4' className='text-center, text-md-left, mb-sm-0'>
@@ -105,16 +85,10 @@ const Metrics = ({
               />
             </Col>
           </Row>
-          {show && (
+          {show && !historyLoading && !isTicketsLoading && (
             <Row>
               <Col lg='12' className='mx-auto mt-4'>
-                <BurndownContainer
-                  sprint={sprint}
-                  sprintLoading={sprintLoading}
-                  sprintHistory={sprintHistory}
-                  tickets={tickets}
-                  view={viewTicket}
-                />
+                <BurndownContainer sprintData={sprintData} />
               </Col>
             </Row>
           )}
@@ -134,12 +108,17 @@ Metrics.propTypes = {
 
 const loadingSelector = createLoadingSelector([
   'GET_USERS',
-  'GET_TICKETS',
   'GET_SPRINTS',
   'SELECT_PROJECT',
 ]);
+
+const ticketLoadingSelector = createLoadingSelector(['GET_TICKETS']);
+
+const burndownChartSelector = createBurndownChartSelector();
 const mapStateToProps = (state) => ({
   isLoading: loadingSelector(state),
+  isTicketsLoading: ticketLoadingSelector(state),
+  sprintData: burndownChartSelector(state),
   users: state.users,
   projects: state.projects,
   sprints: state.sprints,
