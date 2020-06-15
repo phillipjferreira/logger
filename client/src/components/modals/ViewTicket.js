@@ -30,8 +30,6 @@ const ViewTicket = ({
     history,
   } = ticket;
 
-  // let resolveSprint = ;
-
   return (
     <Modal open={open} toggle={toggle} size='lg'>
       {isLoading ? (

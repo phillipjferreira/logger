@@ -25,8 +25,10 @@ const Users = ({
           {/* Page Header */}
           <Row noGutters className='page-header py-4'>
             <Col xs='12' sm='4' className='text-center, text-md-left, mb-sm-0'>
-              <span className='text-uppercase page-subtitle'>subtitle</span>
-              <h3 className='page-title'>Title</h3>
+              <span className='text-uppercase page-subtitle'>Users</span>
+              <h3 className='page-title'>
+                User: {auth.user.name}, Role: {auth.user.role}
+              </h3>
             </Col>
           </Row>
 

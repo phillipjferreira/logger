@@ -1,18 +1,38 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { loadUser } from '../actions/auth';
+import { Row, Col, Container } from 'shards-react';
+import { loadTickets } from '../actions/tickets';
+import PieChartContainer from '../components/gadgets/PieChartContainer';
+import AssignedTicketsContainer from '../components/gadgets/AssignedTicketsContainer';
 import PropTypes from 'prop-types';
+import { loadProjects } from '../actions/projects';
+import { loadUsers } from '../actions/users';
+import { loadSprints } from '../actions/sprints';
 
-const Dashboard = ({ auth: { user }, loading }) => {
-  return loading ? (
-    <h1>LOADING...</h1>
-  ) : (
+const Dashboard = ({ auth: { user }, loadTickets, loadProjects }) => {
+  useEffect(() => {
+    loadTickets();
+    loadProjects();
+    loadUsers();
+    loadSprints();
+  }, []);
+  return (
     <div>
-      <h1>Dashboard</h1>
       <div>
-        <h3>{user.name}</h3>
-        <h3>{user.email}</h3>
-        <h3>{user.role}</h3>
+        <Container fluid className='main-content-container px-4'>
+          {/* Page Header */}
+          <Row noGutters className='page-header py-4'>
+            <Col sm='12' md='4' className='text-center, text-md-left, mb-sm-0'>
+              <span className='text-uppercase page-subtitle'>Dashboard</span>
+              <h3 className='page-title'>Welcome, {user.name}</h3>
+            </Col>
+          </Row>
+          <Row className='pt-4'>
+            <PieChartContainer />
+
+            <AssignedTicketsContainer />
+          </Row>
+        </Container>
       </div>
     </div>
   );
@@ -26,4 +46,6 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, { loadUser })(Dashboard);
+export default connect(mapStateToProps, { loadTickets, loadProjects })(
+  Dashboard
+);
