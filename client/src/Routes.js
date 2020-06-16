@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import AlertBar from './layout/AlertBar';
 import Register from './views/Register';
 import Login from './views/Login';
+import DemoLogin from './views/DemoLogin';
 import PrivateRoute from './PrivateRoute';
 import Dashboard from './views/Dashboard';
 import TicketLog from './views/TicketLog';
@@ -21,6 +22,7 @@ const Routes = (props) => {
       <Switch>
         <Route exact path='/register' component={Register} />
         <Route exact path='/login' component={Login} />
+        <Route exact path='/demo-login' component={DemoLogin} />
         <PrivateRoute exact path='/dashboard' component={Dashboard} />
         <PrivateRoute exact path='/new-project' component={ProjectForm} />
         <PrivateRoute

@@ -39,6 +39,7 @@ const AssignedTicketsContainer = ({
       <Fragment>
         <ViewTicket
           users={users}
+          // Need a way to determine on view ticket if passing in a project or using 'selected proejct'
           project={{ name: 'sample' }}
           sprints={sprints}
           ticket={ticket}

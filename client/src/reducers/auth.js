@@ -53,6 +53,7 @@ export default function (state = initialState, action) {
         ...state,
         token: '',
         isAuthenticated: false,
+        loading: false,
       };
     default:
       return state;
