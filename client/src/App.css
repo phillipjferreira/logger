@@ -84,6 +84,11 @@ body .font-400 {
   padding: 0.375rem 0.75rem;
 }
 
+.light-font th {
+  font-size: 0.75rem;
+  font-weight: 400;
+}
+
 /* .no-margin {
   margin: 0;
 } */

@@ -86,6 +86,7 @@ const ViewTicket = ({
                   <label htmlFor='assignedTo'>Assigned To:&nbsp;</label>
                   <span id='assignedTo' name='assignedTo'>
                     {assignedTo &&
+                      users.length > 0 &&
                       users.find((obj) => obj._id === assignedTo).name}
                   </span>
                 </Col>
@@ -94,6 +95,7 @@ const ViewTicket = ({
                   <label htmlFor='assignedBy'>Assigned By:&nbsp;</label>
                   <span id='assignedBy' name='assignedBy'>
                     {assignedBy &&
+                      users.length > 0 &&
                       users.find((obj) => obj._id === assignedBy).name}
                   </span>
                 </Col>

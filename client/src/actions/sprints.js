@@ -20,7 +20,12 @@ export const loadSprints = (projectid) => async (dispatch) => {
   }
   try {
     // Load Sprints by Project ID (for TicketLog and Board)
-    const res = await axios.get(`/sprints/${projectid}`);
+    let res;
+    if (projectid) {
+      res = await axios.get(`/sprints/${projectid}`);
+    } else {
+      res = await axios.get('/sprints');
+    }
 
     dispatch({
       type: GET_SPRINTS_SUCCESS,

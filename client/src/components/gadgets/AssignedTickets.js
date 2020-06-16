@@ -1,4 +1,5 @@
 import React from 'react';
+import Moment from 'react-moment';
 import { CardBody } from 'shards-react';
 
 const AssignedTickets = ({ tickets, user, projects, viewTicket }) => {
@@ -45,7 +46,7 @@ const AssignedTickets = ({ tickets, user, projects, viewTicket }) => {
                 </a>
 
                 <span className='text-muted font-400'>
-                  {new Date(ticket.updated).toDateString()}
+                  <Moment date={ticket.updated} format={'M/DD/YY, h:mm a'} />
                 </span>
               </div>
 

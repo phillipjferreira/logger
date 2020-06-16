@@ -5,6 +5,7 @@ import AssignedTickets from './AssignedTickets';
 import ViewTicket from '../modals/ViewTicket';
 import { Col, Card, CardHeader } from 'shards-react';
 import { loadTicket } from '../../actions/tickets';
+import { loadSprints } from '../../actions/sprints';
 
 const AssignedTicketsContainer = ({
   tickets: { ticket, tickets, loading },
@@ -14,6 +15,7 @@ const AssignedTicketsContainer = ({
   users: { users },
   isLoading,
   loadTicket,
+  loadSprints,
 }) => {
   const [skip, setSkip] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
@@ -38,7 +40,7 @@ const AssignedTicketsContainer = ({
         <ViewTicket
           users={users}
           project={{ name: 'sample' }}
-          sprints={{ name: 'sample' }}
+          sprints={sprints}
           ticket={ticket}
           isLoading={loading}
           toggle={toggle}
@@ -71,6 +73,6 @@ const mapStateToProps = (state) => ({
   users: state.users,
 });
 
-export default connect(mapStateToProps, { loadTicket })(
+export default connect(mapStateToProps, { loadTicket, loadSprints })(
   AssignedTicketsContainer
 );

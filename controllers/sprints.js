@@ -5,10 +5,26 @@ const auth = require('../middleware/auth');
 // const User = require('../models/User');
 const Sprint = require('../models/Sprint');
 
+// @route    GET /sprints
+// @desc     Get all sprints
+// @access   Private
+exports.findSprints = [
+  auth,
+  async (req, res) => {
+    try {
+      const sprint = await Sprint.find();
+      res.json(sprint);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Server Error');
+    }
+  },
+];
+
 // @route    GET /sprints/:id
 // @desc     Get sprints by projectid
 // @access   Private
-exports.findSprints = [
+exports.findSprintsById = [
   auth,
   async (req, res) => {
     try {

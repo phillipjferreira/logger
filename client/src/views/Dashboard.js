@@ -4,12 +4,19 @@ import { Row, Col, Container } from 'shards-react';
 import { loadTickets } from '../actions/tickets';
 import PieChartContainer from '../components/gadgets/PieChartContainer';
 import AssignedTicketsContainer from '../components/gadgets/AssignedTicketsContainer';
+import ActiveSprintsContainer from '../components/gadgets/ActiveSprintsContainer';
 import PropTypes from 'prop-types';
 import { loadProjects } from '../actions/projects';
 import { loadUsers } from '../actions/users';
 import { loadSprints } from '../actions/sprints';
 
-const Dashboard = ({ auth: { user }, loadTickets, loadProjects }) => {
+const Dashboard = ({
+  auth: { user },
+  loadTickets,
+  loadProjects,
+  loadUsers,
+  loadSprints,
+}) => {
   useEffect(() => {
     loadTickets();
     loadProjects();
@@ -29,8 +36,8 @@ const Dashboard = ({ auth: { user }, loadTickets, loadProjects }) => {
           </Row>
           <Row className='pt-4'>
             <PieChartContainer />
-
             <AssignedTicketsContainer />
+            <ActiveSprintsContainer />
           </Row>
         </Container>
       </div>
@@ -46,6 +53,9 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, { loadTickets, loadProjects })(
-  Dashboard
-);
+export default connect(mapStateToProps, {
+  loadTickets,
+  loadProjects,
+  loadUsers,
+  loadSprints,
+})(Dashboard);
