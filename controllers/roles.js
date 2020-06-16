@@ -1,6 +1,6 @@
 const bcrypt = require('bcryptjs');
 // const auth = require('../middleware/auth');
-const authV = require('../middleware/authV');
+const authLevel = require('../middleware/authLevel');
 const jwt = require('jsonwebtoken');
 const config = require('config');
 const { check, validationResult } = require('express-validator');
@@ -12,7 +12,7 @@ const User = require('../models/User');
 // @desc     Get all users and roles
 // @access   Private
 exports.getRoles = [
-  authV(1),
+  authLevel(1),
   async (req, res) => {
     try {
       let user = await User.find().select('-password');
@@ -28,7 +28,7 @@ exports.getRoles = [
 // @desc     Edit roles by user id
 // @access   Private
 exports.editRole = [
-  authV(3),
+  authLevel(3),
   async (req, res) => {
     try {
       let user = await User.findByIdAndUpdate(req.params.id, req.body);
