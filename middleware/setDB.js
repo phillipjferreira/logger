@@ -11,10 +11,11 @@ const History = require('mongoose-diff-history/diffHistoryModel').model;
 // const diffHistory = require('mongoose-diff-history/diffHistory');
 
 module.exports = async function (req, res, next) {
-  const demo = (req.user && req.user.demo) || req.body.demo ? 'demo' : '';
+  const demo =
+    (req.user && req.user.demo) || req.body.demo ? 'demo' : 'bug-tracker-v1';
   try {
     const dbConnection = await global.clientConnection;
-    const db = await dbConnection.useDb(demo || 'bug-tracker-v1');
+    const db = await dbConnection.useDb(demo);
     res.locals.User = await db.model('User');
     res.locals.Ticket = await db.model('Ticket');
     res.locals.Sprint = await db.model('Sprint');

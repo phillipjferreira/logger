@@ -102,14 +102,18 @@ exports.editTicket = [
   setDB,
   async (req, res) => {
     try {
-      let ticket = await res.locals.Ticket.findByIdAndUpdate(
-        req.params.id,
+      // DEBUG
+      console.log(req.body);
+      let ticket = await res.locals.Ticket.findOneAndUpdate(
+        { _id: req.params.id },
         req.body,
         {
           new: true,
           __user: mongoose.Types.ObjectId(req.user.id),
         }
       );
+      console.log('ticket');
+      console.log(ticket);
       res.json(ticket);
     } catch (err) {
       console.error(err.message);

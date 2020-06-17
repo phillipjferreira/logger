@@ -165,7 +165,7 @@ const EditTicketDisplay = ({
                           <FormSelect
                             id='sprint'
                             name='sprint'
-                            value={sprint}
+                            value={sprint || ''}
                             onChange={(e) => {
                               onChange(e);
                             }}

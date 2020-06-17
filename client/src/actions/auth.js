@@ -39,7 +39,9 @@ export const loadUser = () => async (dispatch) => {
 };
 
 // Register User
-export const register = ({ name, email, password }) => async (dispatch) => {
+export const register = ({ name, email, password, demo = true }) => async (
+  dispatch
+) => {
   dispatch({
     type: REGISTER_REQ,
   });
@@ -49,7 +51,7 @@ export const register = ({ name, email, password }) => async (dispatch) => {
     },
   };
 
-  const body = { name, email, password };
+  const body = { name, email, password, demo };
 
   try {
     const res = await axios.post('/users', body, config);
@@ -73,7 +75,7 @@ export const register = ({ name, email, password }) => async (dispatch) => {
 };
 
 // Login User
-export const login = (email, password, demo) => async (dispatch) => {
+export const login = (email, password) => async (dispatch) => {
   dispatch({
     type: LOGIN_REQ,
   });
@@ -83,7 +85,7 @@ export const login = (email, password, demo) => async (dispatch) => {
     },
   };
 
-  const body = { email, password, demo };
+  const body = { email, password, demo: true };
 
   try {
     const res = await axios.post('/auth', body, config);

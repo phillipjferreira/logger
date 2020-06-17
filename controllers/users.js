@@ -28,7 +28,7 @@ exports.registerUser = [
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const { name, email, password } = req.body;
+    const { name, email, password, demo } = req.body;
 
     try {
       // See if user exists
@@ -46,6 +46,7 @@ exports.registerUser = [
         name,
         email,
         password,
+        demo,
       });
 
       // Encrypt password
@@ -58,6 +59,7 @@ exports.registerUser = [
         user: {
           id: user._id,
           role: user.role,
+          demo: user.demo,
         },
       };
       jwt.sign(

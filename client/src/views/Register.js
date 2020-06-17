@@ -10,7 +10,6 @@ import {
   Col,
   Card,
   CardBody,
-  // CardFooter,
   Form,
   FormGroup,
   FormInput,
@@ -122,37 +121,12 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
                     pill
                     theme='accent'
                     className='d-table mx-auto'
-                    type='submit'>
+                    type='submit'
+                  >
                     Create Account
                   </Button>
                 </Form>
               </CardBody>
-
-              {/* Social Icons
-              <CardFooter>
-                <ul className='auth-form__social-icons d-table mx-auto'>
-                  <li>
-                    <a href='#'>
-                      <i className='fab fa-facebook-f' />
-                    </a>
-                  </li>
-                  <li>
-                    <a href='#'>
-                      <i className='fab fa-twitter' />
-                    </a>
-                  </li>
-                  <li>
-                    <a href='#'>
-                      <i className='fab fa-github' />
-                    </a>
-                  </li>
-                  <li>
-                    <a href='#'>
-                      <i className='fab fa-google-plus-g' />
-                    </a>
-                  </li>
-                </ul>
-              </CardFooter> */}
             </Card>
 
             {/* Meta Details */}

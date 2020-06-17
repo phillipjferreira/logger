@@ -42,7 +42,7 @@ exports.loginUser = [
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const { email, password, demo } = req.body;
+    const { email, password } = req.body;
 
     try {
       let user = await res.locals.User.findOne({ email });
@@ -60,11 +60,11 @@ exports.loginUser = [
           .status(400)
           .json({ errors: [{ msg: 'Invalid Credentials' }] });
       }
-
       const payload = {
         user: {
           id: user._id,
           role: user.role,
+          demo: user.demo,
         },
       };
 
