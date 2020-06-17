@@ -1,18 +1,16 @@
 const auth = require('../middleware/auth');
 const mongoose = require('mongoose');
-
-// import models
-// const User = require('../models/User');
-const Ticket = require('../models/Ticket');
+const setDB = require('../middleware/setDB');
 
 // @route    GET /tickets
 // @desc     Get all tickets
 // @access   Private
 exports.findTickets = [
   auth,
+  setDB,
   async (req, res) => {
     try {
-      const ticket = await Ticket.find();
+      const ticket = await res.locals.Ticket.find();
       res.json(ticket);
     } catch (err) {
       console.error(err.message);
@@ -26,9 +24,10 @@ exports.findTickets = [
 // @access   Private
 exports.findTicket = [
   auth,
+  setDB,
   async (req, res) => {
     try {
-      const ticket = await Ticket.findById(req.params.id);
+      const ticket = await res.locals.Ticket.findById(req.params.id);
       // TO DO add ObjectID format error handling
       res.json(ticket);
     } catch (err) {
@@ -43,9 +42,10 @@ exports.findTicket = [
 // @access   Private
 exports.findTicketProject = [
   auth,
+  setDB,
   async (req, res) => {
     try {
-      const ticket = await Ticket.find({ project: req.params.id });
+      const ticket = await res.locals.Ticket.find({ project: req.params.id });
       // TO DO add ObjectID format error handling
       res.json(ticket);
     } catch (err) {
@@ -60,9 +60,10 @@ exports.findTicketProject = [
 // @access   Private
 exports.findTicketSprint = [
   auth,
+  setDB,
   async (req, res) => {
     try {
-      const ticket = await Ticket.find({ sprint: req.params.id });
+      const ticket = await res.locals.Ticket.find({ sprint: req.params.id });
       // TO DO add ObjectID format error handling
       res.json(ticket);
     } catch (err) {
@@ -77,9 +78,11 @@ exports.findTicketSprint = [
 // @access   Private
 exports.addTicket = [
   auth,
+  setDB,
   async (req, res) => {
     try {
       // Create epic instance
+      const Ticket = await res.locals.Ticket;
       let ticket = new Ticket(req.body);
 
       await ticket.save();
@@ -96,12 +99,17 @@ exports.addTicket = [
 // @access   Private
 exports.editTicket = [
   auth,
+  setDB,
   async (req, res) => {
     try {
-      let ticket = await Ticket.findByIdAndUpdate(req.params.id, req.body, {
-        new: true,
-        __user: mongoose.Types.ObjectId(req.user.id),
-      });
+      let ticket = await res.locals.Ticket.findByIdAndUpdate(
+        req.params.id,
+        req.body,
+        {
+          new: true,
+          __user: mongoose.Types.ObjectId(req.user.id),
+        }
+      );
       res.json(ticket);
     } catch (err) {
       console.error(err.message);
@@ -115,10 +123,11 @@ exports.editTicket = [
 // @access   Private
 exports.removeTicket = [
   auth,
+  setDB,
   // Process request
   async (req, res, next) => {
     try {
-      await Ticket.findByIdAndDelete(req.params.id);
+      await res.locals.Ticket.findByIdAndDelete(req.params.id);
       res.json({ msg: 'Ticket successfully deleted' });
     } catch (err) {
       console.error(err.message);

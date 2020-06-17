@@ -30,3 +30,4 @@ TicketSchema.plugin(diffHistory.plugin, {
 });
 
 module.exports = mongoose.model('Ticket', TicketSchema);
+// module.exports = TicketSchema;

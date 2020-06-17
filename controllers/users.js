@@ -1,11 +1,9 @@
 const bcrypt = require('bcryptjs');
 const auth = require('../middleware/auth');
+const setDB = require('../middleware/setDB');
 const jwt = require('jsonwebtoken');
 const config = require('config');
 const { check, validationResult } = require('express-validator');
-
-// import User model
-const User = require('../models/User');
 
 // @route   POST /users
 // @desc    Register user
@@ -18,6 +16,7 @@ exports.registerUser = [
     'password',
     'Please enter a password with 6 or more characters'
   ).isLength({ min: 6 }),
+  setDB,
 
   // Sanitize input
   // TO DO
@@ -33,7 +32,7 @@ exports.registerUser = [
 
     try {
       // See if user exists
-      let user = await User.findOne({ email });
+      let user = await res.locals.User.findOne({ email });
 
       if (user) {
         return res
@@ -41,6 +40,7 @@ exports.registerUser = [
           .json({ errors: [{ msg: 'User already exists' }] });
       }
 
+      const User = await res.locals.User;
       // Create user instance
       user = new User({
         name,
@@ -81,6 +81,7 @@ exports.registerUser = [
 // @access   Private
 exports.editUser = [
   auth,
+  setDB,
   // Validate input
   check('name', 'Name is required').not().isEmpty(),
   check('email', 'Please include a valid email').isEmail(),
@@ -100,7 +101,7 @@ exports.editUser = [
       const salt = await bcrypt.genSalt(10);
       user.password = await bcrypt.hash(password, salt);
 
-      await User.findByIdAndUpdate(req.user.id, user);
+      await res.locals.User.findByIdAndUpdate(req.user.id, user);
 
       res.json(user);
     } catch (err) {
@@ -115,13 +116,11 @@ exports.editUser = [
 // @access   Private
 exports.editUserRole = [
   auth,
+  setDB,
   // Process request
   async (req, res, next) => {
     try {
-      // let user = req.body.user;
-      // console.log(user);
-      // console.log(user.role);
-      let user = await User.findByIdAndUpdate(req.params.id, {
+      let user = await res.locals.User.findByIdAndUpdate(req.params.id, {
         role: req.body.user.role,
       });
 
@@ -138,10 +137,11 @@ exports.editUserRole = [
 // @access   Private
 exports.removeUser = [
   auth,
+  setDB,
   // Process request
   async (req, res, next) => {
     try {
-      await User.findByIdAndDelete(req.user.id);
+      await res.locals.User.findByIdAndDelete(req.user.id);
       res.json({ msg: 'User successfully deleted' });
     } catch (err) {
       console.error(err.message);

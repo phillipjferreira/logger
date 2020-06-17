@@ -1,19 +1,21 @@
 const bcrypt = require('bcryptjs');
 const auth = require('../middleware/auth');
+const setDB = require('../middleware/setDB');
 const jwt = require('jsonwebtoken');
 const config = require('config');
 const { check, validationResult } = require('express-validator');
-
-const User = require('../models/User');
 
 // @route    GET /auth
 // @desc     Authenticate user by token
 // @access   Private
 exports.authUser = [
   auth,
+  setDB,
   async (req, res) => {
     try {
-      const user = await User.findById(req.user.id).select('-password');
+      const user = await res.locals.User.findById(req.user.id).select(
+        '-password'
+      );
       res.json(user);
     } catch (err) {
       console.error(err.message);
@@ -29,7 +31,7 @@ exports.loginUser = [
   // Validate input
   check('email', 'Please include a valid email').isEmail(),
   check('password', 'Password is required').exists(),
-
+  setDB,
   // Sanitize input
   // TO DO
 
@@ -40,10 +42,10 @@ exports.loginUser = [
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const { email, password } = req.body;
+    const { email, password, demo } = req.body;
 
     try {
-      let user = await User.findOne({ email });
+      let user = await res.locals.User.findOne({ email });
 
       if (!user) {
         return res

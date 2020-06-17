@@ -73,7 +73,7 @@ export const register = ({ name, email, password }) => async (dispatch) => {
 };
 
 // Login User
-export const login = (email, password) => async (dispatch) => {
+export const login = (email, password, demo) => async (dispatch) => {
   dispatch({
     type: LOGIN_REQ,
   });
@@ -83,10 +83,11 @@ export const login = (email, password) => async (dispatch) => {
     },
   };
 
-  const body = { email, password };
+  const body = { email, password, demo };
 
   try {
     const res = await axios.post('/auth', body, config);
+
     dispatch({
       type: LOGIN_SUC,
       payload: res.data,

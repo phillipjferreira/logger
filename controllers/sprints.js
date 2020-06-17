@@ -1,18 +1,17 @@
 const auth = require('../middleware/auth');
-// const { check, validationResult } = require('express-validator');
+const setDB = require('../middleware/setDB');
 
-// import models
-// const User = require('../models/User');
-const Sprint = require('../models/Sprint');
+// const { check, validationResult } = require('express-validator');
 
 // @route    GET /sprints
 // @desc     Get all sprints
 // @access   Private
 exports.findSprints = [
   auth,
+  setDB,
   async (req, res) => {
     try {
-      const sprint = await Sprint.find();
+      const sprint = await res.locals.Sprint.find();
       res.json(sprint);
     } catch (err) {
       console.error(err.message);
@@ -26,9 +25,10 @@ exports.findSprints = [
 // @access   Private
 exports.findSprintsById = [
   auth,
+  setDB,
   async (req, res) => {
     try {
-      const sprint = await Sprint.find({ project: req.params.id });
+      const sprint = await res.locals.Sprint.find({ project: req.params.id });
       // TO DO add ObjectID format error handling
       res.json(sprint);
     } catch (err) {
@@ -43,10 +43,12 @@ exports.findSprintsById = [
 // @access   Private
 exports.addSprint = [
   auth,
+  setDB,
   async (req, res) => {
     try {
       // const { name, startDate, endDate, goal, project } = req.body;
       // Create sprint instance
+      const Sprint = await res.locals.Sprint;
       let sprint = new Sprint(req.body);
 
       await sprint.save();
@@ -63,9 +65,13 @@ exports.addSprint = [
 // @access   Private
 exports.editSprint = [
   auth,
+  setDB,
   async (req, res) => {
     try {
-      let sprint = await Sprint.findByIdAndUpdate(req.params.id, req.body);
+      let sprint = await res.locals.Sprint.findByIdAndUpdate(
+        req.params.id,
+        req.body
+      );
       res.json(sprint);
     } catch (err) {
       console.error(err.message);
@@ -79,10 +85,11 @@ exports.editSprint = [
 // @access   Private
 exports.removeSprint = [
   auth,
+  setDB,
   // Process request
   async (req, res, next) => {
     try {
-      await Sprint.findByIdAndDelete(req.params.id);
+      await res.locals.Sprint.findByIdAndDelete(req.params.id);
       res.json({ msg: 'Sprint successfully deleted' });
     } catch (err) {
       console.error(err.message);

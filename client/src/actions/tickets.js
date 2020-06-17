@@ -20,11 +20,11 @@ export const loadTicket = (id) => async (dispatch) => {
   }
   try {
     const res = await axios.get(`/tickets/${id}`);
-    const test = await axios.get(`/history/${id}`);
+    const hist = await axios.get(`/history/${id}`);
 
     dispatch({
       type: GET_TICKET_SUC,
-      payload: { ...res.data, history: test.data },
+      payload: { ...res.data, history: hist.data },
     });
   } catch (err) {
     dispatch({

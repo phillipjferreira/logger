@@ -1,18 +1,17 @@
 const auth = require('../middleware/auth');
-// const { check, validationResult } = require('express-validator');
+const setDB = require('../middleware/setDB');
 
-// import models
-// const User = require('../models/User');
-const Project = require('../models/Project');
+// const { check, validationResult } = require('express-validator');
 
 // @route    GET /projects
 // @desc     Get all projects
 // @access   Private
 exports.findProjects = [
   auth,
+  setDB,
   async (req, res) => {
     try {
-      const project = await Project.find();
+      const project = await res.locals.Project.find();
       res.json(project);
     } catch (err) {
       console.error(err.message);
@@ -26,9 +25,10 @@ exports.findProjects = [
 // @access   Private
 exports.findProject = [
   auth,
+  setDB,
   async (req, res) => {
     try {
-      const project = await Project.findById(req.params.id);
+      const project = await res.locals.Project.findById(req.params.id);
       // TO DO add ObjectID format error handling
       res.json(project);
     } catch (err) {
@@ -43,9 +43,11 @@ exports.findProject = [
 // @access   Private
 exports.addProject = [
   auth,
+  setDB,
   async (req, res) => {
     try {
       // Create project instance
+      const Project = await res.locals.Project;
       let project = new Project(req.body);
 
       await project.save();
@@ -62,9 +64,13 @@ exports.addProject = [
 // @access   Private
 exports.editProject = [
   auth,
+  setDB,
   async (req, res) => {
     try {
-      let project = await Project.findByIdAndUpdate(req.params.id, req.body);
+      let project = await res.locals.Project.findByIdAndUpdate(
+        req.params.id,
+        req.body
+      );
       res.json(project);
     } catch (err) {
       console.error(err.message);
@@ -78,10 +84,11 @@ exports.editProject = [
 // @access   Private
 exports.removeProject = [
   auth,
+  setDB,
   // Process request
   async (req, res, next) => {
     try {
-      await Project.findByIdAndDelete(req.params.id);
+      await res.locals.Project.findByIdAndDelete(req.params.id);
       res.json({ msg: 'Project successfully deleted' });
     } catch (err) {
       console.error(err.message);
