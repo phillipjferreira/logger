@@ -69,7 +69,8 @@ exports.editProject = [
     try {
       let project = await res.locals.Project.findByIdAndUpdate(
         req.params.id,
-        req.body
+        req.body,
+        { new: true }
       );
       res.json(project);
     } catch (err) {

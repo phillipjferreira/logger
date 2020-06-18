@@ -28,7 +28,7 @@ const TicketSchema = new mongoose.Schema({
 
 TicketSchema.plugin(diffHistory.plugin, {
   omit: ['created', 'updated', 'assignedBy', 'project'],
-  uri: config.mongoURI,
+  uri: config.mongoDemoURI,
 });
 
-module.exports = mongoose.model('Ticket', TicketSchema);
+module.exports = mongoose.model('TicketDemo', TicketSchema);

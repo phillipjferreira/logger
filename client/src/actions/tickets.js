@@ -114,7 +114,9 @@ export const editTicket = (formData, history) => async (dispatch) => {
     !formData.assignedTo && delete formData.assignedTo;
     !formData.lead && delete formData.lead;
     !formData.description && delete formData.description;
-    console.log(formData);
+    if (formData.sprint === '') {
+      formData.sprint = null;
+    }
     await axios.put(`/tickets/${id}`, formData, config);
 
     dispatch(setAlert('Ticket Updated', 'success'));

@@ -74,9 +74,10 @@ const ViewTicket = ({
                   <label htmlFor='sprint'>Sprint:&nbsp;</label>
 
                   <span id='sprint' name='sprint'>
-                    {sprint &&
+                    {(sprint &&
                       Array.isArray(sprints) &&
-                      sprints.find((obj) => obj._id === sprint).name}
+                      sprints.find((obj) => obj._id === sprint).name) ||
+                      'Backlog'}
                   </span>
                 </Col>
               </Row>
