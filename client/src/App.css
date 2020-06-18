@@ -97,6 +97,12 @@ body .font-400 {
   display: none;
 }
 
+.demologin {
+  margin: auto;
+  cursor: pointer;
+  width: 75px;
+}
+
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
   .hide-large {

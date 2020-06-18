@@ -9,11 +9,9 @@ import {
   Col,
   Card,
   CardBody,
-  // CardFooter,
   Form,
   FormGroup,
   FormInput,
-  // FormCheckbox,
   Button,
 } from 'shards-react';
 
@@ -84,40 +82,15 @@ const Login = ({ login, isAuthenticated }) => {
                     pill
                     theme='accent'
                     className='d-table mx-auto'
-                    type='submit'>
+                    type='submit'
+                  >
                     Log In
                   </Button>
                 </Form>
               </CardBody>
-
-              {/* Social Icons
-          <CardFooter>
-            <ul className='auth-form__social-icons d-table mx-auto'>
-              <li>
-                <a href='#'>
-                  <i className='fab fa-facebook-f' />
-                </a>
-              </li>
-              <li>
-                <a href='#'>
-                  <i className='fab fa-twitter' />
-                </a>
-              </li>
-              <li>
-                <a href='#'>
-                  <i className='fab fa-github' />
-                </a>
-              </li>
-              <li>
-                <a href='#'>
-                  <i className='fab fa-google-plus-g' />
-                </a>
-              </li>
-            </ul>
-          </CardFooter> */}
             </Card>
 
-            {/* Meta Details */}
+            {/* Footer */}
             <div className='auth-form__meta d-flex mt-4'>
               <Link to='/forgot-password'>Forgot your password?</Link>
               <Link to='/register' className='ml-auto'>

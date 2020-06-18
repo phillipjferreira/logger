@@ -40,63 +40,53 @@ const DemoLogin = ({ login, isAuthenticated }) => {
                 {/* Form Fields */}
                 <Row className='mb-4'>
                   <Col>
-                    <Link tag={NavLink} to={`/login`}>
-                      <div className='box text-center'>
-                        <span>
-                          <FontAwesomeIcon
-                            icon={faUserCog}
-                            size='3x'
-                            color='#007bff'
-                          />
-                          <h6>Admin</h6>
-                        </span>
-                      </div>
-                    </Link>
+                    <div
+                      className='box text-center demologin'
+                      onClick={() => login('admin@demo.com', 'demoadmin', true)}
+                    >
+                      <span>
+                        <FontAwesomeIcon
+                          icon={faUserCog}
+                          size='3x'
+                          color='#007bff'
+                        />
+                        <h6>Admin</h6>
+                      </span>
+                    </div>
                   </Col>
+                </Row>
+                <Row className='mb-4'>
                   <Col>
-                    <Link tag={NavLink} to={`/login`}>
-                      <div className='box text-center'>
-                        <span>
-                          <FontAwesomeIcon
-                            icon={faUserEdit}
-                            size='3x'
-                            color='#007bff'
-                          />
-                          <h6>Dev</h6>
-                        </span>
-                      </div>
-                    </Link>
+                    <div
+                      className='box text-center demologin'
+                      onClick={() => login('user@demo.com', 'demouser', true)}
+                    >
+                      <span>
+                        <FontAwesomeIcon
+                          icon={faUser}
+                          size='3x'
+                          color='#007bff'
+                        />
+                        <h6>User</h6>
+                      </span>
+                    </div>
                   </Col>
                 </Row>
                 <Row>
                   <Col>
-                    <Link tag={NavLink} to={`/login`}>
-                      <div className='box text-center'>
-                        <span>
-                          <FontAwesomeIcon
-                            icon={faUser}
-                            size='3x'
-                            color='#007bff'
-                          />
-                          <h6>User</h6>
-                        </span>
-                      </div>
-                    </Link>
-                  </Col>
-
-                  <Col>
-                    <Link tag={NavLink} to={`/login`}>
-                      <div className='box text-center'>
-                        <span>
-                          <FontAwesomeIcon
-                            icon={faEye}
-                            size='3x'
-                            color='#007bff'
-                          />
-                          <h6>Read-Only</h6>
-                        </span>
-                      </div>
-                    </Link>
+                    <div
+                      className='box text-center demologin'
+                      onClick={() => login('view@demo.com', 'demoview', true)}
+                    >
+                      <span>
+                        <FontAwesomeIcon
+                          icon={faEye}
+                          size='3x'
+                          color='#007bff'
+                        />
+                        <h6>View-Only</h6>
+                      </span>
+                    </div>
                   </Col>
                 </Row>
               </CardBody>

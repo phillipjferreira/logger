@@ -129,7 +129,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
               </CardBody>
             </Card>
 
-            {/* Meta Details */}
+            {/* Footer */}
             <div className='auth-form__meta d-flex mt-4'>
               <Link to='/login' className='ml-auto'>
                 Already a user? Sign In.
