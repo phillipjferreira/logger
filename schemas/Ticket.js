@@ -1,6 +1,4 @@
 const mongoose = require('mongoose');
-const config = require('config');
-const diffHistory = require('mongoose-diff-history/diffHistory');
 
 const TicketSchema = new mongoose.Schema({
   name: { type: String, required: true },
@@ -26,9 +24,4 @@ const TicketSchema = new mongoose.Schema({
   updated: { type: Date, default: Date.now },
 });
 
-TicketSchema.plugin(diffHistory.plugin, {
-  omit: ['created', 'updated', 'assignedBy', 'project'],
-  uri: config.mongoDemoURI,
-});
-
-module.exports = mongoose.model('TicketDemo', TicketSchema);
+module.exports = TicketSchema;

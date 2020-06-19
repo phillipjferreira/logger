@@ -15,12 +15,21 @@ const connectDB = () => {
   conn.once('open', function () {
     console.log('MongoDB Connected!!');
   });
-  require('../models/User');
-  require('../models/TicketDemo');
-  require('../models/Ticket');
-  require('../models/Sprint');
-  require('../models/Project');
-  return conn;
+  const connDemo = mongoose.createConnection(config.mongoDemoURI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+    useFindAndModify: false,
+  });
+  connDemo.on(
+    'error',
+    console.error.bind(console, 'MongoDB Demo Connection Error>> : ')
+  );
+  connDemo.once('open', function () {
+    console.log('MongoDB Demo Connected!!');
+  });
+
+  return [conn, connDemo];
 };
 
 module.exports = connectDB;

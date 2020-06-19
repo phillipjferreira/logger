@@ -102,8 +102,8 @@ exports.editTicket = [
   setDB,
   async (req, res) => {
     try {
-      let ticket = await res.locals.Ticket.findByIdAndUpdate(
-        req.params.id,
+      let ticket = await res.locals.Ticket.findOneAndUpdate(
+        { _id: req.params.id },
         req.body,
         {
           new: true,

@@ -5,7 +5,6 @@ const path = require('path');
 const app = express();
 
 // Connect Database
-// connectDB();
 global.clientConnection = connectDB();
 
 // Init Middleware

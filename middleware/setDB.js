@@ -1,28 +1,49 @@
 // import models
-const User = require('../models/User');
-const Ticket = require('../models/Ticket');
-const TicketDemo = require('../models/TicketDemo');
-const Sprint = require('../models/Sprint');
-const Project = require('../models/Project');
-const History = require('mongoose-diff-history/diffHistoryModel').model;
+const UserSchema = require('../schemas/User');
+const TicketSchema = require('../schemas/Ticket');
+const TicketDemoSchema = require('../schemas/TicketDemo');
+const SprintSchema = require('../schemas/Sprint');
+const ProjectSchema = require('../schemas/Project');
+const HistorySchema = require('../schemas/History');
+
+// import plugin
+const diffHistory = require('../plugins/diffHistoryCustom');
 
 module.exports = async function (req, res, next) {
-  const version =
-    (req.user && req.user.demo) || req.body.demo ? 'demo' : 'bug-tracker-v1';
   try {
-    const dbConnection = await global.clientConnection;
-    const db = await dbConnection.useDb(version);
+    const version =
+      (req.user && req.user.demo) || req.body.demo ? 'demo' : 'bug-tracker-v1';
 
-    if (version === 'demo') {
-      res.locals.Ticket = await db.model('TicketDemo');
-    } else if (version === 'bug-tracker-v1') {
-      res.locals.Ticket = await db.model('Ticket');
+    let conn;
+
+    if (version === 'bug-tracker-v1') {
+      conn = await global.clientConnection[0];
+    } else {
+      conn = await global.clientConnection[1];
     }
 
-    res.locals.User = await db.model('User');
-    res.locals.Sprint = await db.model('Sprint');
-    res.locals.Project = await db.model('Project');
-    res.locals.History = await db.model('History');
+    const History = await conn.model('History', HistorySchema);
+    let Ticket;
+
+    if (version === 'bug-tracker-v1') {
+      TicketSchema.plugin(diffHistory.plugin, {
+        omit: ['created', 'updated', 'assignedBy', 'project'],
+        History: History,
+      });
+      Ticket = await conn.model('Ticket', TicketSchema);
+    } else {
+      TicketDemoSchema.plugin(diffHistory.plugin, {
+        omit: ['created', 'updated', 'assignedBy', 'project'],
+        History: History,
+      });
+      Ticket = await conn.model('Ticket', TicketDemoSchema);
+    }
+
+    res.locals.History = History;
+    res.locals.Ticket = Ticket;
+    res.locals.User = await conn.model('User', UserSchema);
+    res.locals.Sprint = await conn.model('Sprint', SprintSchema);
+    res.locals.Project = await conn.model('Project', ProjectSchema);
     next();
   } catch (err) {
     console.error('something wrong with auth middleware');

@@ -17,5 +17,5 @@ const SprintSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model('Sprint', SprintSchema);
-// module.exports = SprintSchema;
+// module.exports = mongoose.model('Sprint', SprintSchema);
+module.exports = SprintSchema;
