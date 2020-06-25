@@ -6,15 +6,12 @@ import { useParams } from 'react-router';
 import { selectProject } from '../actions/projects';
 import { loadSprints, editSprint } from '../actions/sprints';
 import { loadTickets, loadTicket, editTicket } from '../actions/tickets';
-import { loadUsers } from '../actions/users';
 import CustomBoard from '../components/gadgets/CustomBoard';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ViewTicket from '../components/modals/ViewTicket';
 
 const TicketLog = ({
-  users: { users },
-  loadUsers,
   projects: { project },
   selectProject,
   sprints: { sprints },
@@ -34,10 +31,9 @@ const TicketLog = ({
   useEffect(() => {
     setSkip(true);
     selectProject(projectid);
-    loadUsers();
     loadSprints(projectid);
     loadTickets(projectid, 'project');
-  }, [setSkip, selectProject, loadUsers, loadSprints, loadTickets, projectid]);
+  }, [setSkip, selectProject, loadSprints, loadTickets, projectid]);
 
   const onDrag = (card, source, destination) => {
     let temp = destination.toColumnId;
@@ -79,9 +75,6 @@ const TicketLog = ({
     !isLoading && (
       <Fragment>
         <ViewTicket
-          users={users}
-          project={project}
-          sprints={sprints}
           ticket={ticket}
           isLoading={loading}
           toggle={toggle}
@@ -98,12 +91,7 @@ const TicketLog = ({
           </Row>
           <hr />
           <Row className='pt-4 px-4 tab-title font-400'>
-            <p>
-              Lead:{' '}
-              {(project.lead &&
-                users.find((obj) => obj._id === project.lead).name) ||
-                'N/A'}
-            </p>
+            <p>Lead: {project.lead.name}</p>
 
             <p>Description: {project.description || 'N/A'}</p>
 
@@ -132,28 +120,24 @@ const TicketLog = ({
 
 TicketLog.propTypes = {
   selectProject: PropTypes.func.isRequired,
-  loadUsers: PropTypes.func.isRequired,
   loadSprints: PropTypes.func.isRequired,
   loadTickets: PropTypes.func.isRequired,
   loadTicket: PropTypes.func.isRequired,
 };
 
 const loadingSelector = createLoadingSelector([
-  'GET_USERS',
   'GET_TICKETS',
   'GET_SPRINTS',
   'SELECT_PROJECT',
 ]);
 const mapStateToProps = (state) => ({
   isLoading: loadingSelector(state),
-  users: state.users,
   projects: state.projects,
   sprints: state.sprints,
   tickets: state.tickets,
 });
 
 export default connect(mapStateToProps, {
-  loadUsers,
   selectProject,
   loadSprints,
   loadTickets,

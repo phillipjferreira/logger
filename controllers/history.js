@@ -11,7 +11,10 @@ exports.getHistory = [
     try {
       const history = await res.locals.History.find({
         collectionId: req.params.id,
-      });
+      })
+        .populate('diff.sprint', 'name')
+        .populate('diff.assignedTo', 'name')
+        .populate('user', 'name');
 
       // TO DO add ObjectID format error handling
       res.json(history);

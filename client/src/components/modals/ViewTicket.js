@@ -3,15 +3,7 @@ import { NavLink as RouteNavLink } from 'react-router-dom';
 import HistoryLog from './HistoryLog';
 import { Row, Col, Button, Modal } from 'shards-react';
 
-const ViewTicket = ({
-  users,
-  project,
-  sprints,
-  ticket,
-  isLoading,
-  toggle,
-  open,
-}) => {
+const ViewTicket = ({ ticket, isLoading, toggle, open }) => {
   const [hist, setHistory] = useState(false);
   const toggleHistory = () => {
     setHistory(!hist);
@@ -21,6 +13,7 @@ const ViewTicket = ({
     storyPoint,
     name,
     status,
+    project,
     sprint,
     assignedTo,
     assignedBy,
@@ -66,7 +59,7 @@ const ViewTicket = ({
                 <Col md='6' className='form-group'>
                   <label htmlFor='project'>Project:&nbsp;</label>
                   <span disabled id='project' name='project'>
-                    {project.name}
+                    {(project && project.name) || ''}
                   </span>
                 </Col>
                 {/* Sprint */}
@@ -74,10 +67,7 @@ const ViewTicket = ({
                   <label htmlFor='sprint'>Sprint:&nbsp;</label>
 
                   <span id='sprint' name='sprint'>
-                    {(sprint &&
-                      Array.isArray(sprints) &&
-                      sprints.find((obj) => obj._id === sprint).name) ||
-                      'Backlog'}
+                    {(sprint && sprint.name) || 'Backlog'}
                   </span>
                 </Col>
               </Row>
@@ -86,18 +76,14 @@ const ViewTicket = ({
                 <Col md='6' className='form-group'>
                   <label htmlFor='assignedTo'>Assigned To:&nbsp;</label>
                   <span id='assignedTo' name='assignedTo'>
-                    {assignedTo &&
-                      users.length > 0 &&
-                      users.find((obj) => obj._id === assignedTo).name}
+                    {(assignedTo && assignedTo.name) || ''}
                   </span>
                 </Col>
                 {/* Assigned By */}
                 <Col md='6' className='form-group'>
                   <label htmlFor='assignedBy'>Assigned By:&nbsp;</label>
                   <span id='assignedBy' name='assignedBy'>
-                    {assignedBy &&
-                      users.length > 0 &&
-                      users.find((obj) => obj._id === assignedBy).name}
+                    {(assignedBy && assignedBy.name) || ''}
                   </span>
                 </Col>
               </Row>
@@ -138,19 +124,21 @@ const ViewTicket = ({
               <Button onClick={toggleHistory} className='btn-primary'>
                 {hist ? 'Hide History' : 'Show History'}
               </Button>
-              <Button
-                tag={RouteNavLink}
-                to={`/projects/${project._id}/${_id}/edit-ticket`}
-                className='btn-success'
-              >
-                Edit Ticket
-              </Button>
+              {project && (
+                <Button
+                  tag={RouteNavLink}
+                  to={`/projects/${project._id}/${_id}/edit-ticket`}
+                  className='btn-success'
+                >
+                  Edit Ticket
+                </Button>
+              )}
             </Col>
             {/* Historyy */}
             <Col className={hist ? '' : 'hide'}>
               <label htmlFor='history'>History:&nbsp;</label>
               <span id='history' name='history'>
-                <HistoryLog history={history} users={users} />
+                <HistoryLog history={history} />
               </span>
             </Col>
           </Row>

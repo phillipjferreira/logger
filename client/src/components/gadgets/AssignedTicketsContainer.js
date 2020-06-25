@@ -9,10 +9,8 @@ import { loadSprints } from '../../actions/sprints';
 
 const AssignedTicketsContainer = ({
   tickets: { ticket, tickets, loading },
-  sprints: { sprints },
   auth: { user },
   projects: { projects },
-  users: { users },
   isLoading,
   loadTicket,
   loadSprints,
@@ -38,10 +36,6 @@ const AssignedTicketsContainer = ({
     !isLoading && (
       <Fragment>
         <ViewTicket
-          users={users}
-          // Need a way to determine on view ticket if passing in a project or using 'selected proejct'
-          project={{ name: 'sample' }}
-          sprints={sprints}
           ticket={ticket}
           isLoading={loading}
           toggle={toggle}

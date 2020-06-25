@@ -19,7 +19,7 @@ export const loadTicket = (id) => async (dispatch) => {
     setAuthToken(localStorage.token);
   }
   try {
-    const res = await axios.get(`/tickets/${id}`);
+    const res = await axios.get(`/tickets/populate/${id}`);
     const hist = await axios.get(`/history/${id}`);
 
     dispatch({

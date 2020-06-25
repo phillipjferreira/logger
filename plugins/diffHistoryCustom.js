@@ -37,6 +37,13 @@ function saveDiffObject(
   const { __user: user, __reason: reason, __session: session } =
     (queryObject && queryObject.options) || currentObject;
 
+  if (typeof updated.sprint === 'object' && updated.sprint !== null) {
+    updated.sprint = updated.sprint._id;
+  }
+  if (typeof updated.assignedTo === 'object' && updated.assignedTo !== null) {
+    updated.assignedTo = updated.assignedTo._id;
+  }
+
   let diff = diffPatcher.diff(
     JSON.parse(JSON.stringify(original)),
     JSON.parse(JSON.stringify(updated))

@@ -28,7 +28,9 @@ exports.findSprintsById = [
   setDB,
   async (req, res) => {
     try {
-      const sprint = await res.locals.Sprint.find({ project: req.params.id });
+      const sprint = await res.locals.Sprint.find({
+        project: req.params.id,
+      });
       // TO DO add ObjectID format error handling
       res.json(sprint);
     } catch (err) {

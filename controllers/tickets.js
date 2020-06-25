@@ -28,6 +28,30 @@ exports.findTicket = [
   async (req, res) => {
     try {
       const ticket = await res.locals.Ticket.findById(req.params.id);
+
+      // TO DO add ObjectID format error handling
+      res.json(ticket);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Server Error');
+    }
+  },
+];
+
+// @route    GET /tickets/populate/:id
+// @desc     Get ticket by id and populate IDs with names
+// @access   Private
+exports.findTicketAndPopulate = [
+  auth,
+  setDB,
+  async (req, res) => {
+    try {
+      const ticket = await res.locals.Ticket.findById(req.params.id)
+        .populate('sprint', 'name')
+        .populate('project', 'name')
+        .populate('assignedTo', 'name')
+        .populate('assignedBy', 'name');
+
       // TO DO add ObjectID format error handling
       res.json(ticket);
     } catch (err) {

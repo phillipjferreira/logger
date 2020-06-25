@@ -1,32 +1,37 @@
 import React from 'react';
 
-const HistoryLog = ({ history, users }) => {
+const HistoryLog = ({ history }) => {
   return (
     history &&
-    history.map((change, i) => {
-      const user = change.user;
-      const time = change.createdAt;
-      const diff = Object.getOwnPropertyNames(change.diff).map(
+    history.map((hist, i) => {
+      const user = hist.user.name;
+      const time =
+        new Date(hist.createdAt).toDateString() +
+        ' ' +
+        new Date(hist.createdAt).toTimeString().slice(0, 5);
+      const diff = Object.getOwnPropertyNames(hist.diff).map(
         (difField, index) => {
+          if (hist.diff[difField].length === 0) return;
           const field = difField;
-          const oldValue = change.diff[difField][0];
-          const newValue = change.diff[difField][1];
+          const oldValue =
+            typeof hist.diff[difField][0] === 'object' &&
+            hist.diff[difField][0] !== null
+              ? hist.diff[difField][0].name
+              : hist.diff[difField][0];
+          const newValue =
+            typeof hist.diff[difField][1] === 'object' &&
+            hist.diff[difField][1] !== null
+              ? hist.diff[difField][1].name
+              : hist.diff[difField][1];
           return (
             <span className='history-field' key={index}>
               {(field === 'storyPoint' && 'Story Point') ||
                 (field === 'assignedTo' && 'Assigned To') ||
                 field.charAt(0).toUpperCase() + field.slice(1)}
               <span className='text-muted'> changed from </span>
-
-              {(field === 'assignedTo' &&
-                oldValue &&
-                users.find((obj) => obj._id === oldValue).name) ||
-                oldValue}
+              {oldValue}
               <span className='text-muted'> to </span>
-              {(field === 'assignedTo' &&
-                newValue &&
-                users.find((obj) => obj._id === newValue).name) ||
-                newValue}
+              {newValue}
             </span>
           );
         }
@@ -34,13 +39,9 @@ const HistoryLog = ({ history, users }) => {
       return (
         <span key={i} className='history-object'>
           <span className='text-muted'>Updated on </span>
-          {new Date(time).toDateString() +
-            ' ' +
-            new Date(time).toTimeString().slice(0, 5)}
+          {time}
           <span className='text-muted'> by </span>
-          {user &&
-            users.length > 0 &&
-            users.find((obj) => obj._id === user).name}
+          {user}
           <span className='text-muted'>:</span>
           {diff}
           <br />

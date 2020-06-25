@@ -1,13 +1,8 @@
 import React, { Fragment } from 'react';
-import { Link, Redirect, NavLink } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { login } from '../actions/auth';
-import {
-  faUserCog,
-  faUserEdit,
-  faUser,
-  faEye,
-} from '@fortawesome/free-solid-svg-icons';
+import { faUserCog, faUser, faEye } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
 import { Container, Row, Col, Card, CardBody } from 'shards-react';

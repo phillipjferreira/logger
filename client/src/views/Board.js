@@ -10,14 +10,11 @@ import { Row, Col, Container, Button } from 'shards-react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ViewTicket from '../components/modals/ViewTicket';
-import { loadUsers } from '../actions/users';
 
 const Board = ({
-  users: { users },
   projects: { project },
   sprints: { sprints },
   tickets: { tickets, ticket, loading },
-  loadUsers,
   loadTicket,
   loadTickets,
   loadSprints,
@@ -36,10 +33,9 @@ const Board = ({
 
   useEffect(() => {
     setSkip(true);
-    loadUsers();
     selectProject(projectid);
     loadSprints(projectid);
-  }, [setSkip, loadUsers, selectProject, loadSprints, projectid]);
+  }, [setSkip, selectProject, loadSprints, projectid]);
 
   useEffect(() => {
     if (skip && sprints) {
@@ -96,9 +92,6 @@ const Board = ({
     show && (
       <Fragment>
         <ViewTicket
-          users={users}
-          project={project}
-          sprints={sprints}
           ticket={ticket}
           isLoading={loading}
           toggle={toggle}
@@ -172,14 +165,9 @@ Board.propTypes = {
   editSprint: PropTypes.func.isRequired,
 };
 
-const loadingSelector = createLoadingSelector([
-  'GET_TICKETS',
-  'GET_SPRINTS',
-  'GET_USERS',
-]);
+const loadingSelector = createLoadingSelector(['GET_TICKETS', 'GET_SPRINTS']);
 const mapStateToProps = (state) => ({
   isLoading: loadingSelector(state),
-  users: state.users,
   projects: state.projects,
   tickets: state.tickets,
   sprints: state.sprints,
@@ -188,7 +176,6 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   selectProject,
   loadTicket,
-  loadUsers,
   loadTickets,
   loadSprints,
   editTicket,

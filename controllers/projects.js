@@ -28,7 +28,10 @@ exports.findProject = [
   setDB,
   async (req, res) => {
     try {
-      const project = await res.locals.Project.findById(req.params.id);
+      const project = await res.locals.Project.findById(req.params.id).populate(
+        'lead',
+        'name'
+      );
       // TO DO add ObjectID format error handling
       res.json(project);
     } catch (err) {

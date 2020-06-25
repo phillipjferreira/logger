@@ -11,16 +11,15 @@ const CustomBoard = ({
   view,
   updateStatus,
 }) => {
-  let arr = [];
   const isActive = Boolean(
     sprints.find((sprint) => sprint.status === 'Active')
   );
   const backlog = { _id: 'Backlog', name: 'Backlog' };
-  Array.isArray(sprints)
-    ? (arr = [...sprints, backlog])
-    : (arr = [sprints, backlog]);
+  const arr = Array.isArray(sprints)
+    ? [...sprints, backlog]
+    : [sprints, backlog];
 
-  let columns = arr.map((sprint) => {
+  const columns = arr.map((sprint) => {
     let output = [];
     sprint._id !== 'Backlog'
       ? tickets.forEach((ticket) => {
