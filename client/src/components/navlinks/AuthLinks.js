@@ -6,6 +6,7 @@ import { NavLink as RouteNavLink } from 'react-router-dom';
 import { logout } from '../../actions/auth';
 import { openSidebar } from '../../actions/menus';
 import { loadProjects, selectProject } from '../../actions/projects';
+import { useMediaQuery } from 'react-responsive';
 
 const AuthLinks = ({
   openSidebar,
@@ -27,10 +28,11 @@ const AuthLinks = ({
     >
       <NavItem>
         <NavLink
-          onClick={() => {
-            projectClick();
-            collapse();
-          }}
+          onClick={
+            useMediaQuery({ query: '(max-width:767px)' })
+              ? collapse + projectClick
+              : projectClick
+          }
           className='text-nowrap py-4'
         >
           Projects
@@ -41,7 +43,9 @@ const AuthLinks = ({
           tag={RouteNavLink}
           to='/dashboard'
           className='text-nowrap py-4'
-          onClick={collapse}
+          onClick={
+            useMediaQuery({ query: '(max-width:767px)' }) ? collapse : null
+          }
         >
           Dashboard
         </NavLink>
@@ -51,7 +55,9 @@ const AuthLinks = ({
           tag={RouteNavLink}
           to='/users'
           className='text-nowrap py-4'
-          onClick={collapse}
+          onClick={
+            useMediaQuery({ query: '(max-width:767px)' }) ? collapse : null
+          }
         >
           Users
         </NavLink>
@@ -61,17 +67,20 @@ const AuthLinks = ({
           tag={RouteNavLink}
           to='/make-ticket'
           className='text-nowrap py-4'
-          onClick={collapse}
+          onClick={
+            useMediaQuery({ query: '(max-width:767px)' }) ? collapse : null
+          }
         >
           Make Ticket
         </NavLink>
       </NavItem>
       <NavItem className='right'>
         <NavLink
-          onClick={() => {
-            collapse();
-            logout();
-          }}
+          onClick={
+            useMediaQuery({ query: '(max-width:767px)' })
+              ? collapse + logout
+              : logout
+          }
           to='#!'
           className='text-nowrap py-4'
         >

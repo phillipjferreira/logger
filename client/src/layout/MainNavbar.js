@@ -41,16 +41,8 @@ const MainNavbar = ({ auth: { isAuthenticated, loading } }) => {
               <span className='d-none d-md-inline ml-1'>BugTracker</span>
             </div>
           </NavbarBrand>
-          <NavbarToggler
-            onClick={() => setCollapseOpen(!collapseOpen)}
-            // right
-            // small
-          />
-          <Collapse
-            open={collapseOpen}
-            navbar
-            // className='header-navbar d-lg-flex p-0 bg-white border-top'
-          >
+          <NavbarToggler onClick={() => setCollapseOpen(!collapseOpen)} />
+          <Collapse open={collapseOpen} navbar>
             {!loading &&
               (isAuthenticated ? (
                 <AuthLinks collapse={() => setCollapseOpen(!collapseOpen)} />

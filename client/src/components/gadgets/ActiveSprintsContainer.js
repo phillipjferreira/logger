@@ -3,12 +3,11 @@ import { connect } from 'react-redux';
 import { createLoadingSelector } from '../../Selectors';
 import ActiveSprints from './ActiveSprints';
 import { Card, CardHeader } from 'shards-react';
-import { loadSprints } from '../../actions/sprints';
+import Loader from 'react-loader-spinner';
 
 const ActiveSprintsContainer = ({
   sprints: { sprints },
   projects: { projects },
-  loadSprints,
   isLoading,
 }) => {
   const [skip, setSkip] = useState(false);
@@ -17,18 +16,26 @@ const ActiveSprintsContainer = ({
     setSkip(true);
   }, []);
 
-  return (
-    skip &&
-    !isLoading && (
-      <Fragment>
-        <Card small className='h-100'>
-          <CardHeader className='border-bottom'>
-            <h6 className='m-0'>Active Sprints</h6>
-          </CardHeader>
-          <ActiveSprints sprints={sprints} projects={projects} />
-        </Card>
-      </Fragment>
-    )
+  return skip && !isLoading ? (
+    <Card small className='h-100'>
+      <CardHeader className='border-bottom'>
+        <h6 className='m-0'>Active Sprints</h6>
+      </CardHeader>
+      <ActiveSprints sprints={sprints} projects={projects} />
+    </Card>
+  ) : (
+    <Card small className='h-100'>
+      <CardHeader className='border-bottom'>
+        <h6 className='m-0'>Active Sprints</h6>
+      </CardHeader>
+      <Loader
+        type='Oval'
+        color='#007bff'
+        height={50}
+        width={50}
+        className='center-short'
+      />
+    </Card>
   );
 };
 const loadingSelector = createLoadingSelector(['GET_SPRINTS']);
@@ -38,6 +45,4 @@ const mapStateToProps = (state) => ({
   sprints: state.sprints,
 });
 
-export default connect(mapStateToProps, { loadSprints })(
-  ActiveSprintsContainer
-);
+export default connect(mapStateToProps)(ActiveSprintsContainer);

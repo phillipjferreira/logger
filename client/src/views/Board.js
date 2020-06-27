@@ -7,6 +7,7 @@ import { selectProject } from '../actions/projects';
 import { loadSprints, editSprint } from '../actions/sprints';
 import { loadTicket, loadTickets, editTicket } from '../actions/tickets';
 import { Row, Col, Container, Button } from 'shards-react';
+import Loader from 'react-loader-spinner';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ViewTicket from '../components/modals/ViewTicket';
@@ -86,72 +87,76 @@ const Board = ({
     editSprint(output, history);
   };
 
-  return (
-    skip &&
-    !isLoading &&
-    show && (
-      <Fragment>
-        <ViewTicket
-          ticket={ticket}
-          isLoading={loading}
-          toggle={toggle}
-          open={modalOpen}
-        />
-        <Container fluid className='main-content-container px-4 board'>
-          {console.log('loading ' + isLoading)}
-          {console.log('skip ' + skip)}
-          <Row noGutters className='page-header pt-4'>
-            <Col sm='12' className='text-center, text-md-left, mb-sm-0'>
-              <span className='text-uppercase page-subtitle'>
-                {activeSprint && project.name + ' - ' + activeSprint.name}
-              </span>
-              <h2>Sprint Board</h2>
-            </Col>
-          </Row>
-          <hr />
-          {activeSprint && (
-            <Fragment>
-              <Row className='pt-4 px-4 tab-title'>
-                <p className='card-title'>
-                  Start Date:&nbsp;
-                  {new Date(activeSprint.startDate).toDateString() || 'N/A'}
-                </p>
+  return skip && !isLoading && show ? (
+    <Fragment>
+      <ViewTicket
+        ticket={ticket}
+        isLoading={loading}
+        toggle={toggle}
+        open={modalOpen}
+      />
+      <Container fluid className='main-content-container px-4 board'>
+        {console.log('loading ' + isLoading)}
+        {console.log('skip ' + skip)}
+        <Row noGutters className='page-header pt-4'>
+          <Col sm='12' className='text-center, text-md-left, mb-sm-0'>
+            <span className='text-uppercase page-subtitle'>
+              {activeSprint && project.name + ' - ' + activeSprint.name}
+            </span>
+            <h2>Sprint Board</h2>
+          </Col>
+        </Row>
+        <hr />
+        {activeSprint && (
+          <Fragment>
+            <Row className='pt-4 px-4 tab-title'>
+              <p className='card-title'>
+                Start Date:&nbsp;
+                {new Date(activeSprint.startDate).toDateString() || 'N/A'}
+              </p>
 
-                <p className='card-title'>
-                  End Date:&nbsp;
-                  {new Date(activeSprint.endDate).toDateString() || 'N/A'}
-                </p>
+              <p className='card-title'>
+                End Date:&nbsp;
+                {new Date(activeSprint.endDate).toDateString() || 'N/A'}
+              </p>
 
-                <p>
-                  <Button className='btn-success' onClick={submit}>
-                    Complete Sprint
-                  </Button>
-                </p>
-              </Row>
-              <Row className='px-4'>
-                <p className='card-text text-muted'>
-                  Goal: {activeSprint.goal || 'N/A'}
-                </p>
-              </Row>
-            </Fragment>
-          )}
+              <p>
+                <Button className='btn-success' onClick={submit}>
+                  Complete Sprint
+                </Button>
+              </p>
+            </Row>
+            <Row className='px-4'>
+              <p className='card-text text-muted'>
+                Goal: {activeSprint.goal || 'N/A'}
+              </p>
+            </Row>
+          </Fragment>
+        )}
 
-          <Row>
-            <Col lg='12' className='mx-auto mt-4'>
-              {activeSprint ? (
-                <BoardKanban
-                  onCardDragEnd={onDrag}
-                  tickets={tickets}
-                  view={viewTicket}
-                />
-              ) : (
-                <p>{message}</p>
-              )}
-            </Col>
-          </Row>
-        </Container>
-      </Fragment>
-    )
+        <Row>
+          <Col lg='12' className='mx-auto mt-4'>
+            {activeSprint ? (
+              <BoardKanban
+                onCardDragEnd={onDrag}
+                tickets={tickets}
+                view={viewTicket}
+              />
+            ) : (
+              <p>{message}</p>
+            )}
+          </Col>
+        </Row>
+      </Container>
+    </Fragment>
+  ) : (
+    <Loader
+      type='Oval'
+      color='#007bff'
+      height={100}
+      width={100}
+      className='center'
+    />
   );
 };
 

@@ -1,5 +1,6 @@
 import React, { useEffect, useState, Fragment } from 'react';
 import { Button, Container, Row, Col } from 'shards-react';
+import Loader from 'react-loader-spinner';
 import { withRouter } from 'react-router-dom';
 import { createLoadingSelector } from '../Selectors';
 import { useParams } from 'react-router';
@@ -70,51 +71,54 @@ const TicketLog = ({
     }
   };
 
-  return (
-    skip &&
-    !isLoading && (
-      <Fragment>
-        <ViewTicket
-          ticket={ticket}
-          isLoading={loading}
-          toggle={toggle}
-          open={modalOpen}
-        />
-        <Container fluid className='main-content-container px-4 custom'>
-          <Row noGutters className='page-header pt-4'>
-            <Col sm='12' className='text-center, text-md-left, mb-sm-0'>
-              <span className='text-uppercase page-subtitle'>
-                {project.name}
-              </span>
-              <h2>Ticket Log</h2>
-            </Col>
-          </Row>
-          <hr />
-          <Row className='pt-4 px-4 tab-title font-400'>
-            <p>Lead: {(project.lead && project.lead.name) || 'N/A'}</p>
+  return skip && !isLoading ? (
+    <Fragment>
+      <ViewTicket
+        ticket={ticket}
+        isLoading={loading}
+        toggle={toggle}
+        open={modalOpen}
+      />
+      <Container fluid className='main-content-container px-4 custom'>
+        <Row noGutters className='page-header pt-4'>
+          <Col sm='12' className='text-center, text-md-left, mb-sm-0'>
+            <span className='text-uppercase page-subtitle'>{project.name}</span>
+            <h2>Ticket Log</h2>
+          </Col>
+        </Row>
+        <hr />
+        <Row className='pt-4 px-4 tab-title font-400'>
+          <p>Lead: {(project.lead && project.lead.name) || 'N/A'}</p>
 
-            <p>Description: {project.description || 'N/A'}</p>
+          <p>Description: {project.description || 'N/A'}</p>
 
-            <p>
-              <Button className='btn-success' onClick={newSprint}>
-                Add New Sprint
-              </Button>
-            </p>
-          </Row>
-          <Row>
-            <Col lg='12' className='mx-auto mt-4'>
-              <TicketLogKanban
-                onCardDragEnd={onDrag}
-                tickets={tickets}
-                sprints={sprints}
-                view={viewTicket}
-                updateStatus={updateStatus}
-              />
-            </Col>
-          </Row>
-        </Container>
-      </Fragment>
-    )
+          <p>
+            <Button className='btn-success' onClick={newSprint}>
+              Add New Sprint
+            </Button>
+          </p>
+        </Row>
+        <Row>
+          <Col lg='12' className='mx-auto mt-4'>
+            <TicketLogKanban
+              onCardDragEnd={onDrag}
+              tickets={tickets}
+              sprints={sprints}
+              view={viewTicket}
+              updateStatus={updateStatus}
+            />
+          </Col>
+        </Row>
+      </Container>
+    </Fragment>
+  ) : (
+    <Loader
+      type='Oval'
+      color='#007bff'
+      height={100}
+      width={100}
+      className='center'
+    />
   );
 };
 

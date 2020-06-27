@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { NavItem, NavLink, Nav } from 'shards-react';
 import { NavLink as RouteNavLink } from 'react-router-dom';
+import { useMediaQuery } from 'react-responsive';
 
 const GuestLinks = ({ collapse }) => {
   return (
@@ -13,7 +14,9 @@ const GuestLinks = ({ collapse }) => {
           tag={RouteNavLink}
           to='/demo-login'
           className='text-nowrap py-4'
-          onClick={collapse}
+          onClick={
+            useMediaQuery({ query: '(max-width:767px)' }) ? collapse : null
+          }
         >
           Demo User
         </NavLink>
@@ -23,7 +26,9 @@ const GuestLinks = ({ collapse }) => {
           tag={RouteNavLink}
           to='/register'
           className='text-nowrap py-4'
-          onClick={collapse}
+          onClick={
+            useMediaQuery({ query: '(max-width:767px)' }) ? collapse : null
+          }
         >
           Register
         </NavLink>
@@ -33,7 +38,9 @@ const GuestLinks = ({ collapse }) => {
           tag={RouteNavLink}
           to='/login'
           className='text-nowrap py-4'
-          onClick={collapse}
+          onClick={
+            useMediaQuery({ query: '(max-width:767px)' }) ? collapse : null
+          }
         >
           Login
         </NavLink>

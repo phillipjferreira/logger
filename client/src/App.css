@@ -32,8 +32,8 @@ body .font-400 {
   outline: 0 !important;
 }
 
-.sidebar-margin {
-  margin-top: 60px;
+.main-sidebar {
+  top: auto !important;
 }
 
 .edit-project {
@@ -41,13 +41,9 @@ body .font-400 {
   margin-right: 5px;
 }
 
-/* .space-above {
-  padding-top: 35px !important;
-} */
-
 .sidebar-right {
   position: fixed;
-  top: 65px;
+  top: 67px;
   left: 5px;
   z-index: 1;
 }
@@ -322,4 +318,16 @@ body .font-400 {
 
 .float-left {
   float: left;
+}
+
+.center {
+  height: calc(100vh - 62px);
+  text-align: center;
+  line-height: 50vh;
+}
+
+.center-short {
+  height: calc(100vh - 62px);
+  text-align: center;
+  line-height: 25vh;
 }
