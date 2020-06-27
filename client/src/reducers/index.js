@@ -9,7 +9,7 @@ import tickets from './tickets';
 import loading from './loading';
 import error from './error';
 
-export default combineReducers({
+const appReducer = combineReducers({
   alert,
   auth,
   menus,
@@ -20,3 +20,13 @@ export default combineReducers({
   loading,
   error,
 });
+
+const rootReducer = (state, action) => {
+  if (action.type === 'LOGOUT') {
+    state = undefined;
+  }
+
+  return appReducer(state, action);
+};
+
+export default rootReducer;
