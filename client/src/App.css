@@ -277,3 +277,49 @@ body .font-400 {
     margin-left: auto;
   }
 }
+
+/* Small devices (up to 767px) */
+@media only screen and (max-width: 767px) {
+  .board .react-kanban-board {
+    width: calc(var(--size-small));
+  }
+  .board .react-kanban-column {
+    width: calc(var(--size-small) - 40px);
+  }
+  .board .react-kanban-card {
+    width: calc(var(--size-small) - 70px);
+  }
+  .board .react-kanban-column {
+    display: block !important;
+  }
+  .board .react-kanban-card {
+    display: flex;
+    max-width: none;
+    min-width: 0;
+  }
+}
+
+/* Small and Medium devices (up to 767px) */
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .board .react-kanban-board {
+    width: calc(var(--size-medium));
+  }
+  .board .react-kanban-column {
+    width: calc(var(--size-medium) - 40px);
+  }
+  .board .react-kanban-card {
+    width: calc(var(--size-medium) - 70px);
+  }
+  .board .react-kanban-column {
+    display: block !important;
+  }
+  .board .react-kanban-card {
+    display: flex;
+    max-width: none;
+    min-width: 0;
+  }
+}
+
+.float-left {
+  float: left;
+}

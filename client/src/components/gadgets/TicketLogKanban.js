@@ -43,7 +43,7 @@ const TicketLogKanban = ({
   const board = {
     columns: columns,
   };
-  // You need to control the state yourself.
+
   const [customBoard, setBoard] = useState(board);
 
   const handleCardMove = (_card, source, destination) => {

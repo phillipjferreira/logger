@@ -20,7 +20,6 @@ const TicketLogKanbanCard = ({ card, dragging, view }) => {
       >
         View
       </Button>
-      {/* </div> */}
     </div>
   );
 };

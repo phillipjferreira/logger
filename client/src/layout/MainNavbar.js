@@ -55,7 +55,7 @@ const MainNavbar = ({ auth: { isAuthenticated, loading } }) => {
               (isAuthenticated ? (
                 <AuthLinks collapse={() => setCollapseOpen(!collapseOpen)} />
               ) : (
-                <GuestLinks />
+                <GuestLinks collapse={() => setCollapseOpen(!collapseOpen)} />
               ))}
           </Collapse>
         </Navbar>

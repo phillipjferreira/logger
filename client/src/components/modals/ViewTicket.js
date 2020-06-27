@@ -89,24 +89,23 @@ const ViewTicket = ({ ticket, isLoading, toggle, open }) => {
               </Row>
               <Row>
                 {/* Description */}
-                <Col>
+                <Col md='12' className='form-group'>
                   <label htmlFor='description'>Description:&nbsp;</label>
                   <span id='description' name='description'>
                     {description}
                   </span>
                 </Col>
               </Row>
-              <br />
               <Row>
                 {/* Created */}
-                <Col md='6' className='form-group mb-0'>
+                <Col md='6' className='form-group'>
                   <label htmlFor='created'>Created:&nbsp;</label>
                   <span id='created' name='created'>
                     {new Date(created).toDateString()}
                   </span>
                 </Col>
                 {/* Last Updated */}
-                <Col md='6' className='form-group mb-0'>
+                <Col md='6' className='form-group'>
                   <label htmlFor='updated'>Last Updated:&nbsp;</label>
                   <span id='updated' name='updated'>
                     {new Date(updated).toDateString()}

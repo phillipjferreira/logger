@@ -82,7 +82,7 @@ const TicketLog = ({
         />
         <Container fluid className='main-content-container px-4 custom'>
           <Row noGutters className='page-header pt-4'>
-            <Col xs='12' sm='4' className='text-center, text-md-left, mb-sm-0'>
+            <Col sm='12' className='text-center, text-md-left, mb-sm-0'>
               <span className='text-uppercase page-subtitle'>
                 {project.name}
               </span>

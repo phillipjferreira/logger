@@ -67,7 +67,14 @@ const AuthLinks = ({
         </NavLink>
       </NavItem>
       <NavItem className='right'>
-        <NavLink onClick={logout} to='#!' className='text-nowrap py-4'>
+        <NavLink
+          onClick={() => {
+            collapse();
+            logout();
+          }}
+          to='#!'
+          className='text-nowrap py-4'
+        >
           Logout
         </NavLink>
       </NavItem>

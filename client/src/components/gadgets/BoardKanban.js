@@ -50,7 +50,7 @@ const BoardKanban = ({ tickets, onCardDragEnd, view }) => {
       },
     ],
   };
-  // You need to control the state yourself.
+
   const [controlledBoard, setBoard] = useState(board);
 
   function handleCardMove(_card, source, destination) {
