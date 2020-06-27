@@ -1,8 +1,9 @@
 import React, { Fragment } from 'react';
 import { NavItem, NavLink } from 'shards-react';
 import { NavLink as RouteNavLink } from 'react-router-dom';
+import { useMediaQuery } from 'react-responsive';
 
-const ProjectDetails = ({ project }) => {
+const ProjectDetails = ({ project, closeSidebar }) => {
   return (
     <Fragment>
       <NavItem className='no-hover'>
@@ -13,6 +14,9 @@ const ProjectDetails = ({ project }) => {
           tag={RouteNavLink}
           to={`/projects/${project._id}/ticket-log`}
           className='py-4'
+          onClick={
+            useMediaQuery({ query: '(max-width:767px)' }) ? closeSidebar : null
+          }
         >
           Ticket Log
         </NavLink>
@@ -22,6 +26,9 @@ const ProjectDetails = ({ project }) => {
           tag={RouteNavLink}
           to={`/projects/${project._id}/board`}
           className='py-4'
+          onClick={
+            useMediaQuery({ query: '(max-width:767px)' }) ? closeSidebar : null
+          }
         >
           Sprint Board
         </NavLink>
@@ -31,6 +38,9 @@ const ProjectDetails = ({ project }) => {
           tag={RouteNavLink}
           to={`/projects/${project._id}/metrics`}
           className='py-4'
+          onClick={
+            useMediaQuery({ query: '(max-width:767px)' }) ? closeSidebar : null
+          }
         >
           {'Charts & Metrics'}
         </NavLink>

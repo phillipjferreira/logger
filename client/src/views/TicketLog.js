@@ -6,7 +6,7 @@ import { useParams } from 'react-router';
 import { selectProject } from '../actions/projects';
 import { loadSprints, editSprint } from '../actions/sprints';
 import { loadTickets, loadTicket, editTicket } from '../actions/tickets';
-import CustomBoard from '../components/gadgets/CustomBoard';
+import TicketLogKanban from '../components/gadgets/TicketLogKanban';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ViewTicket from '../components/modals/ViewTicket';
@@ -91,7 +91,7 @@ const TicketLog = ({
           </Row>
           <hr />
           <Row className='pt-4 px-4 tab-title font-400'>
-            <p>Lead: {project.lead.name}</p>
+            <p>Lead: {(project.lead && project.lead.name) || 'N/A'}</p>
 
             <p>Description: {project.description || 'N/A'}</p>
 
@@ -103,7 +103,7 @@ const TicketLog = ({
           </Row>
           <Row>
             <Col lg='12' className='mx-auto mt-4'>
-              <CustomBoard
+              <TicketLogKanban
                 onCardDragEnd={onDrag}
                 tickets={tickets}
                 sprints={sprints}

@@ -4,6 +4,7 @@ import { NavLink as RouteNavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useMediaQuery } from 'react-responsive';
 import PropTypes from 'prop-types';
 import { openSidebar, closeSidebar } from '../actions/menus';
 import { selectProject } from '../actions/projects';
@@ -25,6 +26,10 @@ const SideBar = ({
     sidebar && 'open'
   );
 
+  const buttonOnClick = useMediaQuery({ query: '(max-width:767px)' })
+    ? closeSidebar
+    : null;
+
   return (
     <Col tag='aside' className={classes} lg={{ size: 2 }} md={{ size: 3 }}>
       <div className='nav-wrapper no-overflow'>
@@ -34,14 +39,18 @@ const SideBar = ({
             <Button
               tag={RouteNavLink}
               to={`/projects/${project._id}/edit-project/`}
-              className='edit-project btn-success'>
+              className='edit-project btn-success'
+              onClick={buttonOnClick}
+            >
               + Edit Project
             </Button>
           ) : (
             <Button
               tag={RouteNavLink}
               to='/new-project'
-              className='edit-project btn-success'>
+              className='edit-project btn-success'
+              onClick={buttonOnClick}
+            >
               + New Project
             </Button>
           )}
@@ -54,7 +63,7 @@ const SideBar = ({
         <div>
           <Nav className='flex-column'>
             {project.name ? (
-              <ProjectDetails project={project} />
+              <ProjectDetails project={project} closeSidebar={closeSidebar} />
             ) : (
               projects.map((p) => (
                 <ProjectCard key={p._id} project={p} onClick={selectProject} />

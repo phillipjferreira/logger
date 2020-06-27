@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from 'shards-react';
 import '@lourenci/react-kanban/dist/styles.css';
 
-const CustomCard = ({ card, dragging, view }) => {
+const TicketLogKanbanCard = ({ card, dragging, view }) => {
   const handleClick = (e) => {
     e.stopPropagation();
     view(card.id);
@@ -25,4 +25,4 @@ const CustomCard = ({ card, dragging, view }) => {
   );
 };
 
-export default CustomCard;
+export default TicketLogKanbanCard;

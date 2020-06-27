@@ -9,15 +9,12 @@ import { useParams } from 'react-router';
 import { selectProject } from '../actions/projects';
 import { loadSprints, getSprintHistory } from '../actions/sprints';
 import { loadTickets, loadTicket } from '../actions/tickets';
-import { loadUsers } from '../actions/users';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import BurndownContainer from '../components/gadgets/BurndownContainer';
+import BurndownChart from '../components/gadgets/BurndownChart';
 import MetricsForm from '../components/forms/MetricsForm';
 
 const Metrics = ({
-  users: { users },
-  loadUsers,
   projects: { project },
   selectProject,
   sprintData,
@@ -36,9 +33,8 @@ const Metrics = ({
   useEffect(() => {
     setSkip(true);
     selectProject(projectid);
-    loadUsers();
     loadSprints(projectid);
-  }, [setSkip, selectProject, loadUsers, loadSprints, projectid]);
+  }, [setSkip, selectProject, loadSprints, projectid]);
 
   const onChange = (e) => {
     setSprint(e.target.value);
@@ -66,12 +62,7 @@ const Metrics = ({
           </Row>
           <hr />
           <Row className='pt-4 px-4 tab-title font-400'>
-            <p>
-              Lead:{' '}
-              {(project.lead &&
-                users.find((obj) => obj._id === project.lead).name) ||
-                'N/A'}
-            </p>
+            <p>Lead: {project.lead.name || 'N/A'}</p>
 
             <p>Description: {project.description || 'N/A'}</p>
           </Row>
@@ -88,7 +79,7 @@ const Metrics = ({
           {show && !historyLoading && !isTicketsLoading && (
             <Row>
               <Col lg='12' className='mx-auto mt-4'>
-                <BurndownContainer sprintData={sprintData} />
+                <BurndownChart sprintData={sprintData} />
               </Col>
             </Row>
           )}
@@ -100,14 +91,12 @@ const Metrics = ({
 
 Metrics.propTypes = {
   selectProject: PropTypes.func.isRequired,
-  loadUsers: PropTypes.func.isRequired,
   loadSprints: PropTypes.func.isRequired,
   loadTickets: PropTypes.func.isRequired,
   loadTicket: PropTypes.func.isRequired,
 };
 
 const loadingSelector = createLoadingSelector([
-  'GET_USERS',
   'GET_SPRINTS',
   'SELECT_PROJECT',
 ]);
@@ -126,7 +115,6 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, {
-  loadUsers,
   selectProject,
   loadSprints,
   getSprintHistory,

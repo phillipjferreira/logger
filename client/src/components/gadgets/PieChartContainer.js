@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { createLoadingSelector } from '../../Selectors';
-import { Col, Card, CardBody, CardHeader } from 'shards-react';
+import { Card, CardBody, CardHeader } from 'shards-react';
 import PieChart from './PieChart';
 
 const PieChartContainer = ({ tickets: { tickets }, isLoading }) => {
@@ -29,16 +29,14 @@ const PieChartContainer = ({ tickets: { tickets }, isLoading }) => {
   return (
     skip &&
     !isLoading && (
-      <Col sm='12' md='6' className='mb-4'>
-        <Card small className='h-100'>
-          <CardHeader className='border-bottom'>
-            <h6 className='m-0'>Tickets by Status</h6>
-          </CardHeader>
-          <CardBody className='py-0'>
-            <PieChart status={status} />
-          </CardBody>
-        </Card>
-      </Col>
+      <Card small className='h-100'>
+        <CardHeader className='border-bottom'>
+          <h6 className='m-0'>Tickets by Status</h6>
+        </CardHeader>
+        <CardBody className='py-0'>
+          <PieChart status={status} />
+        </CardBody>
+      </Card>
     )
   );
 };

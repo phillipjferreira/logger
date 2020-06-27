@@ -134,7 +134,7 @@ const ViewTicket = ({ ticket, isLoading, toggle, open }) => {
                 </Button>
               )}
             </Col>
-            {/* Historyy */}
+            {/* History */}
             <Col className={hist ? '' : 'hide'}>
               <label htmlFor='history'>History:&nbsp;</label>
               <span id='history' name='history'>

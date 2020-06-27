@@ -1,21 +1,35 @@
-import React, { Fragment } from 'react';
-import { Container, Navbar, NavbarBrand } from 'shards-react';
+import React, { useState } from 'react';
+import {
+  Container,
+  Navbar,
+  NavbarBrand,
+  NavbarToggler,
+  Collapse,
+} from 'shards-react';
 import { NavLink as RouteNavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import AuthLinks from '../components/navlinks/AuthLinks';
 import GuestLinks from '../components/navlinks/GuestLinks';
 
-// import NavbarSearch from "./NavbarSearch";
-// import NavbarNav from "./NavbarNav/NavbarNav";
-// import NavbarToggle from "./NavbarToggle";
-
 const MainNavbar = ({ auth: { isAuthenticated, loading } }) => {
+  const [collapseOpen, setCollapseOpen] = useState(false);
   return (
-    <div className='main-navbar bg-white sticky-top'>
+    <div
+      // main-navbar
+      className='bg-white sticky-top'
+    >
       <Container className='p-0'>
-        <Navbar type='light' className='align-items-stretch flex-md-nowrap p-0'>
-          <NavbarBrand tag={RouteNavLink} to='/' style={{ lineHeight: '25px' }}>
+        <Navbar
+          type='light'
+          className='align-items-stretch flex-md-nowrap p-0'
+          expand='md'
+        >
+          <NavbarBrand
+            tag={RouteNavLink}
+            to='/'
+            style={{ lineHeight: '25px', display: 'flex' }}
+          >
             <div className='d-table m-auto'>
               <img
                 id='main-logo'
@@ -27,9 +41,23 @@ const MainNavbar = ({ auth: { isAuthenticated, loading } }) => {
               <span className='d-none d-md-inline ml-1'>BugTracker</span>
             </div>
           </NavbarBrand>
-          <Fragment>
-            {!loading && (isAuthenticated ? <AuthLinks /> : <GuestLinks />)}
-          </Fragment>
+          <NavbarToggler
+            onClick={() => setCollapseOpen(!collapseOpen)}
+            // right
+            // small
+          />
+          <Collapse
+            open={collapseOpen}
+            navbar
+            // className='header-navbar d-lg-flex p-0 bg-white border-top'
+          >
+            {!loading &&
+              (isAuthenticated ? (
+                <AuthLinks collapse={() => setCollapseOpen(!collapseOpen)} />
+              ) : (
+                <GuestLinks />
+              ))}
+          </Collapse>
         </Navbar>
       </Container>
     </div>

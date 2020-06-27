@@ -102,6 +102,21 @@ body .font-400 {
   cursor: pointer;
   width: 75px;
 }
+/* Small devices (up to 767px) */
+@media only screen and (max-width: 767px) {
+  .hide-small {
+    display: none;
+  }
+  .custom .react-kanban-board {
+    width: calc(var(--size-small));
+  }
+  .custom .react-kanban-column {
+    width: calc(var(--size-small) - 40px);
+  }
+  .custom .react-kanban-card {
+    width: calc(var(--size-small) - 70px);
+  }
+}
 
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
@@ -116,22 +131,6 @@ body .font-400 {
   }
   .custom .react-kanban-card {
     width: calc(var(--size-medium) - 70px);
-  }
-}
-
-/* Small devices (up to 767px) */
-@media only screen and (max-width: 767px) {
-  .hide-small {
-    display: none;
-  }
-  .custom .react-kanban-board {
-    width: calc(var(--size-small));
-  }
-  .custom .react-kanban-column {
-    width: calc(var(--size-small) - 40px);
-  }
-  .custom .react-kanban-card {
-    width: calc(var(--size-small) - 70px);
   }
 }
 
@@ -218,16 +217,6 @@ body .font-400 {
   opacity: 1;
 }
 
-/* Extra small devices (phones, 600px and down) */
-/* @media only screen and (max-width: 600px) {
-  .example {background: red;}
-} */
-
-/* Small devices (portrait tablets and large phones, 600px and up) */
-/* @media only screen and (min-width: 600px) {
-  .example {background: green;}
-} */
-
 .no-overflow {
   overflow: hidden;
 }
@@ -251,133 +240,40 @@ body .font-400 {
   padding-right: 15px;
 }
 
-/* body {
-  font-size: 30px;
-} */
-
-/* Landing Page */
-/* .landing {
-  position: relative;
-  background: white;
-  height: 100vh;
-} */
-
-/* .landing-inner {
-  color: #fff;
-  height: 100%;
-  width: 80%;
-  margin: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-} */
-
-/* Global Styles */
-/* :root {
-  --primary-color: #17a2b8;
-  --dark-color: #343a40;
-  --light-color: #f4f4f4;
-  --danger-color: #dc3545;
-  --success-color: #28a745;
-} */
-
-/* * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-} */
-
-/* body {
-  font-family: 'Raleway', sans-serif;
-  font-size: 1rem;
-  line-height: 1.6;
-  background-color: #fff;
-  color: #333;
-} */
-
-/* a {
-  color: var(--primary-color);
-  text-decoration: none;
-} */
-
-/* ul {
-  list-style: none;
-} */
-
-/* img {
+.width-100 {
+  table-layout: fixed;
   width: 100%;
-} */
+}
 
-/* Utilities
-.container {
-  max-width: 1100px;
-  margin: auto;
-  overflow: hidden;
-  padding: 0 2rem;
-  margin-top: 6rem;
-  margin-bottom: 3rem;
-} */
+/* Large and Extra-large devices (992px and up) */
+@media only screen and (min-width: 992px) {
+  .dashboard-container {
+    height: calc(100vh - 62px);
+    overflow: hidden;
+  }
 
-/* Text Styles
-.x-large {
-  font-size: 4rem;
-  line-height: 1.2;
-  margin-bottom: 1rem;
-} */
+  .dashboard-right {
+    height: calc(100vh - 182px);
+    overflow-y: auto;
+    padding-right: 15px;
+  }
 
-/* .large {
-  font-size: 3rem;
-  line-height: 1.2;
-  margin-bottom: 1rem;
-} */
+  .dashboard-left {
+    height: calc((100vh - 182px) / 2);
+    overflow-y: auto;
+    padding-right: 15px;
+  }
 
-/* .lead {
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-} */
+  .dashboard-gadget {
+    max-height: 100%;
+    overflow-y: auto;
+    padding-right: 15px;
+  }
+}
 
-/* .text-center {
-  text-align: center;
-} */
-
-/* .text-primary {
-  color: var(--primary-color);
-} */
-
-/* .text-dark {
-  color: var(--dark-color);
-} */
-
-/* Navbar
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.7rem 2rem;
-  position: fixed;
-  z-index: 1;
-  width: 100%;
-  top: 0;
-  border-bottom: solid 1px var(--primary-color);
-  opacity: 0.9;
-} */
-
-/* .navbar ul {
-  display: flex;
-} */
-
-/* .navbar a {
-  color: #fff;
-  padding: 0.45rem;
-  margin: 0 0.25rem;
-} */
-
-/* .navbar a:hover {
-  color: var(--primary-color);
-} */
-
-/* .navbar .welcome span {
-  margin-right: 0.6rem;
-} */
+/* Medium devices and up(992px and up) */
+@media only screen and (min-width: 768px) {
+  .right {
+    margin-left: auto;
+  }
+}

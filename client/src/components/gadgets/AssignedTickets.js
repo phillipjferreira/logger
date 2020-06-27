@@ -8,7 +8,7 @@ const AssignedTickets = ({ tickets, user, projects, viewTicket }) => {
     viewTicket(id);
   };
   return (
-    <CardBody className='p-0'>
+    <CardBody className='p-0 dashboard-gadget'>
       {tickets.map(
         (ticket, index) =>
           ticket.assignedTo === user._id && (
@@ -35,6 +35,7 @@ const AssignedTickets = ({ tickets, user, projects, viewTicket }) => {
                   <span className='badge badge-success badge-pill'>Done</span>
                 )}
               </div>
+              {/* Project */}
               <div className='blog-comments__meta text-mutes tab-title'>
                 <a
                   className='text-secondary'
@@ -44,13 +45,13 @@ const AssignedTickets = ({ tickets, user, projects, viewTicket }) => {
                     projects.find((project) => project._id === ticket.project)
                       .name}
                 </a>
-
+                {/* Date - Time */}
                 <span className='text-muted font-400'>
                   <Moment date={ticket.updated} format={'M/DD/YY, h:mm a'} />
                 </span>
               </div>
 
-              {/* Content :: Body */}
+              {/* Description */}
               <p className='m-0 my-1 mb-2 text-muted font-400'>
                 {ticket.description}
               </p>

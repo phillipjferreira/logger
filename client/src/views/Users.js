@@ -24,7 +24,7 @@ const Users = ({
         <Container fluid className='main-content-container px-4'>
           {/* Page Header */}
           <Row noGutters className='page-header py-4'>
-            <Col xs='12' sm='4' className='text-center, text-md-left, mb-sm-0'>
+            <Col sm='12' className='text-center, text-md-left, mb-sm-0'>
               <span className='text-uppercase page-subtitle'>Users</span>
               <h3 className='page-title'>
                 User: {auth.user.name}, Role: {auth.user.role}

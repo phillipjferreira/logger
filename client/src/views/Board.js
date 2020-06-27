@@ -1,5 +1,5 @@
 import React, { useEffect, useState, Fragment } from 'react';
-import ControlledBoard from '../components/gadgets/ControlledBoard';
+import BoardKanban from '../components/gadgets/BoardKanban';
 import { withRouter } from 'react-router-dom';
 import { createLoadingSelector } from '../Selectors';
 import { useParams } from 'react-router';
@@ -38,13 +38,13 @@ const Board = ({
   }, [setSkip, selectProject, loadSprints, projectid]);
 
   useEffect(() => {
-    if (skip && sprints) {
+    if (skip) {
       setActiveSprint(sprints.find((sprint) => sprint.status === 'Active'));
     }
-  }, [sprints, skip]);
+  }, [sprints, setShow]);
 
   useEffect(() => {
-    if (skip && sprints) {
+    if (skip) {
       if (sprints.length === 0) {
         setMessage(
           'No Sprints yet! Plan and Activate a Sprint in the Ticket Log to get started!'
@@ -58,7 +58,7 @@ const Board = ({
       }
       setShow(true);
     }
-  }, [activeSprint, loadTickets, setMessage, setShow, skip, sprints]);
+  }, [activeSprint, loadTickets, setMessage]);
 
   const onDrag = (card, source, destination) => {
     if (source.fromColumnId !== destination.toColumnId) {
@@ -98,6 +98,8 @@ const Board = ({
           open={modalOpen}
         />
         <Container fluid className='main-content-container px-4'>
+          {console.log('loading ' + isLoading)}
+          {console.log('skip ' + skip)}
           <Row noGutters className='page-header pt-4'>
             <Col xs='12' sm='4' className='text-center, text-md-left, mb-sm-0'>
               <span className='text-uppercase page-subtitle'>
@@ -137,7 +139,7 @@ const Board = ({
           <Row>
             <Col lg='12' className='mx-auto mt-4'>
               {activeSprint ? (
-                <ControlledBoard
+                <BoardKanban
                   onCardDragEnd={onDrag}
                   tickets={tickets}
                   view={viewTicket}
@@ -165,7 +167,11 @@ Board.propTypes = {
   editSprint: PropTypes.func.isRequired,
 };
 
-const loadingSelector = createLoadingSelector(['GET_TICKETS', 'GET_SPRINTS']);
+const loadingSelector = createLoadingSelector([
+  'SELECT_PROJECT',
+  'GET_TICKETS',
+  'GET_SPRINTS',
+]);
 const mapStateToProps = (state) => ({
   isLoading: loadingSelector(state),
   projects: state.projects,

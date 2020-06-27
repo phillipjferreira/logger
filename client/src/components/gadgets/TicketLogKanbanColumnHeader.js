@@ -1,7 +1,13 @@
 import React, { Fragment } from 'react';
 import { Button } from 'shards-react';
 
-const CustomColumnHeader = ({ title, status, id, updateStatus, isActive }) => {
+const TicketLogKanbanColumnHeader = ({
+  title,
+  status,
+  id,
+  updateStatus,
+  isActive,
+}) => {
   return (
     <div className='react-kanban-column-header tab-title'>
       <span>{title}</span>
@@ -39,4 +45,4 @@ const CustomColumnHeader = ({ title, status, id, updateStatus, isActive }) => {
   );
 };
 
-export default CustomColumnHeader;
+export default TicketLogKanbanColumnHeader;

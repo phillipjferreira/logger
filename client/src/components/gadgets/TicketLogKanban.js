@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import Board, { moveCard } from '@lourenci/react-kanban';
 import '@lourenci/react-kanban/dist/styles.css';
-import CustomCard from './CustomCard';
-import CustomColumnHeader from './CustomColumnHeader';
+import TicketLogKanbanCard from './TicketLogKanbanCard';
+import TicketLogKanbanColumnHeader from './TicketLogKanbanColumnHeader';
 
-const CustomBoard = ({
+const TicketLogKanban = ({
   onCardDragEnd,
   tickets,
   sprints,
@@ -58,11 +58,15 @@ const CustomBoard = ({
         onCardDragEnd(...props);
       }}
       renderCard={(card, { dragging }) => (
-        <CustomCard card={card} dragging={dragging} view={view}></CustomCard>
+        <TicketLogKanbanCard
+          card={card}
+          dragging={dragging}
+          view={view}
+        ></TicketLogKanbanCard>
       )}
       disableColumnDrag
       renderColumnHeader={({ title, status, id }) => (
-        <CustomColumnHeader
+        <TicketLogKanbanColumnHeader
           title={title}
           status={status}
           id={id}
@@ -76,4 +80,4 @@ const CustomBoard = ({
   );
 };
 
-export default CustomBoard;
+export default TicketLogKanban;

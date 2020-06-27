@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import Board, { moveCard } from '@lourenci/react-kanban';
 import '@lourenci/react-kanban/dist/styles.css';
-import BoardCard from './BoardCard';
+import BoardKanbanCard from './BoardKanbanCard';
 
-const ControlledBoard = ({ tickets, onCardDragEnd, view }) => {
+const BoardKanban = ({ tickets, onCardDragEnd, view }) => {
   let todoTickets = [],
     inprogressTickets = [],
     doneTickets = [];
@@ -65,7 +65,11 @@ const ControlledBoard = ({ tickets, onCardDragEnd, view }) => {
         onCardDragEnd(...props);
       }}
       renderCard={(card, { dragging }) => (
-        <BoardCard card={card} dragging={dragging} view={view}></BoardCard>
+        <BoardKanbanCard
+          card={card}
+          dragging={dragging}
+          view={view}
+        ></BoardKanbanCard>
       )}
       disableColumnDrag
     >
@@ -74,4 +78,4 @@ const ControlledBoard = ({ tickets, onCardDragEnd, view }) => {
   );
 };
 
-export default ControlledBoard;
+export default BoardKanban;

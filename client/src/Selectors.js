@@ -1,11 +1,14 @@
 import _ from 'lodash';
 
 export const createLoadingSelector = (actions) => (state) => {
-  //false if empty //true if loading state has actions
-  // returns true only when all actions is not loading
+  // false if empty
+  // true if loading state has actions
+  // returns false only when all actions is not loading (false)
+
   return (
     !state.loading ||
     Object.keys(state.loading).length === 0 ||
+    actions.some((element) => !Object.keys(state.loading).includes(element)) ||
     actions.some((action) => state.loading[action])
   );
 };

@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from 'shards-react';
 import '@lourenci/react-kanban/dist/styles.css';
 
-const BoardCard = ({ card, dragging, view }) => {
+const BoardKanbanCard = ({ card, dragging, view }) => {
   const handleClick = (e) => {
     e.stopPropagation();
     view(card.id);
@@ -28,4 +28,4 @@ const BoardCard = ({ card, dragging, view }) => {
   );
 };
 
-export default BoardCard;
+export default BoardKanbanCard;

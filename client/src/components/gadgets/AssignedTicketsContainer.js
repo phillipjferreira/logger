@@ -3,9 +3,8 @@ import { connect } from 'react-redux';
 import { createLoadingSelector } from '../../Selectors';
 import AssignedTickets from './AssignedTickets';
 import ViewTicket from '../modals/ViewTicket';
-import { Col, Card, CardHeader } from 'shards-react';
+import { Row, Card, CardHeader } from 'shards-react';
 import { loadTicket } from '../../actions/tickets';
-import { loadSprints } from '../../actions/sprints';
 
 const AssignedTicketsContainer = ({
   tickets: { ticket, tickets, loading },
@@ -13,7 +12,6 @@ const AssignedTicketsContainer = ({
   projects: { projects },
   isLoading,
   loadTicket,
-  loadSprints,
 }) => {
   const [skip, setSkip] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
@@ -41,19 +39,17 @@ const AssignedTicketsContainer = ({
           toggle={toggle}
           open={modalOpen}
         />
-        <Col sm='12' md='6' className='mb-4'>
-          <Card small className='h-100'>
-            <CardHeader className='border-bottom'>
-              <h6 className='m-0'>Tickets Assigned to You</h6>
-            </CardHeader>
-            <AssignedTickets
-              tickets={tickets}
-              user={user}
-              projects={projects}
-              viewTicket={viewTicket}
-            />
-          </Card>
-        </Col>
+        <Card small className='h-100'>
+          <CardHeader className='border-bottom'>
+            <h6 className='m-0'>Tickets Assigned to You</h6>
+          </CardHeader>
+          <AssignedTickets
+            tickets={tickets}
+            user={user}
+            projects={projects}
+            viewTicket={viewTicket}
+          />
+        </Card>
       </Fragment>
     )
   );
@@ -64,10 +60,9 @@ const mapStateToProps = (state) => ({
   tickets: state.tickets,
   auth: state.auth,
   projects: state.projects,
-  sprints: state.sprints,
   users: state.users,
 });
 
-export default connect(mapStateToProps, { loadTicket, loadSprints })(
+export default connect(mapStateToProps, { loadTicket })(
   AssignedTicketsContainer
 );

@@ -10,7 +10,7 @@ import {
 import { setAlert } from './alert';
 import setAuthToken from '../utils/setAuthToken';
 
-// Load Ticket by id
+// Load Ticket (with History and populated fields) by ticket id
 export const loadTicket = (id) => async (dispatch) => {
   dispatch({
     type: GET_TICKET_REQ,
@@ -35,6 +35,8 @@ export const loadTicket = (id) => async (dispatch) => {
 };
 
 // Load Tickets
+// @param {string} [id] - mongo id of ticket, project, or sprint for search
+// @param {string} [filter] - 'project' or 'sprint' to search for tickets by category
 export const loadTickets = (id, filter) => async (dispatch) => {
   dispatch({
     type: GET_TICKETS_REQUEST,

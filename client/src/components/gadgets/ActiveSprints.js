@@ -6,9 +6,9 @@ const ActiveSprints = ({ sprints, projects }) => {
   const activeSprints = sprints.filter((sprint) => sprint.status === 'Active');
 
   return (
-    <CardBody className='p-0'>
+    <CardBody className='p-0 dashboard-gadget'>
       <Container fluid className='px-0'>
-        <table className='table mb-0'>
+        <table className='table mb-0 width-100'>
           <thead className='py-2 bg-light text-semibold border-bottom light-font'>
             <tr>
               <th>Sprint</th>
