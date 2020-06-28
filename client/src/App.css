@@ -40,6 +40,14 @@ body .font-400 {
   margin-right: 5px;
 }
 
+.sidebar-padding {
+  margin-left: calc(100% - 45px);
+}
+
+.sidebar-bg {
+  background-color: #ddd;
+}
+
 .sidebar-right {
   position: fixed;
   top: 67px;
@@ -96,6 +104,13 @@ body .font-400 {
   margin: auto;
   cursor: pointer;
   width: 75px;
+}
+
+.custom .react-kanban-column {
+  background-color: #ddd;
+}
+.board .react-kanban-column {
+  background-color: #ddd;
 }
 
 /* Extra small devices (portrait phones, up to 575px) */

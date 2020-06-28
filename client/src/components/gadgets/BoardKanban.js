@@ -3,7 +3,7 @@ import Board, { moveCard } from '@lourenci/react-kanban';
 import '@lourenci/react-kanban/dist/styles.css';
 import BoardKanbanCard from './BoardKanbanCard';
 
-const BoardKanban = ({ tickets, onCardDragEnd, view }) => {
+const BoardKanban = ({ user, tickets, onCardDragEnd, view }) => {
   let todoTickets = [],
     inprogressTickets = [],
     doneTickets = [];
@@ -72,6 +72,7 @@ const BoardKanban = ({ tickets, onCardDragEnd, view }) => {
         ></BoardKanbanCard>
       )}
       disableColumnDrag
+      disableCardDrag={user.role <= 1}
     >
       {controlledBoard}
     </Board>

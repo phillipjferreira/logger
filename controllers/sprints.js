@@ -1,4 +1,5 @@
 const auth = require('../middleware/auth');
+const authLevel = require('../middleware/authLevel');
 const setDB = require('../middleware/setDB');
 
 // const { check, validationResult } = require('express-validator');
@@ -7,7 +8,7 @@ const setDB = require('../middleware/setDB');
 // @desc     Get all sprints
 // @access   Private
 exports.findSprints = [
-  auth,
+  authLevel(1),
   setDB,
   async (req, res) => {
     try {
@@ -24,7 +25,7 @@ exports.findSprints = [
 // @desc     Get sprints by projectid
 // @access   Private
 exports.findSprintsById = [
-  auth,
+  authLevel(1),
   setDB,
   async (req, res) => {
     try {
@@ -44,7 +45,7 @@ exports.findSprintsById = [
 // @desc     Create new sprint
 // @access   Private
 exports.addSprint = [
-  auth,
+  authLevel(3),
   setDB,
   async (req, res) => {
     try {
@@ -66,7 +67,7 @@ exports.addSprint = [
 // @desc     Edit sprint by id
 // @access   Private
 exports.editSprint = [
-  auth,
+  authLevel(3),
   setDB,
   async (req, res) => {
     try {
@@ -86,7 +87,7 @@ exports.editSprint = [
 // @desc     Delete sprint by id
 // @access   Private
 exports.removeSprint = [
-  auth,
+  authLevel(3),
   setDB,
   // Process request
   async (req, res, next) => {

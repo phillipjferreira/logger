@@ -33,6 +33,7 @@ const AssignedTicketsContainer = ({
   return skip && !isLoading ? (
     <Fragment>
       <ViewTicket
+        user={user}
         ticket={ticket}
         isLoading={loading}
         toggle={toggle}

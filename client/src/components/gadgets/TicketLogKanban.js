@@ -5,6 +5,7 @@ import TicketLogKanbanCard from './TicketLogKanbanCard';
 import TicketLogKanbanColumnHeader from './TicketLogKanbanColumnHeader';
 
 const TicketLogKanban = ({
+  user,
   onCardDragEnd,
   tickets,
   sprints,
@@ -65,6 +66,7 @@ const TicketLogKanban = ({
         ></TicketLogKanbanCard>
       )}
       disableColumnDrag
+      disableCardDrag={user.role <= 1}
       renderColumnHeader={({ title, status, id }) => (
         <TicketLogKanbanColumnHeader
           title={title}

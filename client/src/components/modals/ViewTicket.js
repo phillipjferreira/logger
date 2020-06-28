@@ -3,7 +3,7 @@ import { NavLink as RouteNavLink } from 'react-router-dom';
 import HistoryLog from './HistoryLog';
 import { Row, Col, Button, Modal } from 'shards-react';
 
-const ViewTicket = ({ ticket, isLoading, toggle, open }) => {
+const ViewTicket = ({ user, ticket, isLoading, toggle, open }) => {
   const [hist, setHistory] = useState(false);
   const toggleHistory = () => {
     setHistory(!hist);
@@ -123,7 +123,7 @@ const ViewTicket = ({ ticket, isLoading, toggle, open }) => {
               <Button onClick={toggleHistory} className='btn-primary'>
                 {hist ? 'Hide History' : 'Show History'}
               </Button>
-              {project && (
+              {project && user.role >= 2 && (
                 <Button
                   tag={RouteNavLink}
                   to={`/projects/${project._id}/${_id}/edit-ticket`}

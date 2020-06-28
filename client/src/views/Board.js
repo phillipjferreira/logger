@@ -13,6 +13,7 @@ import PropTypes from 'prop-types';
 import ViewTicket from '../components/modals/ViewTicket';
 
 const Board = ({
+  auth: { user },
   projects: { project },
   sprints: { sprints },
   tickets: { tickets, ticket, loading },
@@ -90,6 +91,7 @@ const Board = ({
   return skip && !isLoading && show ? (
     <Fragment>
       <ViewTicket
+        user={user}
         ticket={ticket}
         isLoading={loading}
         toggle={toggle}
@@ -120,11 +122,13 @@ const Board = ({
                 {new Date(activeSprint.endDate).toDateString() || 'N/A'}
               </p>
 
-              <p>
-                <Button className='btn-success' onClick={submit}>
-                  Complete Sprint
-                </Button>
-              </p>
+              {user.role >= 3 && (
+                <p>
+                  <Button className='btn-success' onClick={submit}>
+                    Complete Sprint
+                  </Button>
+                </p>
+              )}
             </Row>
             <Row className='px-4'>
               <p className='card-text text-muted'>
@@ -138,6 +142,7 @@ const Board = ({
           <Col lg='12' className='mx-auto mt-4'>
             {activeSprint ? (
               <BoardKanban
+                user={user}
                 onCardDragEnd={onDrag}
                 tickets={tickets}
                 view={viewTicket}
@@ -170,6 +175,7 @@ Board.propTypes = {
   loadSprints: PropTypes.func.isRequired,
   editTicket: PropTypes.func.isRequired,
   editSprint: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
 };
 
 const loadingSelector = createLoadingSelector([
@@ -182,6 +188,7 @@ const mapStateToProps = (state) => ({
   projects: state.projects,
   tickets: state.tickets,
   sprints: state.sprints,
+  auth: state.auth,
 });
 
 export default connect(mapStateToProps, {

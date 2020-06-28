@@ -1,4 +1,5 @@
 const auth = require('../middleware/auth');
+const authLevel = require('../middleware/authLevel');
 const mongoose = require('mongoose');
 const setDB = require('../middleware/setDB');
 
@@ -6,7 +7,7 @@ const setDB = require('../middleware/setDB');
 // @desc     Get all tickets
 // @access   Private
 exports.findTickets = [
-  auth,
+  authLevel(1),
   setDB,
   async (req, res) => {
     try {
@@ -23,7 +24,7 @@ exports.findTickets = [
 // @desc     Get ticket by id
 // @access   Private
 exports.findTicket = [
-  auth,
+  authLevel(1),
   setDB,
   async (req, res) => {
     try {
@@ -42,7 +43,7 @@ exports.findTicket = [
 // @desc     Get ticket by id and populate IDs with names
 // @access   Private
 exports.findTicketAndPopulate = [
-  auth,
+  authLevel(1),
   setDB,
   async (req, res) => {
     try {
@@ -65,7 +66,7 @@ exports.findTicketAndPopulate = [
 // @desc     Get tickets by projectid
 // @access   Private
 exports.findTicketProject = [
-  auth,
+  authLevel(1),
   setDB,
   async (req, res) => {
     try {
@@ -83,7 +84,7 @@ exports.findTicketProject = [
 // @desc     Get tickets by sprintid
 // @access   Private
 exports.findTicketSprint = [
-  auth,
+  authLevel(1),
   setDB,
   async (req, res) => {
     try {
@@ -101,7 +102,7 @@ exports.findTicketSprint = [
 // @desc     Create new ticket
 // @access   Private
 exports.addTicket = [
-  auth,
+  authLevel(2),
   setDB,
   async (req, res) => {
     try {
@@ -122,7 +123,7 @@ exports.addTicket = [
 // @desc     Edit ticket by id
 // @access   Private
 exports.editTicket = [
-  auth,
+  authLevel(2),
   setDB,
   async (req, res) => {
     try {
@@ -146,7 +147,7 @@ exports.editTicket = [
 // @desc     Delete ticket by id
 // @access   Private
 exports.removeTicket = [
-  auth,
+  authLevel(2),
   setDB,
   // Process request
   async (req, res, next) => {

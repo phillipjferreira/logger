@@ -13,6 +13,7 @@ import PropTypes from 'prop-types';
 import ViewTicket from '../components/modals/ViewTicket';
 
 const TicketLog = ({
+  auth: { user },
   projects: { project },
   selectProject,
   sprints: { sprints },
@@ -74,6 +75,7 @@ const TicketLog = ({
   return skip && !isLoading ? (
     <Fragment>
       <ViewTicket
+        user={user}
         ticket={ticket}
         isLoading={loading}
         toggle={toggle}
@@ -101,6 +103,7 @@ const TicketLog = ({
         <Row>
           <Col xs='12' className='mx-auto mt-4'>
             <TicketLogKanban
+              user={user}
               onCardDragEnd={onDrag}
               tickets={tickets}
               sprints={sprints}
@@ -127,6 +130,7 @@ TicketLog.propTypes = {
   loadSprints: PropTypes.func.isRequired,
   loadTickets: PropTypes.func.isRequired,
   loadTicket: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
 };
 
 const loadingSelector = createLoadingSelector([
@@ -139,6 +143,7 @@ const mapStateToProps = (state) => ({
   projects: state.projects,
   sprints: state.sprints,
   tickets: state.tickets,
+  auth: state.auth,
 });
 
 export default connect(mapStateToProps, {

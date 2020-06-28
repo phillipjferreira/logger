@@ -1,4 +1,5 @@
 const auth = require('../middleware/auth');
+const authLevel = require('../middleware/authLevel');
 const setDB = require('../middleware/setDB');
 
 // const { check, validationResult } = require('express-validator');
@@ -7,7 +8,7 @@ const setDB = require('../middleware/setDB');
 // @desc     Get all projects
 // @access   Private
 exports.findProjects = [
-  auth,
+  authLevel(1),
   setDB,
   async (req, res) => {
     try {
@@ -24,7 +25,7 @@ exports.findProjects = [
 // @desc     Get project by id
 // @access   Private
 exports.findProject = [
-  auth,
+  authLevel(1),
   setDB,
   async (req, res) => {
     try {
@@ -45,7 +46,7 @@ exports.findProject = [
 // @desc     Create new project
 // @access   Private
 exports.addProject = [
-  auth,
+  authLevel(3),
   setDB,
   async (req, res) => {
     try {
@@ -66,7 +67,7 @@ exports.addProject = [
 // @desc     Edit project by id
 // @access   Private
 exports.editProject = [
-  auth,
+  authLevel(3),
   setDB,
   async (req, res) => {
     try {
@@ -87,7 +88,7 @@ exports.editProject = [
 // @desc     Delete project by id
 // @access   Private
 exports.removeProject = [
-  auth,
+  authLevel(3),
   setDB,
   // Process request
   async (req, res, next) => {

@@ -13,6 +13,7 @@ import ProjectCard from '../components/sidebar/ProjectCard';
 import ProjectDetails from '../components/sidebar/ProjectDetails';
 
 const SideBar = ({
+  auth: { user },
   menus: { sidebar },
   projects: { projects, project },
   selectProject,
@@ -33,30 +34,34 @@ const SideBar = ({
   return (
     <Col tag='aside' className={classes} lg={{ size: 2 }} md={{ size: 3 }}>
       <div className='nav-wrapper no-overflow'>
-        <div className='sticky-top py-2 bg-gray'>
+        <div className='sticky-top py-2 sidebar-bg'>
           {/* New/Edit Button */}
-          {project.name ? (
-            <Button
-              tag={RouteNavLink}
-              to={`/projects/${project._id}/edit-project/`}
-              className='edit-project btn-success'
-              onClick={buttonOnClick}
-            >
-              + Edit Project
-            </Button>
-          ) : (
-            <Button
-              tag={RouteNavLink}
-              to='/new-project'
-              className='edit-project btn-success'
-              onClick={buttonOnClick}
-            >
-              + New Project
-            </Button>
-          )}
+          {user.role >= 3 &&
+            (project.name ? (
+              <Button
+                tag={RouteNavLink}
+                to={`/projects/${project._id}/edit-project/`}
+                className='edit-project btn-success'
+                onClick={buttonOnClick}
+              >
+                + Edit Project
+              </Button>
+            ) : (
+              <Button
+                tag={RouteNavLink}
+                to='/new-project'
+                className='edit-project btn-success'
+                onClick={buttonOnClick}
+              >
+                + New Project
+              </Button>
+            ))}
 
           {/* Close Sidebar Button */}
-          <Button onClick={closeSidebar}>
+          <Button
+            onClick={closeSidebar}
+            className={user.role < 3 && 'sidebar-padding'}
+          >
             <FontAwesomeIcon icon={faAngleLeft} />
           </Button>
         </div>
@@ -82,11 +87,13 @@ SideBar.propTypes = {
   selectProject: PropTypes.func.isRequired,
   openSidebar: PropTypes.func.isRequired,
   closeSidebar: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   menus: state.menus,
   projects: state.projects,
+  auth: state.auth,
 });
 
 export default connect(mapStateToProps, {

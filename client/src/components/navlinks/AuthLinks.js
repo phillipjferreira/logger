@@ -9,6 +9,7 @@ import { loadProjects, selectProject } from '../../actions/projects';
 import { useMediaQuery } from 'react-responsive';
 
 const AuthLinks = ({
+  auth: { user },
   openSidebar,
   logout,
   loadProjects,
@@ -20,6 +21,7 @@ const AuthLinks = ({
     openSidebar();
     selectProject(null);
   };
+  const output = useMediaQuery({ query: '(max-width:767px)' });
 
   return (
     <Nav
@@ -32,7 +34,7 @@ const AuthLinks = ({
       <NavItem>
         <NavLink
           onClick={
-            useMediaQuery({ query: '(max-width:767px)' })
+            output
               ? () => {
                   collapse();
                   projectClick();
@@ -49,9 +51,7 @@ const AuthLinks = ({
           tag={RouteNavLink}
           to='/dashboard'
           className='text-nowrap py-4'
-          onClick={
-            useMediaQuery({ query: '(max-width:767px)' }) ? collapse : null
-          }
+          onClick={output ? collapse : null}
         >
           Dashboard
         </NavLink>
@@ -61,29 +61,27 @@ const AuthLinks = ({
           tag={RouteNavLink}
           to='/users'
           className='text-nowrap py-4'
-          onClick={
-            useMediaQuery({ query: '(max-width:767px)' }) ? collapse : null
-          }
+          onClick={output ? collapse : null}
         >
           Users
         </NavLink>
       </NavItem>
-      <NavItem>
-        <NavLink
-          tag={RouteNavLink}
-          to='/make-ticket'
-          className='text-nowrap py-4'
-          onClick={
-            useMediaQuery({ query: '(max-width:767px)' }) ? collapse : null
-          }
-        >
-          Make Ticket
-        </NavLink>
-      </NavItem>
+      {user.role >= 2 && (
+        <NavItem>
+          <NavLink
+            tag={RouteNavLink}
+            to='/make-ticket'
+            className='text-nowrap py-4'
+            onClick={output ? collapse : null}
+          >
+            Make Ticket
+          </NavLink>
+        </NavItem>
+      )}
       <NavItem className='right'>
         <NavLink
           onClick={
-            useMediaQuery({ query: '(max-width:767px)' })
+            output
               ? () => {
                   collapse();
                   logout();
@@ -105,9 +103,14 @@ AuthLinks.propTypes = {
   openSidebar: PropTypes.func.isRequired,
   loadProjects: PropTypes.func.isRequired,
   selectProject: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
 };
 
-export default connect(null, {
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps, {
   logout,
   openSidebar,
   loadProjects,

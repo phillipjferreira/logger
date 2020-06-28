@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 const UserInfo = ({ user, role, update }) => {
-  const displayRole = ['View Only', 'User', 'Dev', 'Admin'];
+  const displayRole = ['View Only', 'User', 'Admin'];
 
   const [value, setValue] = useState(displayRole[user.role - 1]);
   const [save, toggleSave] = useState(false);
@@ -18,16 +18,15 @@ const UserInfo = ({ user, role, update }) => {
     toggleSave(false);
   };
 
-  if (role === 4) {
+  if (role === 3) {
     return (
       <tr>
         <td>{user.name}</td>
         <td>{user.email}</td>
         <td>
           <select value={value} onChange={onChange}>
-            <option value='View Only'>View Only</option>
+            <option value='View Only'>View-Only</option>
             <option value='User'>User</option>
-            <option value='Dev'>Dev</option>
             <option value='Admin'>Admin</option>
           </select>
         </td>

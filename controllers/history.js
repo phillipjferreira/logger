@@ -1,11 +1,12 @@
 const auth = require('../middleware/auth');
+const authLevel = require('../middleware/authLevel');
 const setDB = require('../middleware/setDB');
 
 // @route    GET /history/:id
 // @desc     Get history by Ticket id
 // @access   Private
 exports.getHistory = [
-  auth,
+  authLevel(1),
   setDB,
   async (req, res) => {
     try {
@@ -29,7 +30,7 @@ exports.getHistory = [
 // @desc     Get history by Ticket id
 // @access   Private
 exports.getHistoryBySprint = [
-  auth,
+  authLevel(1),
   setDB,
   async (req, res) => {
     try {
