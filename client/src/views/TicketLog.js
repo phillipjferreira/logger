@@ -99,7 +99,7 @@ const TicketLog = ({
           </p>
         </Row>
         <Row>
-          <Col lg='12' className='mx-auto mt-4'>
+          <Col xs='12' className='mx-auto mt-4'>
             <TicketLogKanban
               onCardDragEnd={onDrag}
               tickets={tickets}

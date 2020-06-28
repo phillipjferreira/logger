@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import { Button } from 'shards-react';
+import { useMediaQuery } from 'react-responsive';
 
 const TicketLogKanbanColumnHeader = ({
   title,
@@ -8,12 +9,14 @@ const TicketLogKanbanColumnHeader = ({
   updateStatus,
   isActive,
 }) => {
+  const outputStatus = useMediaQuery({ query: '(min-width:576px)' });
+
   return (
     <div className='react-kanban-column-header tab-title'>
       <span>{title}</span>
       {id !== 'Backlog' && (
         <Fragment>
-          <span className='text-muted'>Status: {status}</span>
+          {outputStatus && <span className='text-muted'>Status: {status}</span>}
           {status === 'Planned' && (
             <Button
               disabled={isActive}
