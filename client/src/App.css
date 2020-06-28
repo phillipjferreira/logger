@@ -100,6 +100,9 @@ body .font-400 {
 
 /* Extra small devices (portrait phones, up to 575px) */
 @media only screen and (max-width: 575px) {
+  .auth-form {
+    min-width: 0 !important;
+  }
   .hide-small {
     display: none;
   }

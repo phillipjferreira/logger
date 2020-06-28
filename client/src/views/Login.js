@@ -40,7 +40,7 @@ const Login = ({ login, isAuthenticated }) => {
     <Fragment>
       <Container fluid className='main-content-container h-100 px-4 py-5'>
         <Row noGutters className='h-100'>
-          <Col lg='3' md='5' className='auth-form mx-auto my-auto'>
+          <Col xs='12' md='5' lg='3' className='auth-form mx-auto my-auto'>
             <Card>
               <CardBody>
                 {/* Logo */}

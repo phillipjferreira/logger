@@ -7,7 +7,10 @@ const GuestLinks = ({ collapse }) => {
   return (
     <Nav
       navbar
-      className='border-0 flex-column flex-md-row header-navbar right'
+      className={
+        'border-0 flex-column flex-md-row header-navbar right ' +
+        (useMediaQuery({ query: '(max-width:575px)' }) && 'pl-4')
+      }
     >
       <NavItem>
         <NavLink

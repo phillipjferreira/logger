@@ -24,13 +24,19 @@ const AuthLinks = ({
   return (
     <Nav
       navbar
-      className='border-0 flex-column flex-md-row header-navbar w-100'
+      className={
+        'border-0 flex-column flex-md-row header-navbar w-100 ' +
+        (useMediaQuery({ query: '(max-width:575px)' }) && 'pl-4')
+      }
     >
       <NavItem>
         <NavLink
           onClick={
             useMediaQuery({ query: '(max-width:767px)' })
-              ? collapse + projectClick
+              ? () => {
+                  collapse();
+                  projectClick();
+                }
               : projectClick
           }
           className='text-nowrap py-4'
@@ -78,7 +84,10 @@ const AuthLinks = ({
         <NavLink
           onClick={
             useMediaQuery({ query: '(max-width:767px)' })
-              ? collapse + logout
+              ? () => {
+                  collapse();
+                  logout();
+                }
               : logout
           }
           to='#!'
