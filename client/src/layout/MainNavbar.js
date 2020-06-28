@@ -15,10 +15,7 @@ import GuestLinks from '../components/navlinks/GuestLinks';
 const MainNavbar = ({ auth: { isAuthenticated, loading } }) => {
   const [collapseOpen, setCollapseOpen] = useState(false);
   return (
-    <div
-      // main-navbar
-      className='bg-white sticky-top'
-    >
+    <div className='bg-white sticky-top nav-height'>
       <Container className='p-0'>
         <Navbar
           type='light'
@@ -35,10 +32,10 @@ const MainNavbar = ({ auth: { isAuthenticated, loading } }) => {
                 id='main-logo'
                 className='d-inline-block align-top mr-1 ml-3'
                 style={{ maxWidth: '25px' }}
-                src={require('../images/shards-dashboards-logo.svg')}
-                alt='Shards Dashboard'
+                src={require('../images/logger_logo.svg')}
+                alt='Logger'
               />
-              <span className='d-none d-md-inline ml-1'>BugTracker</span>
+              <span className='d-none d-md-inline ml-1'>Logger</span>
             </div>
           </NavbarBrand>
           <NavbarToggler onClick={() => setCollapseOpen(!collapseOpen)} />

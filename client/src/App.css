@@ -135,6 +135,9 @@ body .font-400 {
 
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
+  .nav-height {
+    min-height: 63px;
+  }
   .hide-large {
     display: none;
   }
@@ -151,6 +154,9 @@ body .font-400 {
 
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
+  .nav-height {
+    min-height: 62px;
+  }
   .custom .react-kanban-board {
     width: calc(var(--size-large));
   }

@@ -60,7 +60,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
                 {/* Logo */}
                 <img
                   className='auth-form__logo d-table mx-auto mb-3'
-                  src={require('../images/shards-dashboards-logo.svg')}
+                  src={require('../images/logger_logo.svg')}
                   alt='Shards Dashboards - Register Template'
                 />
 
