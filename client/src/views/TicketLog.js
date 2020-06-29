@@ -94,15 +94,18 @@ const TicketLog = ({
 
           <p>Description: {project.description || 'N/A'}</p>
 
-          <p>
-            <Button className='btn-success' onClick={newSprint}>
-              Add New Sprint
-            </Button>
-          </p>
+          {user.role >= 3 && (
+            <p>
+              <Button className='btn-success' onClick={newSprint}>
+                Add New Sprint
+              </Button>
+            </p>
+          )}
         </Row>
         <Row>
           <Col xs='12' className='mx-auto mt-4'>
             <TicketLogKanban
+              projectid={projectid}
               user={user}
               onCardDragEnd={onDrag}
               tickets={tickets}
