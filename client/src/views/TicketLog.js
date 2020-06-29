@@ -11,6 +11,7 @@ import TicketLogKanban from '../components/gadgets/TicketLogKanban';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ViewTicket from '../components/modals/ViewTicket';
+import Skeleton from 'react-loading-skeleton';
 
 const TicketLog = ({
   auth: { user },
@@ -118,13 +119,33 @@ const TicketLog = ({
       </Container>
     </Fragment>
   ) : (
-    <Loader
-      type='Oval'
-      color='#007bff'
-      height={100}
-      width={100}
-      className='center'
-    />
+    <Container fluid className='main-content-container px-4 custom'>
+      <Row noGutters className='page-header pt-4'>
+        <Col sm='12' className='text-center, text-md-left, mb-sm-0'>
+          <span className='text-uppercase page-subtitle'>
+            <Skeleton />
+          </span>
+          <h2>Ticket Log</h2>
+        </Col>
+      </Row>
+      <hr />
+      <Row className='pt-4 px-4 tab-title font-400'>
+        <Skeleton />
+        <Skeleton />
+        {user.role >= 3 && <Skeleton />}
+      </Row>
+      <Row>
+        <Col xs='12' className='mx-auto mt-4'>
+          <Loader
+            type='Oval'
+            color='#007bff'
+            height={100}
+            width={100}
+            className='center'
+          />
+        </Col>
+      </Row>
+    </Container>
   );
 };
 

@@ -6,9 +6,11 @@ import { useParams } from 'react-router';
 import ProjectDisplay from '../components/forms/ProjectDisplay';
 import { loadProjects } from '../actions/projects';
 import { loadUsers } from '../actions/users';
+import { createLoadingSelector } from '../Selectors';
 
 const ProjectFormContainer = ({
-  projects: { projects, projectsLoading },
+  isLoading,
+  projects: { projects },
   users: { users, loading },
   loadProjects,
   loadUsers,
@@ -29,7 +31,7 @@ const ProjectFormContainer = ({
 
   if (projectid) {
     let project;
-    if (!projectsLoading) {
+    if (!isLoading) {
       project = projects.find((project) => projectid === project._id);
       initialState = {
         name: project.name,
@@ -41,7 +43,7 @@ const ProjectFormContainer = ({
   }
 
   return (
-    !projectsLoading &&
+    !isLoading &&
     !loading && <ProjectDisplay initialState={initialState} users={users} />
   );
 };
@@ -53,7 +55,9 @@ ProjectFormContainer.propTypes = {
   loadUsers: PropTypes.func.isRequired,
 };
 
+const loadingSelector = createLoadingSelector(['GET_USERS', 'GET_PROJECTS']);
 const mapStateToProps = (state) => ({
+  isLoading: loadingSelector(state),
   projects: state.projects,
   users: state.users,
 });

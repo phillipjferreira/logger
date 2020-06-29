@@ -2,6 +2,7 @@ import React, { Fragment, useState } from 'react';
 import { NavLink as RouteNavLink } from 'react-router-dom';
 import HistoryLog from './HistoryLog';
 import { Row, Col, Button, Modal } from 'shards-react';
+import Loader from 'react-loader-spinner';
 
 const ViewTicket = ({ user, ticket, isLoading, toggle, open }) => {
   const [hist, setHistory] = useState(false);
@@ -26,7 +27,13 @@ const ViewTicket = ({ user, ticket, isLoading, toggle, open }) => {
   return (
     <Modal open={open} toggle={toggle} size='lg'>
       {isLoading ? (
-        <h1>Loading...</h1>
+        <Loader
+          type='Oval'
+          color='#007bff'
+          height={50}
+          width={50}
+          className='center-short'
+        />
       ) : (
         <Fragment>
           {/* Name */}

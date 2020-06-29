@@ -4,22 +4,19 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { NavLink as RouteNavLink } from 'react-router-dom';
 import { logout } from '../../actions/auth';
-import { openSidebar } from '../../actions/menus';
-import { loadProjects, selectProject } from '../../actions/projects';
+import { openSidebar, selectSidebarProject } from '../../actions/menus';
 import { useMediaQuery } from 'react-responsive';
 
 const AuthLinks = ({
   auth: { user },
   openSidebar,
   logout,
-  loadProjects,
-  selectProject,
+  selectSidebarProject,
   collapse,
 }) => {
   const projectClick = () => {
-    loadProjects();
     openSidebar();
-    selectProject(null);
+    selectSidebarProject(null);
   };
   const output = useMediaQuery({ query: '(max-width:767px)' });
 
@@ -101,8 +98,6 @@ const AuthLinks = ({
 AuthLinks.propTypes = {
   logout: PropTypes.func.isRequired,
   openSidebar: PropTypes.func.isRequired,
-  loadProjects: PropTypes.func.isRequired,
-  selectProject: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
 };
 
@@ -113,6 +108,5 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   logout,
   openSidebar,
-  loadProjects,
-  selectProject,
+  selectSidebarProject,
 })(AuthLinks);

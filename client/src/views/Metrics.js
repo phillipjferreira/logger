@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Fragment } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container, Row, Col } from 'shards-react';
 import { withRouter } from 'react-router-dom';
 import {
@@ -14,6 +14,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import BurndownChart from '../components/gadgets/BurndownChart';
 import MetricsForm from '../components/forms/MetricsForm';
+import Skeleton from 'react-loading-skeleton';
 
 const Metrics = ({
   projects: { project },
@@ -49,47 +50,61 @@ const Metrics = ({
   };
 
   return skip && !isLoading ? (
-    <Fragment>
-      <Container fluid className='main-content-container px-4 custom'>
-        <Row noGutters className='page-header pt-4'>
-          <Col xs='12' sm='4' className='text-center, text-md-left, mb-sm-0'>
-            <span className='text-uppercase page-subtitle'>{project.name}</span>
-            <h2>Charts</h2>
-          </Col>
-        </Row>
-        <hr />
-        <Row className='pt-4 px-4 tab-title font-400'>
-          <p>Lead: {project.lead.name || 'N/A'}</p>
+    <Container fluid className='main-content-container px-4 custom'>
+      <Row noGutters className='page-header pt-4'>
+        <Col xs='12' sm='4' className='text-center, text-md-left, mb-sm-0'>
+          <span className='text-uppercase page-subtitle'>{project.name}</span>
+          <h2>Charts</h2>
+        </Col>
+      </Row>
+      <hr />
+      <Row className='pt-4 px-4 tab-title font-400'>
+        <p>Lead: {project.lead.name || 'N/A'}</p>
 
-          <p>Description: {project.description || 'N/A'}</p>
-        </Row>
+        <p>Description: {project.description || 'N/A'}</p>
+      </Row>
+      <Row>
+        <Col lg='12' className='mx-auto mt-4'>
+          <MetricsForm
+            sprints={sprints}
+            sprint={sprint}
+            onChange={onChange}
+            onSubmit={onSubmit}
+          />
+        </Col>
+      </Row>
+      {show && !historyLoading && !isTicketsLoading && (
         <Row>
           <Col lg='12' className='mx-auto mt-4'>
-            <MetricsForm
-              sprints={sprints}
-              sprint={sprint}
-              onChange={onChange}
-              onSubmit={onSubmit}
-            />
+            <BurndownChart sprintData={sprintData} />
           </Col>
         </Row>
-        {show && !historyLoading && !isTicketsLoading && (
-          <Row>
-            <Col lg='12' className='mx-auto mt-4'>
-              <BurndownChart sprintData={sprintData} />
-            </Col>
-          </Row>
-        )}
-      </Container>
-    </Fragment>
+      )}
+    </Container>
   ) : (
-    <Loader
-      type='Oval'
-      color='#007bff'
-      height={100}
-      width={100}
-      className='center'
-    />
+    <Container fluid className='main-content-container px-4 custom'>
+      <Row noGutters className='page-header pt-4'>
+        <Col xs='12' sm='4' className='text-center, text-md-left, mb-sm-0'>
+          <span className='text-uppercase page-subtitle'>
+            <Skeleton />
+          </span>
+          <h2>Charts</h2>
+        </Col>
+      </Row>
+      <hr />
+      <Row className='pt-4 px-4 tab-title font-400'>
+        <Skeleton />
+        <Skeleton />
+      </Row>
+
+      <Loader
+        type='Oval'
+        color='#007bff'
+        height={100}
+        width={100}
+        className='center'
+      />
+    </Container>
   );
 };
 

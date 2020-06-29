@@ -9,10 +9,10 @@ import {
   SELECT_PROJECT_REQUEST,
   SELECT_PROJECT_SUCCESS,
   SELECT_PROJECT_ERROR,
-  DESELECT_PROJECT,
 } from './types';
 import { setAlert } from './alert';
 import setAuthToken from '../utils/setAuthToken';
+import { selectSidebarProject } from './menus';
 
 // Load Projects
 export const loadProjects = () => async (dispatch) => {
@@ -44,24 +44,19 @@ export const selectProject = (id) => async (dispatch) => {
   if (localStorage.token) {
     setAuthToken(localStorage.token);
   }
-  if (id === null) {
-    dispatch({
-      type: DESELECT_PROJECT,
-    });
-  } else {
-    try {
-      const res = await axios.get(`/projects/${id}`);
 
-      dispatch({
-        type: SELECT_PROJECT_SUCCESS,
-        payload: res.data,
-      });
-    } catch (err) {
-      dispatch({
-        type: SELECT_PROJECT_ERROR,
-      });
-      console.log(err);
-    }
+  try {
+    const res = await axios.get(`/projects/${id}`);
+
+    dispatch({
+      type: SELECT_PROJECT_SUCCESS,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: SELECT_PROJECT_ERROR,
+    });
+    console.log(err);
   }
 };
 
@@ -90,9 +85,11 @@ export const createProject = (formData, history) => async (dispatch) => {
       payload: res.data,
     });
 
+    dispatch(selectSidebarProject(res.data._id));
+    dispatch(loadProjects());
     dispatch(setAlert('Project Created', 'success'));
 
-    history.goBack();
+    history.push(`/projects/${res.data._id}/board`);
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {
@@ -129,7 +126,8 @@ export const editProject = (formData, history) => async (dispatch) => {
       type: NEW_PROJECT_SUCCESS,
       payload: res.data,
     });
-
+    dispatch(selectSidebarProject(res.data._id));
+    dispatch(loadProjects());
     dispatch(setAlert('Project Updated', 'success'));
 
     history.goBack();

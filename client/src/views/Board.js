@@ -11,6 +11,7 @@ import Loader from 'react-loader-spinner';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ViewTicket from '../components/modals/ViewTicket';
+import Skeleton from 'react-loading-skeleton';
 
 const Board = ({
   auth: { user },
@@ -98,8 +99,6 @@ const Board = ({
         open={modalOpen}
       />
       <Container fluid className='main-content-container px-4 board'>
-        {console.log('loading ' + isLoading)}
-        {console.log('skip ' + skip)}
         <Row noGutters className='page-header pt-4'>
           <Col sm='12' className='text-center, text-md-left, mb-sm-0'>
             <span className='text-uppercase page-subtitle'>
@@ -155,13 +154,37 @@ const Board = ({
       </Container>
     </Fragment>
   ) : (
-    <Loader
-      type='Oval'
-      color='#007bff'
-      height={100}
-      width={100}
-      className='center'
-    />
+    <Container fluid className='main-content-container px-4 board'>
+      <Row noGutters className='page-header pt-4'>
+        <Col sm='12' className='text-center, text-md-left, mb-sm-0'>
+          <span className='text-uppercase page-subtitle'>
+            <Skeleton />
+          </span>
+          <h2>Sprint Board</h2>
+        </Col>
+      </Row>
+      <hr />
+
+      <Row className='pt-4 px-4 tab-title'>
+        <Skeleton />
+
+        <Skeleton />
+
+        {user.role >= 3 && <Skeleton />}
+      </Row>
+
+      <Row>
+        <Col lg='12' className='mx-auto mt-4'>
+          <Loader
+            type='Oval'
+            color='#007bff'
+            height={100}
+            width={100}
+            className='center'
+          />
+        </Col>
+      </Row>
+    </Container>
   );
 };
 

@@ -6,17 +6,22 @@ import { faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useMediaQuery } from 'react-responsive';
 import PropTypes from 'prop-types';
-import { openSidebar, closeSidebar } from '../actions/menus';
-import { selectProject } from '../actions/projects';
+import { useParams } from 'react-router';
+import {
+  openSidebar,
+  closeSidebar,
+  selectSidebarProject,
+} from '../actions/menus';
+// import { selectSidebarProject } from '../actions/projects';
 import classNames from 'classnames';
 import ProjectCard from '../components/sidebar/ProjectCard';
 import ProjectDetails from '../components/sidebar/ProjectDetails';
 
 const SideBar = ({
   auth: { user },
-  menus: { sidebar },
-  projects: { projects, project },
-  selectProject,
+  menus: { sidebar, project },
+  projects: { projects },
+  selectSidebarProject,
   closeSidebar,
 }) => {
   const classes = classNames(
@@ -30,6 +35,11 @@ const SideBar = ({
   const buttonOnClick = useMediaQuery({ query: '(max-width:767px)' })
     ? closeSidebar
     : null;
+
+  const { projectid } = useParams();
+  if (projectid) {
+    selectSidebarProject(projectid);
+  }
 
   return (
     <Col tag='aside' className={classes} lg={{ size: 2 }} md={{ size: 3 }}>
@@ -71,7 +81,11 @@ const SideBar = ({
               <ProjectDetails project={project} closeSidebar={closeSidebar} />
             ) : (
               projects.map((p) => (
-                <ProjectCard key={p._id} project={p} onClick={selectProject} />
+                <ProjectCard
+                  key={p._id}
+                  project={p}
+                  onClick={selectSidebarProject}
+                />
               ))
             )}
           </Nav>
@@ -84,7 +98,7 @@ const SideBar = ({
 SideBar.propTypes = {
   menus: PropTypes.object.isRequired,
   projects: PropTypes.object.isRequired,
-  selectProject: PropTypes.func.isRequired,
+  selectSidebarProject: PropTypes.func.isRequired,
   openSidebar: PropTypes.func.isRequired,
   closeSidebar: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
@@ -97,7 +111,7 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, {
-  selectProject,
+  selectSidebarProject,
   openSidebar,
   closeSidebar,
 })(SideBar);

@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import MainNavbar from './layout/MainNavbar';
 import SideBar from './layout/SideBar';
 import { openSidebar } from './actions/menus';
@@ -7,13 +7,21 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Col, Button } from 'shards-react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { loadProjects } from './actions/projects';
 
 const Default = ({
   children,
   menus: { sidebar },
   auth: { isAuthenticated },
   openSidebar,
+  loadProjects,
 }) => {
+  useEffect(() => {
+    if (isAuthenticated) {
+      loadProjects();
+    }
+  }, [isAuthenticated]);
+
   return (
     <Fragment>
       <MainNavbar />
@@ -32,7 +40,8 @@ const Default = ({
         lg={sidebar && { size: 10, offset: 2 }}
         md={sidebar && { size: 9, offset: 3 }}
         sm='12'
-        tag='main'>
+        tag='main'
+      >
         {children}
       </Col>
     </Fragment>
@@ -50,4 +59,4 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, { openSidebar })(Default);
+export default connect(mapStateToProps, { openSidebar, loadProjects })(Default);

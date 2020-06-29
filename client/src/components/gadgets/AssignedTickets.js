@@ -1,6 +1,7 @@
 import React from 'react';
 import Moment from 'react-moment';
 import { CardBody } from 'shards-react';
+import { NavLink as RouteNavLink } from 'react-router-dom';
 
 const AssignedTickets = ({ tickets, user, projects, viewTicket }) => {
   const handleClick = (e, id) => {
@@ -37,14 +38,15 @@ const AssignedTickets = ({ tickets, user, projects, viewTicket }) => {
               </div>
               {/* Project */}
               <div className='blog-comments__meta text-mutes tab-title'>
-                <a
+                <RouteNavLink
                   className='text-secondary'
-                  href={`/projects/${ticket.project}/board`}
+                  tag={RouteNavLink}
+                  to={`/projects/${ticket.project}/board`}
                 >
                   {projects.length &&
                     projects.find((project) => project._id === ticket.project)
                       .name}
-                </a>
+                </RouteNavLink>
                 {/* Date - Time */}
                 <span className='text-muted font-400'>
                   <Moment date={ticket.updated} format={'M/DD/YY, h:mm a'} />

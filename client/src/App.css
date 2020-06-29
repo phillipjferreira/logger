@@ -55,6 +55,10 @@ body .font-400 {
   z-index: 1;
 }
 
+.vh-30 {
+  height: 30vh;
+}
+
 .bg-gray {
   background-color: #ddd;
 }
@@ -112,9 +116,18 @@ body .font-400 {
 .board .react-kanban-column {
   background-color: #ddd;
 }
+.custom .css-1vmnjpn-skeletonStyles-Skeleton {
+  width: 150px;
+}
+.board .css-1vmnjpn-skeletonStyles-Skeleton {
+  width: 150px;
+}
 
 /* Extra small devices (portrait phones, up to 575px) */
 @media only screen and (max-width: 575px) {
+  .main-sidebar {
+    height: calc(100vh - 50px) !important;
+  }
   .auth-form {
     min-width: 0 !important;
   }
@@ -134,6 +147,9 @@ body .font-400 {
 
 /* Small devices (576px and up) */
 @media only screen and (min-width: 576px) {
+  .main-sidebar {
+    height: calc(100vh - 50px) !important;
+  }
   .hide-small {
     display: none;
   }
@@ -277,7 +293,6 @@ body .font-400 {
 }
 
 .width-100 {
-  table-layout: fixed;
   width: 100%;
 }
 
@@ -316,6 +331,9 @@ body .font-400 {
 
 /* Extra small devices (portrait phones, up to 575px) */
 @media only screen and (max-width: 575px) {
+  .width-100 {
+    table-layout: fixed;
+  }
   .board .react-kanban-board {
     width: calc(100vw - 85px);
   }
@@ -382,13 +400,11 @@ body .font-400 {
 }
 
 .center {
-  height: calc(100vh - 62px);
   text-align: center;
   line-height: 50vh;
 }
 
 .center-short {
-  height: calc(100vh - 62px);
   text-align: center;
   line-height: 25vh;
 }

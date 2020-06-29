@@ -38,7 +38,7 @@ const ActiveSprintsContainer = ({
     </Card>
   );
 };
-const loadingSelector = createLoadingSelector(['GET_SPRINTS']);
+const loadingSelector = createLoadingSelector(['GET_SPRINTS', 'GET_PROJECTS']);
 const mapStateToProps = (state) => ({
   isLoading: loadingSelector(state),
   projects: state.projects,
