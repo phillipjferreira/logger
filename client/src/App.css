@@ -96,10 +96,6 @@ body .font-400 {
   font-weight: 400;
 }
 
-/* .no-margin {
-  margin: 0;
-} */
-
 .hide {
   display: none;
 }
@@ -115,12 +111,6 @@ body .font-400 {
 }
 .board .react-kanban-column {
   background-color: #ddd;
-}
-.custom .css-1vmnjpn-skeletonStyles-Skeleton {
-  width: 150px;
-}
-.board .css-1vmnjpn-skeletonStyles-Skeleton {
-  width: 150px;
 }
 
 /* Extra small devices (portrait phones, up to 575px) */
@@ -171,6 +161,9 @@ body .font-400 {
   }
   .hide-large {
     display: none;
+  }
+  .hide-small {
+    display: flex;
   }
   .custom .react-kanban-board {
     width: calc(var(--size-medium));

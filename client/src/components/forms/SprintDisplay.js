@@ -14,6 +14,7 @@ import {
   FormTextarea,
 } from 'shards-react';
 import { editSprint, createSprint } from '../../actions/sprints';
+import DatePicker from 'react-datepicker';
 
 const SprintDisplay = ({
   initialState,
@@ -33,6 +34,14 @@ const SprintDisplay = ({
 
   const onChange = (e) => {
     dispatch({ field: e.target.name, value: e.target.value });
+  };
+
+  const onStartDateChange = (date) => {
+    dispatch({ field: 'startDate', value: date });
+  };
+
+  const onEndDateChange = (date) => {
+    dispatch({ field: 'endDate', value: date });
   };
 
   const { name, startDate, endDate, goal, id } = state;
@@ -70,7 +79,7 @@ const SprintDisplay = ({
                       <Row form>
                         {/* Name */}
                         <Col md='8' className='form-group'>
-                          <label htmlFor='name'>Name</label>
+                          <label htmlFor='name'>Name *</label>
                           <FormInput
                             id='name'
                             name='name'
@@ -78,32 +87,31 @@ const SprintDisplay = ({
                             onChange={(e) => {
                               onChange(e);
                             }}
+                            required
                           />
                         </Col>
                         {/* Start Date */}
                         <Col md='4' className='form-group'>
-                          <label htmlFor='startDate'>Start Date</label>
-                          <FormInput
-                            type='text'
+                          <label htmlFor='startDate'>Start Date *</label>
+                          <DatePicker
                             id='startDate'
                             name='startDate'
-                            value={startDate}
-                            onChange={(e) => {
-                              onChange(e);
-                            }}
+                            // selected={'5/11'}
+                            selected={startDate ? new Date(startDate) : null}
+                            onChange={onStartDateChange}
+                            required
                           />
                         </Col>
                         {/* End Date */}
                         <Col md='4' className='form-group'>
-                          <label htmlFor='endDate'>End Date</label>
-                          <FormInput
-                            type='text'
+                          <label htmlFor='endDate'>End Date *</label>
+                          <DatePicker
                             id='endDate'
                             name='endDate'
-                            value={endDate}
-                            onChange={(e) => {
-                              onChange(e);
-                            }}
+                            selected={'5/12'}
+                            selected={endDate ? new Date(endDate) : null}
+                            onChange={onEndDateChange}
+                            required
                           />
                         </Col>
                       </Row>
@@ -126,7 +134,8 @@ const SprintDisplay = ({
                     size='sm'
                     theme='accent'
                     className='ml-auto d-table mr-3'
-                    type='submit'>
+                    type='submit'
+                  >
                     Save Sprint
                   </Button>
                 </Form>

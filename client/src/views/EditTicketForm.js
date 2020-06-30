@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useRef } from 'react';
+import React, { useEffect, useReducer, useRef, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
@@ -9,8 +9,10 @@ import { loadProjects } from '../actions/projects';
 import { loadSprints } from '../actions/sprints';
 import { loadUsers } from '../actions/users';
 import { loadTickets, editTicket } from '../actions/tickets';
+import { removeTicket } from '../actions/tickets';
 
 const EditTicketFormContainer = ({
+  auth: { user },
   tickets: { tickets },
   sprints: { sprints },
   projects: { projects },
@@ -22,10 +24,12 @@ const EditTicketFormContainer = ({
   editTicket,
   history,
   isLoading,
+  removeTicket,
 }) => {
   const { ticketid } = useParams();
   const { projectid } = useParams();
   const isInitialMount = useRef(true);
+  const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
     loadTickets(ticketid);
@@ -85,6 +89,14 @@ const EditTicketFormContainer = ({
     editTicket(state, history);
   };
 
+  const onDelete = () => {
+    removeTicket(ticketid, history);
+  };
+
+  const toggle = () => {
+    setModalOpen(!modalOpen);
+  };
+
   return (
     !isLoading && (
       <EditTicketDisplay
@@ -92,9 +104,13 @@ const EditTicketFormContainer = ({
         sprints={sprints}
         projects={projects}
         users={users}
+        user={user}
         lastUpdated={tickets.updated}
         onChange={onChange}
         onSubmit={onSubmit}
+        onDelete={onDelete}
+        toggle={toggle}
+        open={modalOpen}
       />
     )
   );
@@ -105,6 +121,7 @@ EditTicketFormContainer.propTypes = {
   loadTickets: PropTypes.func.isRequired,
   editTicket: PropTypes.func.isRequired,
   loadSprints: PropTypes.func.isRequired,
+  removeTicket: PropTypes.func.isRequired,
 };
 
 const loadingSelector = createLoadingSelector([
@@ -118,6 +135,7 @@ const mapStateToProps = (state) => ({
   sprints: state.sprints,
   projects: state.projects,
   users: state.users,
+  auth: state.auth,
 });
 
 export default connect(mapStateToProps, {
@@ -126,4 +144,5 @@ export default connect(mapStateToProps, {
   loadSprints,
   loadProjects,
   loadUsers,
+  removeTicket,
 })(withRouter(EditTicketFormContainer));

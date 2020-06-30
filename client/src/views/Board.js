@@ -158,7 +158,7 @@ const Board = ({
       <Row noGutters className='page-header pt-4'>
         <Col sm='12' className='text-center, text-md-left, mb-sm-0'>
           <span className='text-uppercase page-subtitle'>
-            <Skeleton />
+            <Skeleton width='150px' />
           </span>
           <h2>Sprint Board</h2>
         </Col>
@@ -166,11 +166,11 @@ const Board = ({
       <hr />
 
       <Row className='pt-4 px-4 tab-title'>
-        <Skeleton />
+        <Skeleton width='150px' />
 
-        <Skeleton />
+        <Skeleton width='150px' />
 
-        {user.role >= 3 && <Skeleton />}
+        {user.role >= 3 && <Skeleton width='150px' />}
       </Row>
 
       <Row>

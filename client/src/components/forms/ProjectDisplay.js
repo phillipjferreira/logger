@@ -69,7 +69,7 @@ const ProjectDisplay = ({
                       <Row form>
                         {/* Name */}
                         <Col md='8' className='form-group'>
-                          <label htmlFor='name'>Name</label>
+                          <label htmlFor='name'>Name *</label>
                           <FormInput
                             id='name'
                             name='name'
@@ -77,11 +77,12 @@ const ProjectDisplay = ({
                             onChange={(e) => {
                               onChange(e);
                             }}
+                            required
                           />
                         </Col>
                         {/* Lead */}
                         <Col md='4' className='form-group'>
-                          <label htmlFor='lead'>Lead</label>
+                          <label htmlFor='lead'>Lead *</label>
                           <FormSelect
                             id='lead'
                             name='lead'
@@ -89,6 +90,7 @@ const ProjectDisplay = ({
                             onChange={(e) => {
                               onChange(e);
                             }}
+                            required
                           >
                             <option value={''}>None</option>
                             {users.map((user) => (

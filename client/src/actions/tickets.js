@@ -131,3 +131,23 @@ export const editTicket = (formData, history) => async (dispatch) => {
     }
   }
 };
+
+// Edit Ticket
+export const removeTicket = (id, history) => async (dispatch) => {
+  if (localStorage.token) {
+    setAuthToken(localStorage.token);
+  }
+
+  try {
+    await axios.delete(`/tickets/${id}`);
+
+    dispatch(setAlert('Ticket Deleted', 'success'));
+
+    history && history.goBack();
+  } catch (err) {
+    const errors = err.response.data.errors;
+    if (errors) {
+      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+    }
+  }
+};

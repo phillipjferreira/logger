@@ -123,16 +123,16 @@ const TicketLog = ({
       <Row noGutters className='page-header pt-4'>
         <Col sm='12' className='text-center, text-md-left, mb-sm-0'>
           <span className='text-uppercase page-subtitle'>
-            <Skeleton />
+            <Skeleton width='150px' />
           </span>
           <h2>Ticket Log</h2>
         </Col>
       </Row>
       <hr />
       <Row className='pt-4 px-4 tab-title font-400'>
-        <Skeleton />
-        <Skeleton />
-        {user.role >= 3 && <Skeleton />}
+        <Skeleton width='150px' />
+        <Skeleton width='150px' />
+        {user.role >= 3 && <Skeleton width='150px' />}
       </Row>
       <Row>
         <Col xs='12' className='mx-auto mt-4'>

@@ -59,7 +59,7 @@ const Metrics = ({
       </Row>
       <hr />
       <Row className='pt-4 px-4 tab-title font-400'>
-        <p>Lead: {project.lead.name || 'N/A'}</p>
+        <p>Lead: {(project.lead && project.lead.name) || 'N/A'}</p>
 
         <p>Description: {project.description || 'N/A'}</p>
       </Row>
@@ -86,15 +86,15 @@ const Metrics = ({
       <Row noGutters className='page-header pt-4'>
         <Col xs='12' sm='4' className='text-center, text-md-left, mb-sm-0'>
           <span className='text-uppercase page-subtitle'>
-            <Skeleton />
+            <Skeleton width='150px' />
           </span>
           <h2>Charts</h2>
         </Col>
       </Row>
       <hr />
       <Row className='pt-4 px-4 tab-title font-400'>
-        <Skeleton />
-        <Skeleton />
+        <Skeleton width='150px' />
+        <Skeleton width='150px' />
       </Row>
 
       <Loader

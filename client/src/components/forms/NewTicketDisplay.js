@@ -45,7 +45,8 @@ const NewTicketDisplay = ({
                   className='py-4'
                   onSubmit={(e) => {
                     onSubmit(e);
-                  }}>
+                  }}
+                >
                   <Row form className='mx-4'>
                     <Col className='mb-3'>
                       <h4 className='form-text m-0'>New Ticket</h4>
@@ -59,7 +60,7 @@ const NewTicketDisplay = ({
                       <Row form>
                         {/* Name */}
                         <Col md='8' className='form-group'>
-                          <label htmlFor='name'>Name</label>
+                          <label htmlFor='name'>Name *</label>
                           <FormInput
                             id='name'
                             name='name'
@@ -72,14 +73,16 @@ const NewTicketDisplay = ({
                         </Col>
                         {/* Story Point Estimate */}
                         <Col md='4' className='form-group'>
-                          <label htmlFor='storyPoint'>Story Point</label>
+                          <label htmlFor='storyPoint'>Story Point *</label>
                           <FormSelect
                             id='storyPoint'
                             name='storyPoint'
                             value={storyPoint}
                             onChange={(e) => {
                               onChange(e);
-                            }}>
+                            }}
+                            required
+                          >
                             <option value={''}>None</option>
                             {[1, 2, 3, 5, 8, 13, 20, 40, 100].map((num) => (
                               <option value={num} key={num}>
@@ -92,7 +95,7 @@ const NewTicketDisplay = ({
                       <Row>
                         {/* Project */}
                         <Col md='6' className='form-group'>
-                          <label htmlFor='project'>Project</label>
+                          <label htmlFor='project'>Project *</label>
 
                           <FormSelect
                             id='project'
@@ -101,7 +104,8 @@ const NewTicketDisplay = ({
                             onChange={(e) => {
                               onChange(e);
                             }}
-                            required>
+                            required
+                          >
                             <option value={''}>None</option>
                             {projects.map((project) => (
                               <option value={project._id} key={project._id}>
@@ -121,7 +125,8 @@ const NewTicketDisplay = ({
                             value={sprint}
                             onChange={(e) => {
                               onChange(e);
-                            }}>
+                            }}
+                          >
                             <option value={''}>Backlog</option>
                             {sprints.map((sprint) => (
                               <option value={sprint._id} key={sprint._id}>
@@ -141,7 +146,8 @@ const NewTicketDisplay = ({
                             value={assignedTo}
                             onChange={(e) => {
                               onChange(e);
-                            }}>
+                            }}
+                          >
                             <option value={''}>None</option>
                             {users.map((user) => (
                               <option value={user._id} key={user._id}>
@@ -161,7 +167,8 @@ const NewTicketDisplay = ({
                             value={assignedBy}
                             onChange={(e) => {
                               onChange(e);
-                            }}>
+                            }}
+                          >
                             {users.map((user) => (
                               <option value={user._id} key={user._id}>
                                 {user.name}
@@ -192,7 +199,8 @@ const NewTicketDisplay = ({
                     size='sm'
                     theme='accent'
                     className='ml-auto d-table mr-3'
-                    type='submit'>
+                    type='submit'
+                  >
                     Save Ticket
                   </Button>
                 </Form>

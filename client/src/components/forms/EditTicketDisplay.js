@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
@@ -15,15 +15,20 @@ import {
   FormTextarea,
 } from 'shards-react';
 import { editTicket } from '../../actions/tickets';
+import ConfirmDelete from '../modals/ConfirmDelete';
 
 const EditTicketDisplay = ({
+  user,
   initialState,
   onChange,
   onSubmit,
+  onDelete,
   sprints,
   projects,
   users,
   lastUpdated,
+  toggle,
+  open,
 }) => {
   const {
     storyPoint,
@@ -37,7 +42,8 @@ const EditTicketDisplay = ({
     description,
   } = initialState;
   return (
-    <div>
+    <Fragment>
+      <ConfirmDelete open={open} toggle={toggle} onDelete={onDelete} />
       <Container fluid className='main-content-container px-4'>
         <Row>
           <Col lg='8' className='mx-auto mt-4'>
@@ -60,7 +66,7 @@ const EditTicketDisplay = ({
                       <label htmlFor='storyPoint'>
                         Story
                         <br />
-                        Point
+                        Point *
                       </label>
                     </Col>
                     <Col md='2' className='form-group story hide-small'>
@@ -71,6 +77,7 @@ const EditTicketDisplay = ({
                         onChange={(e) => {
                           onChange(e);
                         }}
+                        required
                       >
                         <option value={''}>None</option>
                         {[1, 2, 3, 5, 8, 13, 20, 40, 100].map((num) => (
@@ -86,7 +93,7 @@ const EditTicketDisplay = ({
                       <Row form>
                         {/* Name */}
                         <Col md='8' className='form-group'>
-                          <label htmlFor='name'>Name</label>
+                          <label htmlFor='name'>Name *</label>
                           <FormInput
                             id='name'
                             name='name'
@@ -119,7 +126,7 @@ const EditTicketDisplay = ({
                       {/* Story Point Estimate -- Small Device */}
                       <Row className='hide-large'>
                         <Col md='6' className='form-group'>
-                          <label htmlFor='storyPoint'>Story Point</label>
+                          <label htmlFor='storyPoint'>Story Point *</label>
                           <FormSelect
                             id='storyPoint'
                             name='storyPoint'
@@ -127,6 +134,7 @@ const EditTicketDisplay = ({
                             onChange={(e) => {
                               onChange(e);
                             }}
+                            required
                           >
                             <option value={''}>None</option>
                             {[1, 2, 3, 5, 8, 13, 20, 40, 100].map((num) => (
@@ -140,7 +148,7 @@ const EditTicketDisplay = ({
                       <Row>
                         {/* Project */}
                         <Col md='6' className='form-group'>
-                          <label htmlFor='project'>Project</label>
+                          <label htmlFor='project'>Project *</label>
                           <FormSelect
                             disabled
                             id='project'
@@ -254,21 +262,43 @@ const EditTicketDisplay = ({
                     </Col>
                   </Row>
                   <hr />
-                  <Button
-                    size='sm'
-                    theme='accent'
-                    className='ml-auto d-table mr-3'
-                    type='submit'
-                  >
-                    Save Ticket
-                  </Button>
+                  {user.role >= 3 ? (
+                    <span className='button-view'>
+                      <Button
+                        size='sm'
+                        theme='danger'
+                        className='d-inline-block ml-3'
+                        onClick={toggle}
+                        type='button'
+                      >
+                        Delete Ticket
+                      </Button>
+                      <Button
+                        size='sm'
+                        theme='accent'
+                        className='d-inline-block mr-3'
+                        type='submit'
+                      >
+                        Save Ticket
+                      </Button>
+                    </span>
+                  ) : (
+                    <Button
+                      size='sm'
+                      theme='accent'
+                      className='ml-auto d-table mr-3'
+                      type='submit'
+                    >
+                      Save Ticket
+                    </Button>
+                  )}
                 </Form>
               </CardBody>
             </Card>
           </Col>
         </Row>
       </Container>
-    </div>
+    </Fragment>
   );
 };
 
