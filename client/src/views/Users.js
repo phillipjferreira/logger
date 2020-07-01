@@ -57,7 +57,7 @@ const Users = ({
                     <UserInfo
                       key={user._id}
                       user={user}
-                      role={auth.user.role}
+                      authUser={auth.user}
                       update={updateUser}
                     />
                   ))}

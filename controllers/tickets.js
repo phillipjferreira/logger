@@ -147,7 +147,7 @@ exports.editTicket = [
 // @desc     Delete ticket by id
 // @access   Private
 exports.removeTicket = [
-  authLevel(2),
+  authLevel(3),
   setDB,
   // Process request
   async (req, res, next) => {

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const UserInfo = ({ user, role, update }) => {
+const UserInfo = ({ user, authUser, update }) => {
   const displayRole = ['View Only', 'User', 'Admin'];
 
   const [value, setValue] = useState(displayRole[user.role - 1]);
@@ -18,7 +18,7 @@ const UserInfo = ({ user, role, update }) => {
     toggleSave(false);
   };
 
-  if (role === 3) {
+  if (authUser.role === 3) {
     return (
       <tr>
         <td>{user.name}</td>
@@ -37,7 +37,11 @@ const UserInfo = ({ user, role, update }) => {
     return (
       <tr>
         <td>{user.name}</td>
-        <td>{user.email}</td>
+        <td>
+          {value === 'View Only' && authUser._id !== user._id
+            ? 'Hidden for privacy'
+            : user.email}
+        </td>
         <td>{value}</td>
       </tr>
     );
