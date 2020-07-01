@@ -68,6 +68,7 @@ const Board = ({
       editTicket({
         id: card.id,
         status: ['To-Do', 'In-Progress', 'Done'][destination.toColumnId],
+        updated: new Date(),
       });
     }
   };

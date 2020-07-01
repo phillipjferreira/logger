@@ -47,7 +47,7 @@ const AssignedTickets = ({ tickets, user, projects, viewTicket }) => {
             </RouteNavLink>
             {/* Date - Time */}
             <span className='text-muted font-400'>
-              <Moment date={ticket.updated} format={'M/DD/YY, h:mm a'} />
+              <Moment date={ticket.updated} format={'M/D/YY, h:mm a'} />
             </span>
           </div>
 

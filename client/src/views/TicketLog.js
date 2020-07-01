@@ -45,6 +45,7 @@ const TicketLog = ({
       editTicket({
         id: card.id,
         sprint: temp,
+        updated: new Date(),
       });
     }
   };

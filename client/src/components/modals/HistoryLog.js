@@ -1,14 +1,12 @@
 import React from 'react';
+import Moment from 'react-moment';
 
 const HistoryLog = ({ history }) => {
   return (
     history &&
     history.map((hist, i) => {
       const user = hist.user.name;
-      const time =
-        new Date(hist.createdAt).toDateString() +
-        ' ' +
-        new Date(hist.createdAt).toTimeString().slice(0, 5);
+      const time = <Moment date={hist.createdAt} format={'M/D/YY, h:mm a'} />;
       const diff = Object.getOwnPropertyNames(hist.diff).map(
         (difField, index) => {
           if (hist.diff[difField].length === 0) return;

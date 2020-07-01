@@ -25,10 +25,10 @@ const ActiveSprints = ({ sprints, projects }) => {
         </a>
       </td>
       <td className='text-muted font-400'>
-        <Moment date={sprint.startDate} format={'MM/DD/YY'} />
+        <Moment date={sprint.startDate} format={'M/D/YY'} />
       </td>
       <td className='text-muted font-400'>
-        <Moment date={sprint.endDate} format={'MM/DD/YY'} />
+        <Moment date={sprint.endDate} format={'M/D/YY'} />
       </td>
     </tr>
   ));
