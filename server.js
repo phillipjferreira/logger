@@ -4,6 +4,11 @@ const path = require('path');
 
 const app = express();
 
+// Require dotenv if in dev
+if (app.get('env') == 'development') {
+  require('dotenv').config();
+}
+
 // Connect Database
 global.clientConnection = connectDB();
 

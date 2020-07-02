@@ -3,7 +3,6 @@ const bcrypt = require('bcryptjs');
 const authLevel = require('../middleware/authLevel');
 const setDB = require('../middleware/setDB');
 const jwt = require('jsonwebtoken');
-const config = require('config');
 // const { check, validationResult } = require('express-validator');
 
 // @route    GET /roles
