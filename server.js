@@ -10,8 +10,6 @@ global.clientConnection = connectDB();
 // Init Middleware
 app.use(express.json({ extended: false }));
 
-// app.get('/', (req, res) => res.send('API Running'));
-
 // Require Routers
 app.use('/users', require('./routes/users'));
 app.use('/auth', require('./routes/auth'));

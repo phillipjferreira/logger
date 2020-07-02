@@ -12,11 +12,11 @@ const diffHistory = require('../plugins/diffHistoryCustom');
 module.exports = async function (req, res, next) {
   try {
     const version =
-      (req.user && req.user.demo) || req.body.demo ? 'demo' : 'bug-tracker-v1';
+      (req.user && req.user.demo) || req.body.demo ? 'demo' : 'logger';
 
     let conn;
 
-    if (version === 'bug-tracker-v1') {
+    if (version === 'logger') {
       conn = await global.clientConnection[0];
     } else {
       conn = await global.clientConnection[1];
@@ -25,7 +25,7 @@ module.exports = async function (req, res, next) {
     const History = await conn.model('History', HistorySchema);
     let Ticket;
 
-    if (version === 'bug-tracker-v1') {
+    if (version === 'logger') {
       TicketSchema.plugin(diffHistory.plugin, {
         omit: ['created', 'updated', 'assignedBy', 'project'],
         History: History,

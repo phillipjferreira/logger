@@ -97,7 +97,9 @@ const ViewTicket = ({ user, ticket, isLoading, toggle, open }) => {
               <Row>
                 {/* Description */}
                 <Col md='12' className='form-group'>
-                  <label htmlFor='description'>Description:&nbsp;</label>
+                  <label htmlFor='description' className='mb-0'>
+                    Description:&nbsp;
+                  </label>
                   <span id='description' name='description'>
                     {description}
                   </span>

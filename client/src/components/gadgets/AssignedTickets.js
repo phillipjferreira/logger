@@ -40,7 +40,7 @@ const AssignedTickets = ({ tickets, user, projects, viewTicket }) => {
             <RouteNavLink
               className='text-secondary'
               tag={RouteNavLink}
-              to={`/projects/${ticket.project}/board`}
+              to={`/projects/${ticket.project}/ticket-log`}
             >
               {projects.length &&
                 projects.find((project) => project._id === ticket.project).name}

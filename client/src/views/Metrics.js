@@ -58,11 +58,7 @@ const Metrics = ({
         </Col>
       </Row>
       <hr />
-      <Row className='pt-4 px-4 tab-title font-400'>
-        <p>Lead: {(project.lead && project.lead.name) || 'N/A'}</p>
 
-        <p>Description: {project.description || 'N/A'}</p>
-      </Row>
       <Row>
         <Col lg='12' className='mx-auto mt-4'>
           <MetricsForm
@@ -92,10 +88,6 @@ const Metrics = ({
         </Col>
       </Row>
       <hr />
-      <Row className='pt-4 px-4 tab-title font-400'>
-        <Skeleton width='150px' />
-        <Skeleton width='150px' />
-      </Row>
 
       <Loader
         type='Oval'

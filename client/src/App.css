@@ -274,7 +274,8 @@ body .font-400 {
   display: block;
 }
 
-.history-field {
+.history-field,
+.description-body {
   display: block;
   text-indent: 4rem;
 }

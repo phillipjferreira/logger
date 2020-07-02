@@ -94,7 +94,9 @@ const TicketLog = ({
         <Row className='pt-4 px-4 tab-title font-400'>
           <p>Lead: {(project.lead && project.lead.name) || 'N/A'}</p>
 
-          <p>Description: {project.description || 'N/A'}</p>
+          <p style={{ whiteSpace: 'pre-wrap' }}>
+            Description: {project.description || 'N/A'}
+          </p>
 
           {user.role >= 3 && (
             <p>

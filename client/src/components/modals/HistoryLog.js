@@ -21,7 +21,12 @@ const HistoryLog = ({ history }) => {
             hist.diff[difField][1] !== null
               ? hist.diff[difField][1].name
               : hist.diff[difField][1];
-          return (
+          return field === 'description' ? (
+            <span className='history-field' key={index}>
+              Description
+              <span className='text-muted'> changed</span>
+            </span>
+          ) : (
             <span className='history-field' key={index}>
               {(field === 'storyPoint' && 'Story Point') ||
                 (field === 'assignedTo' && 'Assigned To') ||

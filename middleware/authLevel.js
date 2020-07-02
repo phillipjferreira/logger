@@ -1,5 +1,4 @@
 const jwt = require('jsonwebtoken');
-const config = require('config');
 
 module.exports = function (authLevel) {
   return function (req, res, next) {
@@ -13,7 +12,7 @@ module.exports = function (authLevel) {
 
     // Verify token
     try {
-      jwt.verify(token, config.get('jwtSecret'), (error, decoded) => {
+      jwt.verify(token, process.env.JWT_SECRET, (error, decoded) => {
         if (error) {
           res.status(401).json({ msg: 'Token is not valid' });
         } else {
