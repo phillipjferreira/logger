@@ -402,3 +402,9 @@ body .font-400 {
   text-align: center;
   line-height: 25vh;
 }
+
+.text-ellipsis {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}

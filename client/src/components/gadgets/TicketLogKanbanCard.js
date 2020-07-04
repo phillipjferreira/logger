@@ -13,7 +13,7 @@ const TicketLogKanbanCard = ({ card, dragging, view }) => {
         dragging ? 'react-kanban-card--dragging' : ''
       }`}
     >
-      <span>{card.title}</span>
+      <span className='text-ellipsis'>{card.title}</span>
       <Button
         className={'btn-primary button-right ticket-button'}
         onClick={handleClick}

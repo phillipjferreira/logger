@@ -17,7 +17,7 @@ const BoardKanbanCard = ({ card, dragging, view }) => {
     >
       {useMediaQuery({ query: '(max-width:991px)' }) ? (
         <Fragment>
-          <span>{card.title}</span>
+          <span className='text-ellipsis'>{card.title}</span>
           <Button
             className={'btn-primary button-right ticket-button'}
             onClick={handleClick}
@@ -29,7 +29,7 @@ const BoardKanbanCard = ({ card, dragging, view }) => {
         <Fragment>
           <span>
             <div className='react-kanban-card__title'>
-              <span>{card.title}</span>
+              <span className='text-ellipsis'>{card.title}</span>
               <Button
                 className={'btn-primary button-right ticket-button'}
                 onClick={handleClick}

@@ -15,8 +15,7 @@ const BurndownChart = ({ sprintData: { sprint, chartData } }) => {
           return `${data.datasets[0].data[tooltipItem[0].index].name}`;
         },
         label: function (tooltipItem, data) {
-          const t = new Date(data.datasets[0].data[tooltipItem.index].t);
-          return `Date: ${t.toDateString()}`;
+          return `${data.datasets[0].data[tooltipItem.index].y}`;
         },
       },
     },
@@ -62,6 +61,7 @@ const BurndownChart = ({ sprintData: { sprint, chartData } }) => {
         data: chartData,
         fill: false,
         borderColor: 'red',
+        steppedLine: true,
       },
     ],
   };

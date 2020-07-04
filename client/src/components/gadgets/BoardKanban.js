@@ -9,10 +9,7 @@ const BoardKanban = ({ user, tickets, onCardDragEnd, view }) => {
     doneTickets = [];
   tickets.forEach((ticket) => {
     let obj = {
-      title:
-        ticket.name.length > 22
-          ? ticket.name.substring(0, 21).concat('...')
-          : ticket.name,
+      title: ticket.name,
       description:
         ticket.description && ticket.description.length > 55
           ? ticket.description.substring(0, 54).concat('...')
