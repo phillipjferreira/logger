@@ -408,3 +408,11 @@ body .font-400 {
   overflow: hidden;
   white-space: nowrap;
 }
+
+.user-button {
+  padding: 0.4rem 1rem;
+}
+
+.user-td {
+  padding: 0.5rem !important;
+}

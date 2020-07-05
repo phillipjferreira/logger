@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Button } from 'shards-react';
 
 const UserInfo = ({ user, authUser, update }) => {
   const displayRole = ['View Only', 'User', 'Admin'];
@@ -18,6 +19,8 @@ const UserInfo = ({ user, authUser, update }) => {
     toggleSave(false);
   };
 
+  const isDemo = authUser.name === 'Demo Admin';
+
   if (authUser.role === 3) {
     return (
       <tr>
@@ -30,7 +33,21 @@ const UserInfo = ({ user, authUser, update }) => {
             <option value='Admin'>Admin</option>
           </select>
         </td>
-        <td>{save && <button onClick={saveUser}>Save</button>}</td>
+
+        <td className='user-td'>
+          {save && (
+            <Button
+              onClick={saveUser}
+              disabled={isDemo}
+              className={'btn-success user-button ' + (isDemo && 'tooltip')}
+            >
+              Save
+              <span className={'tooltiptext ' + (!isDemo && 'hide')}>
+                User role changes disabled in Demo!
+              </span>
+            </Button>
+          )}
+        </td>
       </tr>
     );
   } else {

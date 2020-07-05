@@ -70,7 +70,9 @@ exports.findTicketProject = [
   setDB,
   async (req, res) => {
     try {
-      const ticket = await res.locals.Ticket.find({ project: req.params.id });
+      const ticket = await res.locals.Ticket.find({
+        project: req.params.id,
+      }).sort('updated');
       // TO DO add ObjectID format error handling
       res.json(ticket);
     } catch (err) {
@@ -88,7 +90,9 @@ exports.findTicketSprint = [
   setDB,
   async (req, res) => {
     try {
-      const ticket = await res.locals.Ticket.find({ sprint: req.params.id });
+      const ticket = await res.locals.Ticket.find({
+        sprint: req.params.id,
+      }).sort('updated');
       // TO DO add ObjectID format error handling
       res.json(ticket);
     } catch (err) {

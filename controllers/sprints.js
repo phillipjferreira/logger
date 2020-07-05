@@ -12,7 +12,7 @@ exports.findSprints = [
   setDB,
   async (req, res) => {
     try {
-      const sprint = await res.locals.Sprint.find();
+      const sprint = await res.locals.Sprint.find().sort('startDate');
       res.json(sprint);
     } catch (err) {
       console.error(err.message);
@@ -31,7 +31,7 @@ exports.findSprintsById = [
     try {
       const sprint = await res.locals.Sprint.find({
         project: req.params.id,
-      });
+      }).sort('startDate');
       // TO DO add ObjectID format error handling
       res.json(sprint);
     } catch (err) {
