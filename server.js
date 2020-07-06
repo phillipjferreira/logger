@@ -17,11 +17,11 @@ global.clientConnection = connectDB();
 // Enable ssl redirect
 app.use(sslRedirect(['production'], 301));
 
-// Sets "Strict-Transport-Security: max-age=5184000; includeSubDomains".
-const sixtyDaysInSeconds = 5184000;
+// HSTS
 app.use(
   hsts({
-    maxAge: sixtyDaysInSeconds,
+    maxAge: 31536000, // Must be at least 1 year to be approved
+    includeSubDomains: true, // Must be enabled to be approved
     preload: true,
   })
 );
