@@ -27,6 +27,7 @@
     "mongoose": "^5.9.3",
     "mongoose-diff-history": "^2.1.0",
     "morgan": "^1.9.1",
+    "node-cron": "^2.0.3",
     "react-responsive": "^8.1.0"
   }
 }
