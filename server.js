@@ -1,4 +1,5 @@
 const express = require('express');
+var sslRedirect = require('heroku-ssl-redirect');
 const connectDB = require('./config/db');
 const path = require('path');
 
@@ -11,6 +12,9 @@ if (app.get('env') == 'development') {
 
 // Connect Database
 global.clientConnection = connectDB();
+
+// Enable ssl redirect
+app.use(sslRedirect(['production'], 301));
 
 // Init Middleware
 app.use(express.json({ extended: false }));
