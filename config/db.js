@@ -41,7 +41,7 @@ const connectDB = () => {
   );
 
   // Cron Job
-  cron.schedule('*/15 * * * *', async () => {
+  cron.schedule('0 2 * * *', async () => {
     // Drop Demo DB
     await connDemo.dropDatabase();
 
