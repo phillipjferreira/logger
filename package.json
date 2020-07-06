@@ -24,6 +24,7 @@
     "express": "^4.17.1",
     "express-validator": "^6.4.0",
     "heroku-ssl-redirect": "0.0.4",
+    "hsts": "^2.2.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.3",
     "mongoose-diff-history": "^2.1.0",

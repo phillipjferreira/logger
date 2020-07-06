@@ -1,5 +1,6 @@
 const express = require('express');
 var sslRedirect = require('heroku-ssl-redirect');
+const hsts = require('hsts');
 const connectDB = require('./config/db');
 const path = require('path');
 
@@ -15,6 +16,15 @@ global.clientConnection = connectDB();
 
 // Enable ssl redirect
 app.use(sslRedirect(['production'], 301));
+
+// Sets "Strict-Transport-Security: max-age=5184000; includeSubDomains".
+const sixtyDaysInSeconds = 5184000;
+app.use(
+  hsts({
+    maxAge: sixtyDaysInSeconds,
+    preload: true,
+  })
+);
 
 // Init Middleware
 app.use(express.json({ extended: false }));
