@@ -69,7 +69,6 @@ const TicketLog = ({
       sprint.status = newStatus;
       sprint.id = id;
       delete sprint._id;
-      console.log(history);
       editSprint(sprint, history);
     }
   };

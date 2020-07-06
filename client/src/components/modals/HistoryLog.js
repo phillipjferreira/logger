@@ -11,16 +11,27 @@ const HistoryLog = ({ history }) => {
         (difField, index) => {
           if (hist.diff[difField].length === 0) return;
           const field = difField;
-          const oldValue =
+          let oldValue =
             typeof hist.diff[difField][0] === 'object' &&
             hist.diff[difField][0] !== null
               ? hist.diff[difField][0].name
               : hist.diff[difField][0];
-          const newValue =
+          let newValue =
             typeof hist.diff[difField][1] === 'object' &&
             hist.diff[difField][1] !== null
               ? hist.diff[difField][1].name
               : hist.diff[difField][1];
+
+          if (newValue === undefined) {
+            newValue = oldValue;
+            if (field === 'sprint') {
+              oldValue = 'Backlog';
+            } else if (field === 'assignedTo') {
+              oldValue = 'No User';
+            } else {
+              oldValue = '';
+            }
+          }
           return field === 'description' ? (
             <span className='history-field' key={index}>
               Description
