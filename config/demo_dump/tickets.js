@@ -351,7 +351,7 @@ module.exports = [
     description:
       'Add pop-up modal to confirm the completion of a Sprint. If all Tickets are completed allow the Sprint to be completed. If Tickets are left uncompleted, ask the user if they would like to move the uncompleted tickets to the Backlog. ',
     created: '2020-07-02T18:06:16Z',
-    updated: '2020-07-04T19:12:26.268Z',
+    updated: '2020-07-02T18:06:16Z',
     __v: 0,
     sprint: null,
   },
@@ -756,7 +756,7 @@ module.exports = [
     description:
       'The landing page will incorporate demo views of the application. This will allow users to understand what the application is and what it can provide without having to yet navigate any portion of the application. Either .gif, slideshow, or long form landing page. Have a call to action to check out the Demo Accounts. ',
     created: '2020-07-02T18:06:16Z',
-    updated: '2020-07-05T16:59:07.852Z',
+    updated: '2020-07-02T18:06:16Z',
     __v: 0,
     sprint: null,
   },

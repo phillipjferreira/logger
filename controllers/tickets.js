@@ -11,7 +11,7 @@ exports.findTickets = [
   setDB,
   async (req, res) => {
     try {
-      const ticket = await res.locals.Ticket.find();
+      const ticket = await res.locals.Ticket.find().sort('updated');
       res.json(ticket);
     } catch (err) {
       console.error(err.message);
