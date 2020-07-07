@@ -17,7 +17,7 @@ function Landing() {
         <Col xs='12' md='6' className='m-auto px-4 landing-header'>
           <h1 className='mb-4'>The Ticket Solution for Every Software Team</h1>
           <h4 className='mb-4'>
-            Orgainze your product backlogs and sprint cycles, all in one place.
+            Organize your product backlogs and sprint cycles, all in one place.
           </h4>
           <Button
             pill
@@ -59,7 +59,7 @@ function Landing() {
             color='#3D5170'
             className=''
           />
-          <h3>View Sprint Progess</h3>
+          <h3>View Sprint Progress</h3>
           <p>
             Use Story Points to estimate effort for each ticket and follow
             sprint progess in the sprint burndown chart.
