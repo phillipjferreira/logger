@@ -44,6 +44,7 @@ body .font-400 {
 
 .title-content {
   padding-top: 3rem;
+  max-width: 1300px;
 }
 
 .landing-header h1 {
@@ -89,6 +90,9 @@ body .font-400 {
 @media only screen and (min-width: 768px) {
   .small-only {
     display: none;
+  }
+  .title-content .col-md-6 {
+    padding: 0 3rem !important;
   }
 }
 

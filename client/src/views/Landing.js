@@ -12,7 +12,7 @@ import dashboard from '../images/landing/dashboard.png';
 function Landing() {
   return (
     <Container fluid className='p-0 landing-container'>
-      <Row className='h-100 mx-4 mb-4 title-content'>
+      <Row className='h-100 mx-auto mb-4 title-content'>
         {/* Header and Call to Action */}
         <Col xs='12' md='6' className='m-auto px-4 landing-header'>
           <h1 className='mb-4'>The Ticket Solution for Every Software Team</h1>
