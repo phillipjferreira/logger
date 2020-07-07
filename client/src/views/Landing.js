@@ -62,7 +62,7 @@ function Landing() {
           <h3>View Sprint Progress</h3>
           <p>
             Use Story Points to estimate effort for each ticket and follow
-            sprint progess in the sprint burndown chart.
+            sprint progress in the sprint burndown chart.
           </p>
         </Col>
         {/* Feature 3 */}
