@@ -13,9 +13,24 @@ body .font-400 {
   font-weight: 400 !important;
 }
 
+/* ======= LANDING ======= */
+
 .landing-container {
-  height: calc(100vh - 3.75rem);
   padding-top: 3rem;
+  /* background-color: #fff; */
+}
+
+.landing-container:after {
+  content: '';
+  -webkit-transform: skew(0, 30deg);
+  transform: skew(0, 30deg);
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -30vw;
+  height: 70vh;
+  background: #fff;
+  z-index: -1;
 }
 
 .landing-content {
@@ -25,6 +40,56 @@ body .font-400 {
   margin: auto;
   align-items: center;
   text-align: center;
+}
+
+.title-content {
+  padding-top: 3rem;
+}
+
+.landing-header h1 {
+  font-weight: 700;
+}
+
+.featured-image img {
+  border-radius: 2%;
+  width: 100%;
+  box-shadow: 0 -0.2rem 0 0 #007bff,
+    0 0.46875rem 2.1875rem rgba(90, 97, 105, 0.1),
+    0 0.9375rem 1.40625rem rgba(90, 97, 105, 0.1),
+    0 0.25rem 0.53125rem rgba(90, 97, 105, 0.12),
+    0 0.125rem 0.1875rem rgba(90, 97, 105, 0.1);
+}
+
+.features-content {
+  background: #fff;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  padding: 80px 0;
+  box-shadow: 0 0 13px rgba(175, 177, 193, 0.15),
+    0 6px 20px rgba(24, 29, 39, 0.05);
+}
+
+.feature {
+  text-align: center;
+  padding: 0 25px;
+}
+
+.small-only {
+  text-align: center;
+}
+
+/* Below small BP */
+@media only screen and (max-width: 767px) {
+  .landing-header {
+    text-align: center;
+  }
+}
+/* Above small BP */
+@media only screen and (min-width: 768px) {
+  .small-only {
+    display: none;
+  }
 }
 
 .outline-override {
@@ -132,6 +197,18 @@ body .font-400 {
   }
   .custom .react-kanban-card {
     width: calc(100vw - 130px);
+  }
+  .landing-header h1 {
+    font-size: 2.5rem;
+  }
+  .landing-header h4 {
+    font-size: 1.3rem;
+  }
+  .title-content {
+    padding-top: 1.5rem;
+  }
+  .title-content .col-12 {
+    padding: 0 !important;
   }
 }
 

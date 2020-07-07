@@ -1,5 +1,5 @@
 const express = require('express');
-var sslRedirect = require('heroku-ssl-redirect');
+const sslRedirect = require('heroku-ssl-redirect');
 const hsts = require('hsts');
 const connectDB = require('./config/db');
 const path = require('path');
