@@ -12,9 +12,13 @@ const PieChart = ({ status }) => {
     labels: ['To-Do', 'In-Progress', 'Done'],
   };
   return (
-    <div>
-      <Doughnut data={data} />
-    </div>
+    <Doughnut
+      data={data}
+      options={{
+        responsive: true,
+        maintainAspectRatio: false,
+      }}
+    />
   );
 };
 
