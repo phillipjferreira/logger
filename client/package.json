@@ -13,7 +13,7 @@
     "axios": "^0.19.2",
     "lodash": "^4.17.15",
     "moment": "^2.26.0",
-    "node-sass": "^4.13.1",
+    "node-sass": "^7.0.0",
     "react": "^16.13.0",
     "react-chartjs-2": "^2.9.0",
     "react-datepicker": "^3.0.0",
